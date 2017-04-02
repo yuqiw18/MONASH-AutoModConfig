@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="yuqiwang.automobilemodificationconfigurator">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main" />
+        <activity android:name=".Member" />
+        <activity android:name=".ConfiguratorBrand" />
+        <activity android:name=".ConfiguratorModel" />
+        <activity android:name=".ConfiguratorBadge" />
+        <activity android:name=".Previewer" />
+        <activity android:name=".Checkout" />
+        <activity android:name=".CheckoutServiceCenter" />
+        <activity android:name=".CheckoutPaymentMethod" />
+        <activity android:name=".OrderTracking"></activity>
     </application>
 
 </manifest>
