@@ -5,4 +5,19 @@
     android:layout_height="match_parent"
     tools:context="yuqiwang.automobilemodificationconfigurator.CheckoutServiceCenter">
 
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <ListView
+        android:id="@+id/list_location"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/map_fragment"
+        android:layout_marginTop="137dp" />
 </RelativeLayout>
