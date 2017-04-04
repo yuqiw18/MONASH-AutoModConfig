@@ -1,7 +1,8 @@
 package org.rajawali3d.postprocessing.passes;
 
 import android.opengl.GLES20;
-import org.rajawali3d.R;
+import yuqiwang.automobilemodificationconfigurator.R;
+//import org.rajawali3d.R;
 import org.rajawali3d.materials.shaders.FragmentShader;
 import org.rajawali3d.materials.shaders.VertexShader;
 import org.rajawali3d.primitives.ScreenQuad;
@@ -78,7 +79,7 @@ public class FXAAPass extends EffectPass {
         private int rtHHandle;
 
         public FXAAFragmentShader() {
-            super(R.raw.fxaa_fragment_shader);
+            super(yuqiwang.automobilemodificationconfigurator.R.raw.fxaa_fragment_shader);
         }
 
         @Override

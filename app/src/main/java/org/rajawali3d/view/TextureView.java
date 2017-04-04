@@ -9,7 +9,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import org.rajawali3d.R;
+import yuqiwang.automobilemodificationconfigurator.R;
+//import org.rajawali3d.R;
 import org.rajawali3d.renderer.ISurfaceRenderer;
 import org.rajawali3d.util.Capabilities;
 import org.rajawali3d.util.egl.RajawaliEGLConfigChooser;
@@ -90,6 +91,8 @@ public class TextureView extends android.view.TextureView implements ISurface {
 
     private void applyAttributes(Context context, AttributeSet attrs) {
         if (attrs == null) return;
+
+
         final TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TextureView);
         final int count = array.getIndexCount();
         for (int i = 0; i < count; ++i) {
@@ -112,6 +115,7 @@ public class TextureView extends android.view.TextureView implements ISurface {
                 mBitsDepth = array.getInteger(attr, 16);
             }
         }
+
         array.recycle();
     }
 

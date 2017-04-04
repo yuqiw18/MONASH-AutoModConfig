@@ -19,6 +19,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "AMC_DB";
     public static final int DATABASE_VERSION = 1;
 
+
+    private static final String BRAND_CREATE_STATEMENT = "CREATE TABLE BRAND " +
+            "(" +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "BRAND_NAME TEXT NOT NULL" +
+            ");";
+
+    private static final String MODEL_CREATE_STATEMENT = "CREATE TABLE MODEL " +
+            "(" +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "BRAND_NAME TEXT NOT NULL" +
+            ");";;
+
+    //private static final String BADGE_CREATE_STATEMENT;
+
+    //private static final String PARTS_CREATE_STATEMENT;
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

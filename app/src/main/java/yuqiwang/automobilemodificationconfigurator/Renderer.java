@@ -20,6 +20,9 @@ public class Renderer extends RajawaliRenderer {
 
     private DirectionalLight directionalLight;
     private Sphere earthSphere;
+    private float x = 0;
+    private float y = 0;
+    private float z = 0;
 
     public Renderer(Context context) {
         super(context);
@@ -50,7 +53,7 @@ public class Renderer extends RajawaliRenderer {
         earthSphere = new Sphere(1, 24, 24);
         earthSphere.setMaterial(material);
         getCurrentScene().addChild(earthSphere);
-        getCurrentCamera().setZ(4.2f);
+        //getCurrentCamera().setZ(4.2f);
 
     }
 
@@ -59,6 +62,11 @@ public class Renderer extends RajawaliRenderer {
     public void onRender(final long elapsedTime, final double deltaTime) {
         super.onRender(elapsedTime, deltaTime);
         earthSphere.rotate(Vector3.Axis.Y, 1.0);
+        //x += 1.0f;
+        //y += 1.0f;
+        //z += 1.0f;
+        //getCurrentCamera().setPosition(x,y,z);
+        getCurrentCamera().setLookAt(0,0,0);
     }
 
 

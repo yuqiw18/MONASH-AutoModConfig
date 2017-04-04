@@ -28,7 +28,7 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 
-        startActivity(new Intent(this, CheckoutServiceCenter.class));
+        startActivity(new Intent(this, Previewer.class));
     }
 
 

@@ -34,9 +34,16 @@ public class Previewer extends AppCompatActivity {
         surface.setRenderMode(IRajawaliSurface.RENDERMODE_WHEN_DIRTY);
 
         // Add mSurface to your root view
-        //addContentView(surface, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
+        addContentView(surface, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
 
         renderer = new Renderer(this);
         surface.setSurfaceRenderer(renderer);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        renderer.stopRendering();
+        super.onBackPressed();
     }
 }

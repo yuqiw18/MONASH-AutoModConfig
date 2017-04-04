@@ -11,7 +11,9 @@
  * specific language governing permissions and limitations under the License.
  */
 package org.rajawali3d.postprocessing.passes;
-import org.rajawali3d.R;
+
+import yuqiwang.automobilemodificationconfigurator.R;
+//import org.rajawali3d.R;
 
 public class ScanlinePass extends EffectPass {
     protected float[] mResolution;

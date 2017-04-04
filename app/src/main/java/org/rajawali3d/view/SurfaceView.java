@@ -9,7 +9,8 @@ import android.view.View;
 
 import org.rajawali3d.renderer.ISurfaceRenderer;
 import org.rajawali3d.util.Capabilities;
-import org.rajawali3d.R;
+import yuqiwang.automobilemodificationconfigurator.R;
+//import org.rajawali3d.R;
 import org.rajawali3d.util.egl.RajawaliEGLConfigChooser;
 
 import javax.microedition.khronos.egl.EGLConfig;

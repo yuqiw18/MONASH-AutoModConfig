@@ -76,8 +76,7 @@ public class CheckoutServiceCenter extends AppCompatActivity implements OnMapRea
         // Set our map object to reference the loaded map
         m_cGoogleMap = googleMap;
         // Move the focus of the map to be on Caulfield Campus. 15 is for zoom
-        m_cGoogleMap.moveCamera(CameraUpdateFactory
-                .newLatLngZoom(LOCATION_CAULFIELD,15));
+        m_cGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LOCATION_CAULFIELD,15));
         // Call our Add Default Markers function
         // NOTE: In a proper application it may be better to load these from a DB
         AddDefaultMarkers();
