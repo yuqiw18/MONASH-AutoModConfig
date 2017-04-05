@@ -8,19 +8,8 @@ import android.view.ViewGroup;
 import org.rajawali3d.surface.IRajawaliSurface;
 import org.rajawali3d.surface.RajawaliSurfaceView;
 
-import min3d.core.Object3dContainer;
-import min3d.core.RendererActivity;
-import min3d.parser.IParser;
-import min3d.parser.Parser;
-import min3d.vos.Light;
 
 public class Previewer extends AppCompatActivity {
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_previewer);
-//    }
 
     Renderer renderer;
 
