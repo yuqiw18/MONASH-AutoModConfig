@@ -20,8 +20,6 @@ public class Splash extends AppCompatActivity {
     public static final int UPDATE_DB_REQUEST = 1;
     public static final String JSON_UPDATE_SOURCE = "";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +28,6 @@ public class Splash extends AppCompatActivity {
 
         startActivity(new Intent(this, Previewer.class));
     }
-
-
 
     private class FetchData extends AsyncTask<String, Void, String>{
 
