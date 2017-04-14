@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,11 +25,37 @@ public class Splash extends AppCompatActivity {
     public static final int UPDATE_DB_REQUEST = 1;
     public static final String JSON_UPDATE_SOURCE = "http://yuqi.ninja/brand.json";
 
+    private DatabaseHelper databaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        startActivity(new Intent(this, ConfiguratorBrand.class));
+
+        Button btn = (Button)findViewById(R.id.testBtn);
+
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                startActivity(new Intent(Splash.this,ConfiguratorBrand.class));
+
+            }
+
+
+
+
+        });
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+
+        if (databaseHelper.isEmpty()){
+            new FetchData().execute(JSON_UPDATE_SOURCE);
+        }
+
+
+
+       //startActivity(new Intent(this, ConfiguratorBrand.class));
     }
 
     private class FetchData extends AsyncTask<String, Void, String>{
@@ -62,7 +92,10 @@ public class Splash extends AppCompatActivity {
 
                         Brand brand = new Brand(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("origin"));
 
+                        databaseHelper.addData(brand);
                     }
+
+                    Toast.makeText(getBaseContext(), "Downloaded!", Toast.LENGTH_SHORT).show();
 
                 }catch (Exception e){
 
@@ -70,8 +103,6 @@ public class Splash extends AppCompatActivity {
 
                 }
             }
-
-
         }
 
     }

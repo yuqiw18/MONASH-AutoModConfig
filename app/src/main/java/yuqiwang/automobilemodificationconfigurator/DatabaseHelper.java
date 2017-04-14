@@ -9,9 +9,15 @@ import android.provider.ContactsContract;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.concurrent.BrokenBarrierException;
 
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Badge;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Part;
+
+import static android.os.Build.BRAND;
 
 /**
  * Created by ClayW on 2/04/2017.
@@ -23,13 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "AMC_DB";
     public static final int DATABASE_VERSION = 1;
 
-
-    private static final String BRAND_CREATE_STATEMENT = "CREATE TABLE BRAND " +
-            "(" +
-            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            "BRAND_NAME TEXT NOT NULL," +
-            "BRAND_ORIGIN TEXT NOT NULL" +
-            ");";
 
 //    private static final String MODEL_CREATE_STATEMENT = "CREATE TABLE MODEL " +
 //            "(" +
@@ -48,7 +47,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(BRAND_CREATE_STATEMENT);
+        sqLiteDatabase.execSQL(Brand.CREATE_STATEMENT);
+        sqLiteDatabase.execSQL(Model.CREATE_STATEMENT);
+        sqLiteDatabase.execSQL(Badge.CREATE_STATEMENT);
+        sqLiteDatabase.execSQL(Part.CREATE_STATEMENT);
     }
 
     @Override
@@ -57,14 +59,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void addData(Brand data){
+    public void addData(DataStruct data){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //if (data instanceof DataStruct.Brand){
+        if (data instanceof Brand){
             values.put("BRAND_NAME", data.getName());
-            values.put("BRAND_ORIGIN", data.getOrigin());
-        //}
-        db.insert("BRAND", null, values);
+            values.put("BRAND_ORIGIN", ((Brand)data).getOrigin());
+            db.insert("BRAND", null, values);
+        }
+
+        if (data instanceof Model){
+            values.put("MODEL_NAME", data.getName());
+            values.put("MODEL_BODY_TYPE", ((Model) data).getBodyType());
+            values.put("BRAND_NAME", ((Model) data).getBrandName());
+            db.insert("MODEL", null, values);
+        }
+
         db.close();
     }
 
@@ -72,24 +82,89 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         addData(new Brand(0, "Mercedes-Benz", "Germany"));
     }
 
-    public HashMap<Long, Brand> getData() {
 
-        HashMap<Long, Brand> data = new LinkedHashMap<>();
+
+    public HashMap<Long, DataStruct> getData(String tableName, String columnName, String[] args ) {
+
+        HashMap<Long, DataStruct> data = new LinkedHashMap<>();
+
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM BRAND", null);
-        // Add each person to hashmap (Each row has 1 person)
+
+        Cursor cursor;
+
+        if (columnName == null){
+
+            cursor = db.rawQuery("SELECT * FROM " + tableName, null);
+
+        }else{
+
+            cursor = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + columnName + " =?", args);
+        }
+
         if(cursor.moveToFirst()) {
-            do {
-                Brand newData = new Brand(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2)
+
+            switch (tableName){
+
+                case "BRAND":
+                    do {
+                        DataStruct newData = new Brand(
+                                cursor.getLong(0),
+                                cursor.getString(1),
+                                cursor.getString(2)
                         );
-                data.put(newData.getId(), newData);
-            } while(cursor.moveToNext());
+                        data.put(newData.getId(), newData);
+                    }while(cursor.moveToNext());
+                    break;
+                case "MODEL":
+                    do {
+                        DataStruct newData = new Brand(
+                                cursor.getLong(0),
+                                cursor.getString(1),
+                                cursor.getString(2)
+                        );
+                        data.put(newData.getId(), newData);
+                    }while(cursor.moveToNext());
+                    break;
+                case "BADGE":
+                    do {
+                        DataStruct newData = new Brand(
+                                cursor.getLong(0),
+                                cursor.getString(1),
+                                cursor.getString(2)
+                        );
+                        data.put(newData.getId(), newData);
+                    }while(cursor.moveToNext());
+                    break;
+                case "PART":
+                    do {
+                        DataStruct newData = new Brand(
+                                cursor.getLong(0),
+                                cursor.getString(1),
+                                cursor.getString(2)
+                        );
+                        data.put(newData.getId(), newData);
+                    }while(cursor.moveToNext());
+                    break;
+            }
         }
         cursor.close();
         db.close();
         return data;
     }
+
+
+    public boolean isEmpty(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        boolean found = true;
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM BRAND", null);
+        if (cursor != null && cursor.moveToFirst()) {
+            found = (cursor.getInt (0) == 0);
+        }
+        cursor.close();
+        db.close();
+
+        return found;
+    }
+
 }

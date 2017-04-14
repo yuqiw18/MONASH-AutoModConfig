@@ -1,21 +1,36 @@
 package yuqiwang.automobilemodificationconfigurator.DataStruct;
 
+import android.os.Parcel;
+
 /**
  * Created by ClayW on 14/04/2017.
  */
 
 public class Brand extends DataStruct {
 
-    String origin;
+    public static final String CREATE_STATEMENT = "CREATE TABLE BRAND " +
+            "(" +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "BRAND_NAME TEXT NOT NULL," +
+            "BRAND_ORIGIN TEXT NOT NULL" +
+            ");";
+
+    private String origin;
 
     public Brand(long id, String name, String origin){
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.origin = origin;
     }
 
     public String getOrigin(){
         return origin;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.origin);
     }
 
 }
