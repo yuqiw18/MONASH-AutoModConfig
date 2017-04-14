@@ -1,8 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context="yuqiwang.automobilemodificationconfigurator.ConfiguratorBadge">
 
+    <ImageView
+        android:id="@+id/imgModel"
+        android:layout_width="@dimen/img_128"
+        android:layout_height="@dimen/img_64"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+    <TextView
+        android:id="@+id/textModelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@+id/imgModel"
+        android:gravity="center_horizontal"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textModelYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgModel"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@+id/imgModel"
+        android:gravity="center_horizontal"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textBadgeCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textModelYear"
+        android:layout_alignBottom="@+id/textModelYear"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:textAlignment="textEnd" />
+
+    <ListView
+        android:id="@+id/listBadges"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/imgModel"
+        android:layout_marginTop="8dp" />
 </RelativeLayout>

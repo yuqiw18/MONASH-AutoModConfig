@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="percent30" type="dimen">30%</item>
+    <dimen name="img_brand">64</dimen>
+    <dimen name="img_64">64</dimen>
+    <dimen name="img_128">128</dimen>
 </resources>
