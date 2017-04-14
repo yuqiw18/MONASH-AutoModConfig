@@ -33,6 +33,25 @@ public class Brand extends DataStruct {
         dest.writeString(this.origin);
     }
 
+    public static final Creator<Brand> CREATOR = new Creator<Brand>() {
+        @Override
+        public Brand createFromParcel(Parcel source) {
+            return new Brand(source);
+        }
+
+        @Override
+        public Brand[] newArray(int size) {
+            return new Brand[size];
+        }
+    };
+
+    protected Brand(Parcel source){
+        id = source.readLong();
+        name = source.readString();
+        origin = source.readString();
+    }
+
+
 }
 
 

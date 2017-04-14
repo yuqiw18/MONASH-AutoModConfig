@@ -24,7 +24,7 @@ public class ConfiguratorBrand extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurator_brand);
 
-        setTitle("Models");
+        setTitle("Brands");
 
         // Initialise all the variables
         databaseHelper = new DatabaseHelper(getApplicationContext());

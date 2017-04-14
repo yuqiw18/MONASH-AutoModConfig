@@ -19,11 +19,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 
 public class Splash extends AppCompatActivity {
 
     public static final int UPDATE_DB_REQUEST = 1;
-    public static final String JSON_UPDATE_SOURCE = "http://yuqi.ninja/brand.json";
+    public static final String JSON_DATA_ADDRESS = "http://yuqi.ninja/";
+    public static final String JSON_DATA_SOURCE[] = {"brand", "model"};
 
     private DatabaseHelper databaseHelper;
 
@@ -50,7 +52,11 @@ public class Splash extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
         if (databaseHelper.isEmpty()){
-            new FetchData().execute(JSON_UPDATE_SOURCE);
+            for (int i =0; i < JSON_DATA_SOURCE.length; i++){
+
+                new FetchData().execute(JSON_DATA_ADDRESS + JSON_DATA_SOURCE[i] + ".json", JSON_DATA_SOURCE[i]);
+            }
+
         }
 
 
@@ -60,8 +66,13 @@ public class Splash extends AppCompatActivity {
 
     private class FetchData extends AsyncTask<String, Void, String>{
 
+        String identifier;
+
         @Override
         protected String doInBackground(String... strings){
+
+            identifier = strings[1];
+
             try {
                 URL downloadURL = new URL(strings[0]);
                 HttpURLConnection connection = (HttpURLConnection) downloadURL.openConnection();
@@ -90,9 +101,19 @@ public class Splash extends AppCompatActivity {
 
                         JSONObject tempJSON = contents.getJSONObject(i);
 
-                        Brand brand = new Brand(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("origin"));
+                        switch (identifier){
 
-                        databaseHelper.addData(brand);
+                            case "brand":
+                                Brand brand = new Brand(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("origin"));
+                                databaseHelper.addData(brand);
+                                break;
+                            case "model":
+                                Model model = new Model(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("bodyType"), tempJSON.getString("brandName"));
+                                databaseHelper.addData(model);
+                                break;
+                            default:
+                                break;
+                        }
                     }
 
                     Toast.makeText(getBaseContext(), "Downloaded!", Toast.LENGTH_SHORT).show();

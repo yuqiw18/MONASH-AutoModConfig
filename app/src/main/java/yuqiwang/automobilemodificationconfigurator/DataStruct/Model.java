@@ -15,8 +15,8 @@ public class Model extends DataStruct {
             "FOREIGN KEY(BRAND_NAME) REFERENCES BRAND(BRAND_NAME)" +
             ");";
 
-    private String brandName;
     private String bodyType;
+    private String brandName;
 
     public Model(long id, String name, String bodyType, String brandName){
         super(id, name);

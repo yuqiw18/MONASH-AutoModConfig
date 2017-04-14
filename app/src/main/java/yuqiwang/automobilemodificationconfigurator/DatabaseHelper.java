@@ -152,7 +152,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-
     public boolean isEmpty(){
 
         SQLiteDatabase db = this.getReadableDatabase();

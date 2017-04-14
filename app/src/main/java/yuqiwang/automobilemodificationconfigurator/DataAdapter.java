@@ -22,10 +22,12 @@ public class DataAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<DataStruct> brandList;
+    private String identifier;
 
     public DataAdapter(Context context, ArrayList<DataStruct> brandList){
         this.context = context;
         this.brandList = brandList;
+        this.identifier = this.context.getClass().getSimpleName();
     }
 
     @Override
@@ -48,30 +50,41 @@ public class DataAdapter extends BaseAdapter {
         // Check if view already exists. If not inflate it
         if(convertView == null) {
 
-
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            // Create a list item based off layout definition
-            convertView = inflater.inflate(R.layout.list_brand_item, null);
 
+
+            switch (identifier){
+
+                case "ConfiguratorBrand":
+
+                    convertView = inflater.inflate(R.layout.list_brand_item, null);
+                    TextView brandName = (TextView) convertView.findViewById(R.id.textBrandName);
+                    ImageView brandLogo = (ImageView) convertView.findViewById(R.id.imgBrand);
+                    brandName.setText(brandList.get(position).getName());
+                    brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
+                    return convertView;
+                case "ConfiguratorModel":
+                    convertView = inflater.inflate(R.layout.list_model_item, null);
+                    TextView modelName = (TextView) convertView.findViewById(R.id.textModelName);
+                    modelName.setText(brandList.get(position).getName());
+                    return convertView;
+
+                case "ConfigureBadge":
+
+                    return convertView;
+
+                case "Previewer":
+
+                    return convertView;
+
+                default:
+
+                    return convertView;
+
+            }
 
         }
 
-        //String test = convertView.getParent().getClass().getName();
-
-        //Log.e("Name", test);
-
-        // Assign values to the TextViews using Person Object
-        TextView brandName = (TextView) convertView.findViewById(R.id.textBrandName);
-
-        ImageView brandLogo = (ImageView) convertView.findViewById(R.id.imgBrand);
-
-
-
-        // Following is how we assign values to the cell in the list view
-        brandName.setText(brandList.get(position).getName());
-
-        brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
-
-        return convertView;
+        return null;
     }
 }
