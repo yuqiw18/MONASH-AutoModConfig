@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 
 public class ConfiguratorModel extends AppCompatActivity {
 
@@ -28,10 +29,10 @@ public class ConfiguratorModel extends AppCompatActivity {
 
         setTitle("Models");
 
-        TextView brandName = (TextView) findViewById(R.id.textBrandName);
-        TextView brandOrigin = (TextView) findViewById(R.id.textBrandOrigin);
-        TextView modelCounter = (TextView) findViewById(R.id.textModelCounter);
-        ImageView brandLogo = (ImageView) findViewById(R.id.imgBrand);
+        TextView brandName = (TextView) findViewById(R.id.textCMBrandName);
+        TextView brandOrigin = (TextView) findViewById(R.id.textCMBrandOrigin);
+        TextView modelCounter = (TextView) findViewById(R.id.textCMModelCounter);
+        ImageView brandLogo = (ImageView) findViewById(R.id.imgCMBrand);
 
         modelListView = (ListView) findViewById(R.id.listModels);
 
@@ -64,7 +65,7 @@ public class ConfiguratorModel extends AppCompatActivity {
         modelListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                String selectedModel = modelList.get(position).getName();
+                Model selectedModel = (Model) modelList.get(position);
                 Intent intent = new Intent(ConfiguratorModel.this, ConfiguratorBadge.class);
                 intent.putExtra("MODEL",selectedModel);
                 startActivity(intent);

@@ -5,19 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.concurrent.BrokenBarrierException;
 
+import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Badge;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
-import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Part;
-
-import static android.os.Build.BRAND;
 
 /**
  * Created by ClayW on 2/04/2017.
@@ -29,16 +25,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "AMC_DB";
     public static final int DATABASE_VERSION = 1;
 
-
-//    private static final String MODEL_CREATE_STATEMENT = "CREATE TABLE MODEL " +
-//            "(" +
-//            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-//            "BRAND_NAME TEXT NOT NULL" +
-//            ");";;
-
-    //private static final String BADGE_CREATE_STATEMENT;
-
-    //private static final String PARTS_CREATE_STATEMENT;
 
 
     public DatabaseHelper(Context context) {
@@ -117,20 +103,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     break;
                 case "MODEL":
                     do {
-                        DataStruct newData = new Brand(
+                        DataStruct newData = new Model(
                                 cursor.getLong(0),
                                 cursor.getString(1),
-                                cursor.getString(2)
+                                cursor.getString(2),
+                                cursor.getString(3)
                         );
                         data.put(newData.getId(), newData);
                     }while(cursor.moveToNext());
                     break;
                 case "BADGE":
                     do {
-                        DataStruct newData = new Brand(
+                        DataStruct newData = new Badge(
                                 cursor.getLong(0),
                                 cursor.getString(1),
-                                cursor.getString(2)
+                                cursor.getString(2),
+                                cursor.getString(3)
                         );
                         data.put(newData.getId(), newData);
                     }while(cursor.moveToNext());

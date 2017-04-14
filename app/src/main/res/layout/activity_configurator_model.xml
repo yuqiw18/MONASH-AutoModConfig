@@ -8,7 +8,7 @@
     tools:context="yuqiwang.automobilemodificationconfigurator.ConfiguratorModel">
 
     <ImageView
-        android:id="@+id/imgBrand"
+        android:id="@+id/imgCMBrand"
         android:layout_width="@dimen/img_brand"
         android:layout_height="@dimen/img_brand"
         android:layout_alignParentStart="true"
@@ -16,30 +16,30 @@
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
     <TextView
-        android:id="@+id/textBrandName"
+        android:id="@+id/textCMBrandName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
-        android:layout_toEndOf="@+id/imgBrand"
+        android:layout_toEndOf="@+id/imgCMBrand"
         android:gravity="center_horizontal"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textBrandOrigin"
+        android:id="@+id/textCMBrandOrigin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgBrand"
+        android:layout_alignBottom="@+id/imgCMBrand"
         android:layout_marginLeft="16dp"
-        android:layout_toEndOf="@+id/imgBrand"
+        android:layout_toEndOf="@+id/imgCMBrand"
         android:gravity="center_horizontal"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textModelCounter"
+        android:id="@+id/textCMModelCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textBrandOrigin"
+        android:layout_alignBottom="@+id/textCMBrandOrigin"
         android:layout_alignParentEnd="true"
         android:gravity="center_horizontal"
         android:text="TextView"
@@ -50,6 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/imgBrand"
+        android:layout_below="@+id/imgCMBrand"
         android:layout_marginTop="8dp" />
 </RelativeLayout>
