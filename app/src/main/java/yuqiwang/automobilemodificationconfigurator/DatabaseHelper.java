@@ -5,9 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
+import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
 
 /**
  * Created by ClayW on 2/04/2017.
@@ -23,14 +27,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String BRAND_CREATE_STATEMENT = "CREATE TABLE BRAND " +
             "(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            "BRAND_NAME TEXT NOT NULL" +
+            "BRAND_NAME TEXT NOT NULL," +
+            "BRAND_ORIGIN TEXT NOT NULL" +
             ");";
 
-    private static final String MODEL_CREATE_STATEMENT = "CREATE TABLE MODEL " +
-            "(" +
-            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            "BRAND_NAME TEXT NOT NULL" +
-            ");";;
+//    private static final String MODEL_CREATE_STATEMENT = "CREATE TABLE MODEL " +
+//            "(" +
+//            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+//            "BRAND_NAME TEXT NOT NULL" +
+//            ");";;
 
     //private static final String BADGE_CREATE_STATEMENT;
 
@@ -43,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //sqLiteDatabase.execSQL(Monster.CREATE_STATEMENT);
+        sqLiteDatabase.execSQL(BRAND_CREATE_STATEMENT);
     }
 
     @Override
@@ -52,18 +57,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void addMonster() {
-
+    public void addData(Brand data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        //if (data instanceof DataStruct.Brand){
+            values.put("BRAND_NAME", data.getName());
+            values.put("BRAND_ORIGIN", data.getOrigin());
+        //}
+        db.insert("BRAND", null, values);
+        db.close();
     }
-
-
-
-    public void updateBrand(){
-
-    }
-
 
     public void createDefault() {
+        addData(new Brand(0, "Mercedes-Benz", "Germany"));
+    }
 
+    public HashMap<Long, Brand> getData() {
+
+        HashMap<Long, Brand> data = new LinkedHashMap<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM BRAND", null);
+        // Add each person to hashmap (Each row has 1 person)
+        if(cursor.moveToFirst()) {
+            do {
+                Brand newData = new Brand(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2)
+                        );
+                data.put(newData.getId(), newData);
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return data;
     }
 }
