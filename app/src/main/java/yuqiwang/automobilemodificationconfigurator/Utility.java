@@ -11,8 +11,12 @@ public final class Utility {
 
     public static int getResourceID(String name, Class<?> c) {
 
+        name = name.replaceAll("\\s","");
+        name = name.replaceAll("-","_");
+        name = name.toLowerCase();
+
         try {
-            Field idField = c.getDeclaredField(name.toLowerCase());
+            Field idField = c.getDeclaredField(name);
             return idField.getInt(idField);
         } catch (Exception ex) {
 
@@ -20,5 +24,4 @@ public final class Utility {
             return -1;
         }
     }
-
 }
