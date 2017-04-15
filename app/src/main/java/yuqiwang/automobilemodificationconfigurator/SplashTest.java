@@ -6,10 +6,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.Window;
+import android.view.WindowManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,35 +21,35 @@ import java.net.URL;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 
-public class Splash extends AppCompatActivity {
+public class SplashTest extends AppCompatActivity {
 
     public static final int UPDATE_DB_REQUEST = 1;
     public static final String JSON_DATA_ADDRESS = "http://yuqi.ninja/";
     public static final String JSON_DATA_SOURCE[] = {"brand", "model"};
 
     private DatabaseHelper databaseHelper;
-    private Button btn;
     private int progress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+
         setContentView(R.layout.activity_splash);
 
-        btn = (Button)findViewById(R.id.testBtn);
-
-        btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                startActivity(new Intent(Splash.this,ConfiguratorBrand.class));
-
-            }
-
-
-
-
-        });
+//        View decorView = getWindow().getDecorView();
+//        // Hide the status bar.
+//        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//        decorView.setSystemUiVisibility(uiOptions);
+//        // Remember that you should never show the action bar if the
+//        // status bar is hidden, so hide that too if necessary.
+//        ActionBar actionBar = getActionBar();
+//        actionBar.hide();
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
@@ -65,9 +63,6 @@ public class Splash extends AppCompatActivity {
             goToMain();
         }
 
-
-
-       //startActivity(new Intent(this, ConfiguratorBrand.class));
     }
 
     private class FetchData extends AsyncTask<String, Void, String>{
@@ -152,7 +147,14 @@ public class Splash extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    startActivity(new Intent(Splash.this, Main.class));
+                    Intent main = new Intent(SplashTest.this, Main.class);
+
+                    // Set up main activity
+                    main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    main.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+                    startActivity(main);
                 }
             }, 5000);
         }else {
@@ -160,7 +162,14 @@ public class Splash extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    startActivity(new Intent(Splash.this, Main.class));
+                    Intent main = new Intent(SplashTest.this, Main.class);
+
+                    // Set up main activity
+                    main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    main.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+                    startActivity(main);
                 }
             }, 3000);
         }
