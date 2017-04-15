@@ -58,8 +58,6 @@ public class ConfiguratorModel extends AppCompatActivity {
 
             modelCounter.setText("Available Models: " + modelList.size());
 
-
-
         }
 
         modelListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

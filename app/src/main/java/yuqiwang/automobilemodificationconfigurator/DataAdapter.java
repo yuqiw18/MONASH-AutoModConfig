@@ -1,6 +1,8 @@
 package yuqiwang.automobilemodificationconfigurator;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
 
 import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
@@ -28,6 +31,13 @@ public class DataAdapter extends BaseAdapter {
         this.identifier = this.context.getClass().getSimpleName();
     }
 
+    public static class ViewHolder{
+        TextView textViewPlaceHolder1;
+        TextView textViewPlaceHolder2;
+        TextView textViewPlaceHolder3;
+        ImageView imageViewPlaceHolder;
+    }
+
     @Override
     public int getCount() {
         return dataList.size();
@@ -45,6 +55,9 @@ public class DataAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        ViewHolder viewHolder;
+
         // Check if view already exists. If not inflate it
         if(convertView == null) {
 
@@ -53,22 +66,19 @@ public class DataAdapter extends BaseAdapter {
             switch (identifier){
 
                 case "ConfiguratorBrand":
-
                     convertView = inflater.inflate(R.layout.list_brand_item, null);
-                    TextView brandName = (TextView) convertView.findViewById(R.id.textBrandName);
-                    ImageView brandLogo = (ImageView) convertView.findViewById(R.id.imgCMBrand);
-                    brandName.setText(dataList.get(position).getName());
-                    brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
-                    return convertView;
+                    viewHolder = new ViewHolder();
+                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.textBrandName);
+                    viewHolder.imageViewPlaceHolder = (ImageView) convertView.findViewById(R.id.imgCMBrand);
+                    convertView.setTag(viewHolder);
+                    break;
                 case "ConfiguratorModel":
                     convertView = inflater.inflate(R.layout.list_model_item, null);
-                    TextView modelName = (TextView) convertView.findViewById(R.id.textModelName);
-                    modelName.setText(dataList.get(position).getName());
-                    return convertView;
-
+                    viewHolder = new ViewHolder();
+                    viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textModelName);
+                    convertView.setTag(viewHolder);
+                    break;
                 case "ConfiguratorBadge":
-
-
 
                     return convertView;
 
@@ -82,8 +92,41 @@ public class DataAdapter extends BaseAdapter {
 
             }
 
+        }else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        return null;
+        switch (identifier){
+
+            case "ConfiguratorBrand":
+                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                viewHolder.imageViewPlaceHolder.setImageResource(Utility.getResourceID(dataList.get(position).getName(),R.drawable.class));
+                break;
+            case "ConfiguratorModel":
+                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                break;
+            case "ConfiguratorBadge":
+
+
+
+                return convertView;
+
+            case "Previewer":
+
+                return convertView;
+
+            default:
+
+                return convertView;
+
+        }
+
+
+
+
+
+
+
+        return convertView;
     }
 }

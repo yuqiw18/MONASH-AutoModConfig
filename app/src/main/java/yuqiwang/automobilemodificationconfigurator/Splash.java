@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,13 +29,15 @@ public class Splash extends AppCompatActivity {
     public static final String JSON_DATA_SOURCE[] = {"brand", "model"};
 
     private DatabaseHelper databaseHelper;
+    private Button btn;
+    private int progress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Button btn = (Button)findViewById(R.id.testBtn);
+        btn = (Button)findViewById(R.id.testBtn);
 
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -106,6 +109,7 @@ public class Splash extends AppCompatActivity {
                             case "brand":
                                 Brand brand = new Brand(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("origin"));
                                 databaseHelper.addData(brand);
+                                Log.e("Loaded: ",brand.getName());
                                 break;
                             case "model":
                                 Model model = new Model(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("bodyType"), tempJSON.getString("brandName"));
@@ -117,6 +121,10 @@ public class Splash extends AppCompatActivity {
                     }
 
                     Toast.makeText(getBaseContext(), "Downloaded!", Toast.LENGTH_SHORT).show();
+
+                    progress++;
+
+                    btn.setText(progress);
 
                 }catch (Exception e){
 
