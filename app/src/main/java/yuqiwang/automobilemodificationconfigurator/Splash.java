@@ -2,6 +2,7 @@ package yuqiwang.automobilemodificationconfigurator;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +61,8 @@ public class Splash extends AppCompatActivity {
                 new FetchData().execute(JSON_DATA_ADDRESS + JSON_DATA_SOURCE[i] + ".json", JSON_DATA_SOURCE[i]);
             }
 
+        }else {
+            goToMain();
         }
 
 
@@ -70,6 +73,11 @@ public class Splash extends AppCompatActivity {
     private class FetchData extends AsyncTask<String, Void, String>{
 
         String identifier;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... strings){
@@ -86,6 +94,8 @@ public class Splash extends AppCompatActivity {
                 while((result = bufferedReader.readLine())!=null){
                     stringBuilder.append(result);
                 }
+                progress ++;
+                Log.e("Progress:", String.valueOf(progress));
                 return stringBuilder.toString();
             }catch (Exception e){
                 e.printStackTrace();
@@ -120,11 +130,6 @@ public class Splash extends AppCompatActivity {
                         }
                     }
 
-                    Toast.makeText(getBaseContext(), "Downloaded!", Toast.LENGTH_SHORT).show();
-
-                    progress++;
-
-                    btn.setText(progress);
 
                 }catch (Exception e){
 
@@ -132,6 +137,32 @@ public class Splash extends AppCompatActivity {
 
                 }
             }
+
+            // If finish downloading
+            if (progress == JSON_DATA_SOURCE.length){
+                goToMain();
+            }
+        }
+    }
+
+    private void goToMain(){
+
+        // Normal
+        if (progress == 0){
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    startActivity(new Intent(Splash.this, Main.class));
+                }
+            }, 5000);
+        }else {
+            // After downloading
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    startActivity(new Intent(Splash.this, Main.class));
+                }
+            }, 3000);
         }
 
     }
