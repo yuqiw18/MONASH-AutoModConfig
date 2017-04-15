@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Badge;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
 
 /**
@@ -75,9 +76,11 @@ public class DataAdapter extends BaseAdapter {
                     convertView.setTag(viewHolder);
                     break;
                 case "ConfiguratorBadge":
-
-                    return convertView;
-
+                    convertView = inflater.inflate(R.layout.list_badge_item, null);
+                    viewHolder = new ViewHolder();
+                    viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textBadgeName);
+                    convertView.setTag(viewHolder);
+                    break;
                 case "Previewer":
 
                     return convertView;
@@ -102,11 +105,8 @@ public class DataAdapter extends BaseAdapter {
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
                 break;
             case "ConfiguratorBadge":
-
-
-
-                return convertView;
-
+                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                break;
             case "Previewer":
 
                 return convertView;

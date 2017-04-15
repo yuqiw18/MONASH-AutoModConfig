@@ -61,14 +61,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.insert("MODEL", null, values);
         }
 
+        if (data instanceof Badge){
+            values.put("BADGE_NAME", data.getName());
+            values.put("BADGE_YEAR", ((Badge) data).getYear());
+            values.put("MODEL_NAME", ((Badge) data).getModelName());
+            db.insert("BADGE", null, values);
+        }
         db.close();
     }
-
-    public void createDefault() {
-        addData(new Brand(0, "Mercedes-Benz", "Germany"));
-    }
-
-
 
     public HashMap<Long, DataStruct> getData(String tableName, String columnName, String[] args ) {
 

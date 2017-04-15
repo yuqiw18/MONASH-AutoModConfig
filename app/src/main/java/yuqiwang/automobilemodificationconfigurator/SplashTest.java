@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Badge;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 
@@ -25,7 +26,7 @@ public class SplashTest extends AppCompatActivity {
 
     public static final int UPDATE_DB_REQUEST = 1;
     public static final String JSON_DATA_ADDRESS = "http://yuqi.ninja/";
-    public static final String JSON_DATA_SOURCE[] = {"brand", "model"};
+    public static final String JSON_DATA_SOURCE[] = {"brand", "model", "badge"};
 
     private DatabaseHelper databaseHelper;
     private int progress = 0;
@@ -90,7 +91,7 @@ public class SplashTest extends AppCompatActivity {
                     stringBuilder.append(result);
                 }
                 progress ++;
-                Log.e("Progress:", String.valueOf(progress));
+                Log.e("Progress:", String.valueOf(progress) + "/" + JSON_DATA_SOURCE.length);
                 return stringBuilder.toString();
             }catch (Exception e){
                 e.printStackTrace();
@@ -119,6 +120,12 @@ public class SplashTest extends AppCompatActivity {
                             case "model":
                                 Model model = new Model(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("bodyType"), tempJSON.getString("brandName"));
                                 databaseHelper.addData(model);
+                                Log.e("Loaded: ",model.getName());
+                                break;
+                            case "badge":
+                                Badge badge = new Badge(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("year"), tempJSON.getString("modelName"));
+                                databaseHelper.addData(badge);
+                                Log.e("Loaded: ",badge.getName());
                                 break;
                             default:
                                 break;
@@ -147,7 +154,7 @@ public class SplashTest extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    Intent main = new Intent(SplashTest.this, Main.class);
+                    Intent main = new Intent(SplashTest.this, ConfiguratorBrand.class);
 
                     // Set up main activity
                     main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -162,7 +169,7 @@ public class SplashTest extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    Intent main = new Intent(SplashTest.this, Main.class);
+                    Intent main = new Intent(SplashTest.this, ConfiguratorBrand.class);
 
                     // Set up main activity
                     main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

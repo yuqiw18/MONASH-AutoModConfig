@@ -3,6 +3,7 @@ package yuqiwang.automobilemodificationconfigurator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -46,18 +47,19 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
             badgeList = new ArrayList<>(databaseHelper.getData("BADGE", "MODEL_NAME", new String[]{data.getName()}).values());
 
+            Log.e("Got:",data.getName());
+
             dataAdapter = new DataAdapter(this, badgeList);
 
             badgeListView.setAdapter(dataAdapter);
 
-//            brandName.setText(data.getName());
-//
-//            brandOrigin.setText(data.getOrigin());
+            modelName.setText(data.getName());
+
+            //modelYear.setText(data.get());
 //
 //            brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
 //
-//            modelCounter.setText("Available Models: " + modelList.size());
-
+            badgeCounter.setText("Available Badges: " + badgeList.size());
 
         }
 
