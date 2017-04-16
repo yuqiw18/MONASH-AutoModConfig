@@ -9,10 +9,12 @@
 
     <ImageView
         android:id="@+id/imgCMBrand"
-        android:layout_width="@dimen/img_brand"
-        android:layout_height="@dimen/img_brand"
+        android:layout_width="@dimen/img64"
+        android:layout_height="@dimen/img64"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/ui_image_description_default"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
     <TextView
@@ -20,20 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
         android:layout_toEndOf="@+id/imgCMBrand"
-        android:gravity="center_horizontal"
-        android:text="TextView" />
+        android:gravity="center_vertical"
+        android:text="@string/ui_label_default_value" />
 
     <TextView
         android:id="@+id/textCMBrandOrigin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imgCMBrand"
-        android:layout_marginLeft="16dp"
         android:layout_toEndOf="@+id/imgCMBrand"
-        android:gravity="center_horizontal"
-        android:text="TextView" />
+        android:gravity="center_vertical"
+        android:text="@string/ui_label_default_value" />
 
     <TextView
         android:id="@+id/textCMModelCounter"
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textCMBrandOrigin"
         android:layout_alignParentEnd="true"
-        android:gravity="center_horizontal"
-        android:text="TextView"
+        android:gravity="center_vertical"
+        android:text="@string/ui_label_default_value"
         android:textAlignment="textEnd" />
 
     <ListView

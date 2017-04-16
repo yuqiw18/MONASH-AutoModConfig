@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="percent30" type="dimen">30%</item>
-    <dimen name="img_brand">64dp</dimen>
+    <dimen name="img64">64dp</dimen>
+    <dimen name="img60">60dp</dimen>
+    <dimen name="text20">20dp</dimen>
+    <dimen name="ui_user_header" />
 </resources>

@@ -1,8 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="16dp"
     tools:context="yuqiwang.automobilemodificationconfigurator.Member">
+
+    <ImageView
+        android:id="@+id/imgUserAvatar"
+        android:layout_width="@dimen/img60"
+        android:layout_height="@dimen/img60"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/ui_image_description_default"
+        app:srcCompat="@drawable/audi" />
+
+    <TextView
+        android:id="@+id/textUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/text20"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imgUserAvatar"
+        android:text="@string/ui_label_default_value"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textUserType"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/text20"
+        android:layout_alignBottom="@+id/imgUserAvatar"
+        android:layout_toEndOf="@+id/imgUserAvatar"
+        android:text="@string/ui_label_default_value" />
+
+    <TextView
+        android:id="@+id/textUserAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/text20"
+        android:layout_below="@+id/textUserName"
+        android:layout_toEndOf="@+id/imgUserAvatar"
+        android:text="@string/ui_label_default_value" />
+
+    <TextView
+        android:id="@+id/sectionHeader"
+        style="@style/Section"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/imgUserAvatar"
+        android:background="?android:attr/colorButtonNormal"
+        android:text="@string/ui_user_section_detail"
+        android:textColor="#666666" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sectionHeader"
+        android:layout_marginStart="16dp"
+        android:text="@string/ui_user_email" />
+
+    <TextView
+        android:id="@+id/textUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ui_label_default_value" />
+
+    <View
+        android:id="@+id/view2"
+        style="@style/Divider"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textUserEmail" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/view2"
+        android:layout_marginStart="16dp"
+        android:text="@string/ui_user_address"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textUserDeliveryAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView6"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ui_label_default_value" />
+
+    <View
+        android:id="@+id/view3"
+        style="@style/Divider"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textUserDeliveryAddress" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/view3"
+        android:layout_marginStart="16dp"
+        android:text="@string/ui_user_payment" />
+
+    <TextView
+        android:id="@+id/textUserPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView8"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ui_label_default_value" />
+
+    <TextView
+        android:id="@+id/sectionHeader2"
+        style="@style/Section"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textUserPayment"
+        android:background="?android:attr/colorButtonNormal"
+        android:text="@string/ui_user_section_collection"
+        android:textColor="#666666" />
 
 </RelativeLayout>

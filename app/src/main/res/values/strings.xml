@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Automobile Modification Configurator</string>
+    <string name="ui_user_email">Email</string>
+    <string name="ui_user_address">Delivery Address</string>
+    <string name="ui_user_payment">Payment Method</string>
+    <string name="ui_label_default_value">UI_PLACEHOLDER</string>
+    <string name="ui_user_section_detail">My Details</string>
+    <string name="ui_user_section_collection">Saved Configurations</string>
+    <string name="ui_image_description_default">Image</string>
 </resources>
