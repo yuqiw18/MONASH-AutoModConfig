@@ -57,7 +57,7 @@ import java.util.List;
  * compatibility.
  * <p/>
  * Currently compression is not supported, files will need to be formatted with compression off.
- * This is an option in MAX and should be an option using other exporters.
+ * This is an option_checkout in MAX and should be an option_checkout using other exporters.
  * <p/>
  * <p/>
  * <b>Example AWD parsing</b>

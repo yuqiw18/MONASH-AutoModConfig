@@ -4,5 +4,5 @@
     <dimen name="img64">64dp</dimen>
     <dimen name="img60">60dp</dimen>
     <dimen name="text20">20dp</dimen>
-    <dimen name="ui_user_header" />
+    <dimen name="ui_user_header">24dp</dimen>
 </resources>

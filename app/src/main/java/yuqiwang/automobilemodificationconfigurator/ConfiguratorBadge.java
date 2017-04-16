@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -12,7 +15,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 
@@ -75,5 +77,14 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.option_checkout, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
