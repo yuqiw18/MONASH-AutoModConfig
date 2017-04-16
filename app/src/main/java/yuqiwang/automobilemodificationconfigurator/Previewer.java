@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import org.rajawali3d.surface.IRajawaliSurface;
 import org.rajawali3d.surface.RajawaliSurfaceView;
 
-
 public class Previewer extends AppCompatActivity {
 
     Renderer renderer;
