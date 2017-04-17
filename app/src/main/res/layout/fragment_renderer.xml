@@ -8,9 +8,7 @@
 
     <org.rajawali3d.surface.RajawaliSurfaceView
         android:id="@+id/rajawali_surface"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        surfaceview:frameRate="60.0"
-        surfaceview:renderMode="RENDER_WHEN_DIRTY"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

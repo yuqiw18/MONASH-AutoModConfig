@@ -7,10 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Badge;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
+import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 
 /**
  * Created by ClayW on 14/04/2017.
@@ -73,6 +77,7 @@ public class DataAdapter extends BaseAdapter {
                     convertView = inflater.inflate(R.layout.list_model_item, null);
                     viewHolder = new ViewHolder();
                     viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textModelName);
+                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textBodyType);
                     convertView.setTag(viewHolder);
                     break;
                 case "ConfiguratorBadge":
@@ -99,10 +104,12 @@ public class DataAdapter extends BaseAdapter {
 
             case "ConfiguratorBrand":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
-                viewHolder.imageViewPlaceHolder.setImageResource(Utility.getResourceID(dataList.get(position).getName(),R.drawable.class));
+                //viewHolder.imageViewPlaceHolder.setImageResource(Utility.getResourceID(dataList.get(position).getName(),R.drawable.class));
+                Picasso.with(context).load(Utility.IMAGE_SOURCE+Utility.stringConvert(dataList.get(position).getName())+Utility.IMAGE_FORMAT).into(viewHolder.imageViewPlaceHolder);
                 break;
             case "ConfiguratorModel":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                viewHolder.textViewPlaceHolder2.setText(((Model)dataList.get(position)).getBodyType());
                 break;
             case "ConfiguratorBadge":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());

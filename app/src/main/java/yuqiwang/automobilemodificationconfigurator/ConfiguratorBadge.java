@@ -30,7 +30,7 @@ public class ConfiguratorBadge extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurator_badge);
 
-        setTitle("Models");
+        setTitle("Badges");
 
         TextView modelName = (TextView) findViewById(R.id.textCBModelName);
         TextView modelYear = (TextView) findViewById(R.id.textCBModelYear);

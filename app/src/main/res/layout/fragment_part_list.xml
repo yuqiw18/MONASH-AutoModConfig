@@ -1,231 +1,189 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="16dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="16dp"
     tools:context="yuqiwang.automobilemodificationconfigurator.PartListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ImageButton
-        android:id="@+id/btnRespray"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+    <TableLayout
+        android:id="@+id/tableOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/alfaromeo" />
-
-    <ImageButton
-        android:id="@+id/btnBumper"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@+id/btnRespray"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/alfaromeo" />
+        android:stretchColumns="*">
 
-    <ImageButton
-        android:id="@+id/btnBonnet"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/alfaromeo" />
+        <TableRow
+            android:layout_width="0dp">
 
-    <ImageButton
-        android:id="@+id/btnSpoiler"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_toStartOf="@+id/btnExhaust"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/alfaromeo" />
+            <ImageButton
+                android:id="@+id/btnRespray"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:background="@drawable/img_placeholder" />
 
-    <ImageButton
-        android:id="@+id/btnExhaust"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/alfaromeo" />
+            <ImageButton
+                android:id="@+id/btnBumper"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:background="@drawable/img_placeholder" />
 
-    <TextView
-        android:id="@+id/textRespray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnRespray"
-        android:layout_alignStart="@+id/btnRespray"
-        android:layout_below="@+id/btnRespray"
-        android:text="Respray"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+            <ImageButton
+                android:id="@+id/btnBonnet"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:background="@drawable/img_placeholder" />
 
-    <TextView
-        android:id="@+id/textBumper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textRespray"
-        android:layout_alignEnd="@+id/btnBumper"
-        android:layout_alignStart="@+id/btnBumper"
-        android:text="Bumper"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+            <ImageButton
+                android:id="@+id/btnSpoiler"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:background="@drawable/img_placeholder" />
 
-    <TextView
-        android:id="@+id/textBonnet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnBonnet"
-        android:layout_alignStart="@+id/btnBonnet"
-        android:layout_below="@+id/btnBonnet"
-        android:text="Bonnet"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+            <ImageButton
+                android:id="@+id/btnExhaust"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:background="@drawable/img_placeholder" />
+        </TableRow>
 
-    <TextView
-        android:id="@+id/textSpoiler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnSpoiler"
-        android:layout_alignStart="@+id/btnSpoiler"
-        android:layout_below="@+id/btnSpoiler"
-        android:text="Spoiler"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+        <TableRow
+            android:layout_width="0dp">
+            <TextView
+                android:id="@+id/textRespray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Respray"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textBumper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bumper"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textBonnet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bonnet"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textSpoiler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spoiler"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textExhaust"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exhasut"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+        </TableRow>
 
-    <TextView
-        android:id="@+id/textExhaust"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnExhaust"
-        android:layout_alignStart="@+id/btnExhaust"
-        android:layout_below="@+id/btnExhaust"
-        android:text="Exhasut"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+        <TableRow
+            android:layout_width="0dp">
 
-    <ImageButton
-        android:id="@+id/btnSuspension"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignStart="@+id/textRespray"
-        android:layout_below="@+id/textRespray"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/bmw" />
+            <ImageButton
+                android:id="@+id/btnSuspension"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/img_placeholder" />
 
-    <ImageButton
-        android:id="@+id/btnBrake"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignStart="@+id/textBumper"
-        android:layout_below="@+id/textBumper"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/bmw" />
+            <ImageButton
+                android:id="@+id/btnBrake"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/img_placeholder" />
 
-    <ImageButton
-        android:id="@+id/btnRim"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignStart="@+id/textBonnet"
-        android:layout_below="@+id/textBonnet"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/bmw" />
+            <ImageButton
+                android:id="@+id/btnRim"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/img_placeholder" />
 
-    <ImageButton
-        android:id="@+id/btnLighting"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignStart="@+id/textExhaust"
-        android:layout_below="@+id/textExhaust"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/bmw" />
+            <ImageButton
+                android:id="@+id/btnLighting"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/img_placeholder" />
 
-    <ImageButton
-        android:id="@+id/btnTyre"
-        android:layout_width="@dimen/img64"
-        android:layout_height="@dimen/img64"
-        android:layout_alignEnd="@+id/textSpoiler"
-        android:layout_below="@+id/textSpoiler"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bmw"
-        app:srcCompat="@drawable/bmw" />
+            <ImageButton
+                android:id="@+id/btnTyre"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/img_placeholder" />
+        </TableRow>
 
-    <TextView
-        android:id="@+id/textSuspension"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnSuspension"
-        android:layout_alignStart="@+id/btnSuspension"
-        android:layout_below="@+id/btnSuspension"
-        android:text="Suspension"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+        <TableRow
+            android:layout_width="0dp">
+            <TextView
+                android:id="@+id/textSuspension"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suspension"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textBrake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brake"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textRim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rim"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textTyre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tyre"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textLighting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lighting"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textSize="12sp" />
+        </TableRow>
+    </TableLayout>
 
-    <TextView
-        android:id="@+id/textBrake"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnBrake"
-        android:layout_alignStart="@+id/btnBrake"
-        android:layout_below="@+id/btnBrake"
-        android:text="Brake"
-        android:textAlignment="center"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/textRim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnRim"
-        android:layout_alignStart="@+id/btnRim"
-        android:layout_below="@+id/btnRim"
-        android:text="Rim"
-        android:textAlignment="center"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/textTyre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnTyre"
-        android:layout_alignStart="@+id/btnTyre"
-        android:layout_below="@+id/btnTyre"
-        android:text="Tyre"
-        android:textAlignment="center"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/textLighting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnLighting"
-        android:layout_alignStart="@+id/btnLighting"
-        android:layout_below="@+id/btnLighting"
-        android:text="Lighting"
-        android:textAlignment="center"
-        android:textSize="12sp" />
 
 
     <TextView
         android:id="@+id/sectionHeader"
         style="@style/Section"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textRim"
+        android:layout_below="@+id/tableOptions"
         android:background="?android:attr/colorButtonNormal"
         android:text="@string/ui_label_default_value"
         android:textColor="#666666" />

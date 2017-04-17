@@ -25,5 +25,5 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/ui_image_description_default"
-        app:srcCompat="@drawable/bmw" />
+        app:srcCompat="@drawable/img_placeholder" />
 </RelativeLayout>

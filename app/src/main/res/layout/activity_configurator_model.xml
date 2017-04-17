@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/ui_image_description_default"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        app:srcCompat="@drawable/img_placeholder" />
 
     <TextView
         android:id="@+id/textCMBrandName"
@@ -24,7 +24,8 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/imgCMBrand"
         android:gravity="center_vertical"
-        android:text="@string/ui_label_default_value" />
+        android:text="@string/ui_label_default_value"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textCMBrandOrigin"

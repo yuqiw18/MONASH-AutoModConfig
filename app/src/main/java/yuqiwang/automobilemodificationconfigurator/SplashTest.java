@@ -25,8 +25,6 @@ import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 public class SplashTest extends AppCompatActivity {
 
     public static final int UPDATE_DB_REQUEST = 1;
-    public static final String JSON_DATA_ADDRESS = "http://yuqi.ninja/";
-    public static final String JSON_DATA_SOURCE[] = {"brand", "model", "badge"};
 
     private DatabaseHelper databaseHelper;
     private int progress = 0;
@@ -38,8 +36,6 @@ public class SplashTest extends AppCompatActivity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
 
         setContentView(R.layout.activity_splash);
 
@@ -55,9 +51,9 @@ public class SplashTest extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
         if (databaseHelper.isEmpty()){
-            for (int i =0; i < JSON_DATA_SOURCE.length; i++){
+            for (int i =0; i < Utility.DATA_CONTENT.length; i++){
 
-                new FetchData().execute(JSON_DATA_ADDRESS + JSON_DATA_SOURCE[i] + ".json", JSON_DATA_SOURCE[i]);
+                new FetchData().execute(Utility.DATA_SOURCE + Utility.DATA_CONTENT[i] + Utility.DATA_FORMAT, Utility.DATA_CONTENT[i]);
             }
 
         }else {
@@ -91,7 +87,7 @@ public class SplashTest extends AppCompatActivity {
                     stringBuilder.append(result);
                 }
                 progress ++;
-                Log.e("Progress:", String.valueOf(progress) + "/" + JSON_DATA_SOURCE.length);
+                Log.e("Progress:", String.valueOf(progress) + "/" + Utility.DATA_CONTENT.length);
                 return stringBuilder.toString();
             }catch (Exception e){
                 e.printStackTrace();
@@ -141,7 +137,7 @@ public class SplashTest extends AppCompatActivity {
             }
 
             // If finish downloading
-            if (progress == JSON_DATA_SOURCE.length){
+            if (progress == Utility.DATA_CONTENT.length){
                 goToMain();
             }
         }

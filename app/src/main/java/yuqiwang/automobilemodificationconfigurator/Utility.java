@@ -9,11 +9,16 @@ import java.lang.reflect.Field;
 
 public final class Utility {
 
+    public static final String IMAGE_SOURCE = "http://yuqi.ninja/amc/img/";
+    public static final String DATA_SOURCE = "http://yuqi.ninja/amc/data/";
+    public static final String DATA_CONTENT[] = {"brand", "model", "badge"};
+    public static final String DATA_FORMAT = ".json";
+    public static final String IMAGE_FORMAT = ".png";
+
+    // Convert string name to resource ID
     public static int getResourceID(String name, Class<?> c) {
 
-        name = name.replaceAll("\\s","");
-        name = name.replaceAll("-","_");
-        name = name.toLowerCase();
+        name = stringConvert(name);
 
         try {
             Field idField = c.getDeclaredField(name);
@@ -23,5 +28,13 @@ public final class Utility {
             Log.e("ERROR", "RESOURCE NOT FOUND");
             return -1;
         }
+    }
+
+    // Format string
+    public static String stringConvert(String input){
+        input = input.replaceAll("\\s","");
+        input = input.replaceAll("-","_");
+        input = input.toLowerCase();
+        return input;
     }
 }

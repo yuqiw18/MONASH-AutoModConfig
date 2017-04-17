@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
@@ -54,7 +56,9 @@ public class ConfiguratorModel extends AppCompatActivity {
 
             brandOrigin.setText(data.getOrigin());
 
-            brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
+            Picasso.with(this).load(Utility.IMAGE_SOURCE+Utility.stringConvert(brandName.getText().toString())+Utility.IMAGE_FORMAT).into(brandLogo);
+
+            //brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
 
             modelCounter.setText("Available Models: " + modelList.size());
 
