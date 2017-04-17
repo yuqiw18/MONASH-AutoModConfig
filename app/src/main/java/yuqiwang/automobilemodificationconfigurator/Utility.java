@@ -37,4 +37,12 @@ public final class Utility {
         input = input.toLowerCase();
         return input;
     }
+
+    public static String getImageAddress(String name){
+
+        return IMAGE_SOURCE+ stringConvert(name)+ IMAGE_FORMAT;
+
+    }
 }
+
+

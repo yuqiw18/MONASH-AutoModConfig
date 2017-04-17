@@ -78,6 +78,7 @@ public class DataAdapter extends BaseAdapter {
                     viewHolder = new ViewHolder();
                     viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textModelName);
                     viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textBodyType);
+                    viewHolder.imageViewPlaceHolder = (ImageView) convertView.findViewById(R.id.imgModel);
                     convertView.setTag(viewHolder);
                     break;
                 case "ConfiguratorBadge":
@@ -105,11 +106,12 @@ public class DataAdapter extends BaseAdapter {
             case "ConfiguratorBrand":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
                 //viewHolder.imageViewPlaceHolder.setImageResource(Utility.getResourceID(dataList.get(position).getName(),R.drawable.class));
-                Picasso.with(context).load(Utility.IMAGE_SOURCE+Utility.stringConvert(dataList.get(position).getName())+Utility.IMAGE_FORMAT).into(viewHolder.imageViewPlaceHolder);
+                Picasso.with(context).load(Utility.getImageAddress(dataList.get(position).getName())).placeholder(R.drawable.img_placeholder).into(viewHolder.imageViewPlaceHolder);
                 break;
             case "ConfiguratorModel":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
                 viewHolder.textViewPlaceHolder2.setText(((Model)dataList.get(position)).getBodyType());
+                Picasso.with(context).load((Utility.getImageAddress(((Model)dataList.get(position)).getBrandName()+"_"+dataList.get(position).getName()))).placeholder(R.drawable.img_placeholder_wide).into(viewHolder.imageViewPlaceHolder);
                 break;
             case "ConfiguratorBadge":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());

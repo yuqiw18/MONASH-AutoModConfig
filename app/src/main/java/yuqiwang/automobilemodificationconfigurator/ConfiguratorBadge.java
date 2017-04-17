@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import yuqiwang.automobilemodificationconfigurator.DataStruct.DataStruct;
@@ -55,12 +57,12 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
             badgeListView.setAdapter(dataAdapter);
 
-            modelName.setText(data.getName());
+            modelName.setText(data.getBrandName() + " " + data.getName());
 
-            //modelYear.setText(data.get());
-//
-//            brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
-//
+            //modelYear.setText(data.get())
+
+            Picasso.with(this).load(Utility.getImageAddress(data.getBrandName() + "_" + data.getName())).into(modelImage);
+
             badgeCounter.setText("Available Badges: " + badgeList.size());
 
         }

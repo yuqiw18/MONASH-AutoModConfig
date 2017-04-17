@@ -56,7 +56,7 @@ public class ConfiguratorModel extends AppCompatActivity {
 
             brandOrigin.setText(data.getOrigin());
 
-            Picasso.with(this).load(Utility.IMAGE_SOURCE+Utility.stringConvert(brandName.getText().toString())+Utility.IMAGE_FORMAT).into(brandLogo);
+            Picasso.with(this).load(Utility.getImageAddress(brandName.getText().toString())).into(brandLogo);
 
             //brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
 

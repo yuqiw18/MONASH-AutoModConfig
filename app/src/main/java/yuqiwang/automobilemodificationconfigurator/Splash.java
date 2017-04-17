@@ -22,7 +22,7 @@ import yuqiwang.automobilemodificationconfigurator.DataStruct.Badge;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Brand;
 import yuqiwang.automobilemodificationconfigurator.DataStruct.Model;
 
-public class SplashTest extends AppCompatActivity {
+public class Splash extends AppCompatActivity {
 
     public static final int UPDATE_DB_REQUEST = 1;
 
@@ -150,7 +150,7 @@ public class SplashTest extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    Intent main = new Intent(SplashTest.this, ConfiguratorBrand.class);
+                    Intent main = new Intent(Splash.this, ConfiguratorBrand.class);
 
                     // Set up main activity
                     main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -165,7 +165,7 @@ public class SplashTest extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    Intent main = new Intent(SplashTest.this, ConfiguratorBrand.class);
+                    Intent main = new Intent(Splash.this, ConfiguratorBrand.class);
 
                     // Set up main activity
                     main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

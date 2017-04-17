@@ -5,4 +5,5 @@
     <dimen name="img60">60dp</dimen>
     <dimen name="text20">20dp</dimen>
     <dimen name="ui_user_header">24dp</dimen>
+    <dimen name="img128">128dp</dimen>
 </resources>

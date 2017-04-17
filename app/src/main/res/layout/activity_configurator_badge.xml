@@ -9,13 +9,13 @@
 
     <ImageView
         android:id="@+id/imgCBModel"
-        android:layout_width="@dimen/img64"
+        android:layout_width="@dimen/img128"
         android:layout_height="@dimen/img64"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/img_placeholder"
-        android:contentDescription="@string/ui_image_description_default" />
+        android:contentDescription="@string/ui_image_description_default"
+        app:srcCompat="@drawable/img_placeholder_wide" />
 
     <TextView
         android:id="@+id/textCBModelName"
@@ -24,13 +24,15 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/imgCBModel"
         android:gravity="center_vertical"
-        android:text="@string/ui_label_default_value" />
+        android:text="@string/ui_label_default_value"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textCBModelYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgCBModel"
+        android:layout_below="@+id/textCBModelName"
+        android:layout_marginTop="4dp"
         android:layout_toEndOf="@+id/imgCBModel"
         android:gravity="center_vertical"
         android:text="@string/ui_label_default_value" />
@@ -39,12 +41,10 @@
         android:id="@+id/textCBBadgeCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textCBModelYear"
-        android:layout_alignBottom="@+id/textCBModelYear"
-        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/listBadges"
+        android:layout_toEndOf="@+id/imgCBModel"
         android:gravity="center_vertical"
-        android:text="@string/ui_label_default_value"
-        android:textAlignment="textEnd" />
+        android:text="@string/ui_label_default_value" />
 
     <ListView
         android:id="@+id/listBadges"
