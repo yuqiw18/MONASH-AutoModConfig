@@ -16,7 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/alfaromeo" />
 
     <ImageButton
@@ -24,9 +24,10 @@
         android:layout_width="@dimen/img64"
         android:layout_height="@dimen/img64"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_toEndOf="@+id/btnRespray"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/alfaromeo" />
 
     <ImageButton
@@ -35,7 +36,7 @@
         android:layout_height="@dimen/img64"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/alfaromeo" />
 
     <ImageButton
@@ -43,9 +44,10 @@
         android:layout_width="@dimen/img64"
         android:layout_height="@dimen/img64"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_toStartOf="@+id/btnExhaust"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/alfaromeo" />
 
     <ImageButton
@@ -55,7 +57,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/alfaromeo" />
 
     <TextView
@@ -120,7 +122,7 @@
         android:layout_alignStart="@+id/textRespray"
         android:layout_below="@+id/textRespray"
         android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/bmw" />
 
     <ImageButton
@@ -130,7 +132,7 @@
         android:layout_alignStart="@+id/textBumper"
         android:layout_below="@+id/textBumper"
         android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/bmw" />
 
     <ImageButton
@@ -140,7 +142,7 @@
         android:layout_alignStart="@+id/textBonnet"
         android:layout_below="@+id/textBonnet"
         android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/bmw" />
 
     <ImageButton
@@ -150,7 +152,7 @@
         android:layout_alignStart="@+id/textExhaust"
         android:layout_below="@+id/textExhaust"
         android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/bmw" />
 
     <ImageButton
@@ -160,7 +162,7 @@
         android:layout_alignEnd="@+id/textSpoiler"
         android:layout_below="@+id/textSpoiler"
         android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bmw"
         app:srcCompat="@drawable/bmw" />
 
     <TextView
