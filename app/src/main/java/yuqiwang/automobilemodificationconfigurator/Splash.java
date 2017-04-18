@@ -159,7 +159,7 @@ public class Splash extends AppCompatActivity {
 
                     startActivity(main);
                 }
-            }, 5000);
+            }, 1);
         }else {
             // After downloading
             Handler handler = new Handler();
