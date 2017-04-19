@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="yuqiwang.automobilemodificationconfigurator.Previewer">
+    tools:context="yuqi.amc.Previewer">
 
     <fragment
         android:id="@+id/fragmentRenderer"
-        android:name="yuqiwang.automobilemodificationconfigurator.RendererFragment"
+        android:name="yuqi.amc.RendererFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/fragmentPartList"
-        android:name="yuqiwang.automobilemodificationconfigurator.PartListFragment"
+        android:name="yuqi.amc.PartListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

@@ -32,7 +32,9 @@
         <activity android:name=".ConfiguratorBrand" />
         <activity android:name=".ConfiguratorModel" />
         <activity android:name=".ConfiguratorBadge" />
-        <activity android:name=".Previewer" />
+        <activity android:name=".Previewer"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|orientation"/>
         <activity android:name=".Checkout" />
         <activity android:name=".CheckoutServiceCenter" />
         <activity android:name=".CheckoutPaymentMethod" />

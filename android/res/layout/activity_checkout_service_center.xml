@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="yuqiwang.automobilemodificationconfigurator.CheckoutServiceCenter">
+    tools:context="yuqi.amc.CheckoutServiceCenter">
 
     <fragment
         android:id="@+id/map_fragment"

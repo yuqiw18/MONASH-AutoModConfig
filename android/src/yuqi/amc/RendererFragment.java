@@ -25,9 +25,7 @@ public class RendererFragment extends AndroidFragmentApplication {
 //        return view;
         //return inflater.inflate(R.layout.fragment_renderer, container, false);
 
-
         return initializeForView(new Renderer());
-
     }
 
 }

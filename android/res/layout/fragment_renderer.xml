@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:surfaceview="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/black"
-    tools:context="yuqiwang.automobilemodificationconfigurator.RendererFragment">
+    tools:context="yuqi.amc.RendererFragment">
 
     <org.rajawali3d.surface.RajawaliSurfaceView
         android:id="@+id/rajawali_surface"

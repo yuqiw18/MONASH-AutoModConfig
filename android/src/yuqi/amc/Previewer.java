@@ -11,7 +11,7 @@ import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 public class Previewer extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
 
     private FragmentManager fragmentManager;
-    private Fragment rendererFragment;
+    private RendererFragment rendererFragment;
     private Fragment partListFragment;
 
     @Override
@@ -23,7 +23,9 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
         fragmentManager = getSupportFragmentManager();
         rendererFragment = new RendererFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragmentRenderer, rendererFragment).commit();
+        //fragmentTransaction.add(R.id.fragmentRenderer, rendererFragment).commit();
+        fragmentTransaction.replace(android.R.id.content,rendererFragment).commit();
+
     }
 
     @Override
@@ -34,6 +36,5 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
 
     @Override
     public void exit() {}
-
 
 }
