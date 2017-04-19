@@ -20,12 +20,12 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
 
         setContentView(R.layout.activity_previewer);
 
-        fragmentManager = getSupportFragmentManager();
-        rendererFragment = new RendererFragment();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ////fragmentManager = getSupportFragmentManager();
+        ////rendererFragment = new RendererFragment();
+        ////FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //fragmentTransaction.add(R.id.fragmentRenderer, rendererFragment).commit();
-        fragmentTransaction.replace(android.R.id.content,rendererFragment).commit();
-
+        ////fragmentTransaction.replace(R.id.fragmentRenderer,rendererFragment).commit();
+        //android.R.id.content
     }
 
     @Override

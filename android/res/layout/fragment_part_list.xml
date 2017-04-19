@@ -51,13 +51,14 @@
 
         <TableRow
             android:layout_width="0dp">
+
             <TextView
                 android:id="@+id/textRespray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="Respray"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textBumper"
@@ -65,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="Bumper"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textBonnet"
@@ -73,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="Bonnet"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textSpoiler"
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:text="Spoiler"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textExhaust"
@@ -89,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="Exhasut"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
         </TableRow>
 
@@ -140,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:text="Suspension"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textBrake"
@@ -148,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:text="Brake"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textRim"
@@ -156,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:text="Rim"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textTyre"
@@ -164,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tyre"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/textLighting"
@@ -172,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:text="Lighting"
                 android:textAlignment="center"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="12sp" />
         </TableRow>
     </TableLayout>
