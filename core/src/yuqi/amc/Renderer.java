@@ -22,22 +22,22 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Created by ClayW on 19/04/2017.
+ * Created by Yuqi on 19/04/2017.
  */
 
 public class Renderer implements ApplicationListener {
 
-    public Environment environment;
-    public PerspectiveCamera cam;
-    public CameraInputController camController;
-    public ModelBatch modelBatch;
-    public Model model;
-    public AssetManager assetManager;
-    public Array<ModelInstance> instances = new Array<ModelInstance>();
-    public boolean isLoading;
+    private Environment environment;
+    private PerspectiveCamera cam;
+    private CameraInputController camController;
+    private ModelBatch modelBatch;
+    private AssetManager assetManager;
+    private Array<ModelInstance> instances = new Array<ModelInstance>();
+    private boolean isLoading;
 
     @Override
     public void create() {
+
         modelBatch = new ModelBatch();
 
         environment = new Environment();
@@ -45,7 +45,7 @@ public class Renderer implements ApplicationListener {
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
         cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        cam.position.set(10f, 10f, 10f);
+        cam.position.set(2f, 2f, 2f);
         cam.lookAt(0,0,0);
         cam.near = 1f;
         cam.far = 300f;
@@ -55,7 +55,7 @@ public class Renderer implements ApplicationListener {
         Gdx.input.setInputProcessor(camController);
 
         assetManager = new AssetManager();
-        assetManager.load("nissan_skyline_gtr.obj",Model.class);
+        assetManager.load("icosahedron.obj",Model.class);
         isLoading = true;
 
 //        ModelBuilder modelBuilder = new ModelBuilder();
@@ -73,7 +73,7 @@ public class Renderer implements ApplicationListener {
     }
 
     private void doneLoading(){
-        Model car = assetManager.get("nissan_skyline_gtr.obj", Model.class);
+        Model car = assetManager.get("icosahedron.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
         instances.add(carInstance);
         isLoading = false;

@@ -1,0 +1,2 @@
+
+mtllib nissan_skyline_gtr.mtl

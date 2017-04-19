@@ -23,7 +23,6 @@ import yuqi.amc.DataStruct.Brand;
 import yuqi.amc.DataStruct.Model;
 import yuqi.amc.Main;
 
-
 // Splash screen recreated using libGDX
 public class AndroidLauncher extends AndroidApplication {
 
@@ -150,7 +149,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 					startActivity(main);
 				}
-			}, 1);
+			}, 3000);
 		} else {
 			// After downloading
 			Handler handler = new Handler();

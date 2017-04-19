@@ -1,6 +1,5 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib nissan_skyline_gtr.mtl
 g default
 v 1.271316 1.071601 5.573349
 v 1.464517 1.071551 5.501534

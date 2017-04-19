@@ -7,31 +7,43 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * Created by ClayW on 19/04/2017.
+ * Created by Yuqi on 19/04/2017.
  */
 
 public class Main extends ApplicationAdapter {
-    SpriteBatch batch;
-    Texture img;
+
+    private SpriteBatch spriteBatch;
+    private Texture splash;
 
     @Override
     public void create () {
-        batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
+        spriteBatch = new SpriteBatch();
+        splash = new Texture("splash.png");
     }
 
     @Override
     public void render () {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        // Get screen width and height
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        // Get splash width and height
+        float sw = splash.getWidth();
+        float sh = splash.getHeight();
+
+        // Set background color to white
+        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(img, 0, 0);
-        batch.end();
+
+        // Start drawing the splash at the center of screen
+        spriteBatch.begin();
+        spriteBatch.draw(splash, w/2 - sw/2, h/2 - sh/2);
+        spriteBatch.end();
     }
 
     @Override
     public void dispose () {
-        batch.dispose();
-        img.dispose();
+        spriteBatch.dispose();
+        splash.dispose();
     }
 }
