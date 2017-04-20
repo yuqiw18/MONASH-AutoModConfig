@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import yuqi.amc.DataStruct.Badge;
 import yuqi.amc.DataStruct.DataStruct;
 import yuqi.amc.DataStruct.Model;
 
@@ -70,9 +71,9 @@ public class ConfiguratorBadge extends AppCompatActivity {
         badgeListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                String selectedModel = badgeList.get(position).getName();
+                Badge selectedBadge = (Badge) badgeList.get(position);
                 Intent intent = new Intent(ConfiguratorBadge.this, Previewer.class);
-                intent.putExtra("BADGE",selectedModel);
+                intent.putExtra("BADGE",selectedBadge);
                 startActivity(intent);
             }
         });

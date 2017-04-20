@@ -47,7 +47,6 @@ public class Brand extends DataStruct {
         origin = source.readString();
     }
 
-
 }
 
 

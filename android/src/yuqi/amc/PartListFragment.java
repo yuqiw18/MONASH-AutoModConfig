@@ -1,5 +1,7 @@
 package yuqi.amc;
 
+import yuqi.amc.DataStruct.Badge;
+import yuqi.amc.DataStruct.Brand;
 import yuqi.amc.DataStruct.DataStruct;
 
 import android.graphics.Typeface;
@@ -14,6 +16,9 @@ import android.widget.ListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class PartListFragment extends Fragment implements OnClickListener {
@@ -22,6 +27,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
     private DataAdapter dataAdapter;
     private DatabaseHelper databaseHelper;
     private ArrayList<DataStruct> partList;
+    private static String[] COLUMNS = {"PART_TYPE","MODEL_NAME","BADGE_NAME"};
 
     private ImageButton btnRespray;
     private ImageButton btnBumper;
@@ -47,12 +53,15 @@ public class PartListFragment extends Fragment implements OnClickListener {
 
     private TextView sectionHeader;
 
+    private Badge data;
+
+
     public PartListFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
@@ -111,6 +120,13 @@ public class PartListFragment extends Fragment implements OnClickListener {
         sectionHeader.setText("RESPRAY");
         textRespray.setTypeface(null, Typeface.BOLD);
 
+        Bundle incomingData = getActivity().getIntent().getExtras();
+
+        if (incomingData!=null){
+            data = incomingData.getParcelable("BADGE");
+            Log.e("Badge:", data.getName());
+        }
+
         return view;
         // Initialise all the variables
     }
@@ -118,6 +134,9 @@ public class PartListFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        String badge = data.getName();
+        String model = data.getModelName();
 
         switch (v.getId()){
             case R.id.btnRespray:
@@ -132,7 +151,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("BUMPER");
                 textBumper.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Bumper"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Bumper",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -140,7 +159,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("BONNET");
                 textBonnet.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Bonnet"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Bonnet",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -148,7 +167,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("SPOILER");
                 textSpoiler.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Spoiler"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Spoiler",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -156,7 +175,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("EXHAUST");
                 textExhaust.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Exhaust"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Exhaust",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -164,7 +183,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("SUSPENSION");
                 textSuspension.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Suspension"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Suspension",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -172,7 +191,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("BRAKE");
                 textBrake.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Brake"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Brake",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -180,7 +199,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("RIM");
                 textRim.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Rim"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Rim",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -188,7 +207,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("TYRE");
                 textTyre.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Tyre"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Tyre",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;
@@ -196,7 +215,7 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("LIGHTING");
                 textLighting.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Lighting"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Lighting",model,badge}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;

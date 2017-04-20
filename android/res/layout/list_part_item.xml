@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textPartName"
@@ -8,5 +9,28 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/ui_label_default_value"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textPartPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textCurrency"
+        android:layout_alignBottom="@+id/textCurrency"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/textCurrency"
+        android:text="@string/ui_label_default_value"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textPartName"
+        android:text="$"
+        android:textSize="12sp" />
 </RelativeLayout>

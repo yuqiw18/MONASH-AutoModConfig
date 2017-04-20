@@ -92,13 +92,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (columnName != null){
 
             if(columnName.length == 1){
-
                 cursor = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + columnName[0] + " =?", args);
-            }else{
+            }else if (columnName.length == 2){
                 cursor = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + columnName[0] + " =?" + "AND " + columnName[1] + " =?", args);
+            }else {
+                cursor = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + columnName[0] + " =?" + "AND " + columnName[1] + " =?" + "AND " + columnName[2] + " =?", args);
             }
         }else{
-
             cursor = db.rawQuery("SELECT * FROM " + tableName, null);
         }
 
@@ -171,7 +171,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return found;
     }
-
 
     public int countParts(){
         SQLiteDatabase db = this.getReadableDatabase();

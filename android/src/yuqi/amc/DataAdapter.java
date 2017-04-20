@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import yuqi.amc.DataStruct.DataStruct;
 import yuqi.amc.DataStruct.Model;
+import yuqi.amc.DataStruct.Part;
 
 
 public class DataAdapter extends BaseAdapter {
@@ -87,6 +88,7 @@ public class DataAdapter extends BaseAdapter {
                     convertView = inflater.inflate(R.layout.list_part_item, null);
                     viewHolder = new ViewHolder();
                     viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textPartName);
+                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textPartPrice);
                     convertView.setTag(viewHolder);
                     break;
                 default:
@@ -103,7 +105,6 @@ public class DataAdapter extends BaseAdapter {
 
             case "ConfiguratorBrand":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
-                //viewHolder.imageViewPlaceHolder.setImageResource(Utility.getResourceID(dataList.get(position).getName(),R.drawable.class));
                 Picasso.with(context).load(Utility.getImageAddress(dataList.get(position).getName())).placeholder(R.drawable.img_placeholder).into(viewHolder.imageViewPlaceHolder);
                 break;
             case "ConfiguratorModel":
@@ -116,6 +117,7 @@ public class DataAdapter extends BaseAdapter {
                 break;
             case "Previewer":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                viewHolder.textViewPlaceHolder2.setText(Double.toString(((Part)dataList.get(position)).getPrice()));
                 break;
             default:
                 return convertView;

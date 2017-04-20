@@ -1,5 +1,7 @@
 package yuqi.amc.DataStruct;
 
+import android.os.Parcel;
+
 /**
  * Created by ClayW on 14/04/2017.
  */
@@ -31,5 +33,32 @@ public class Badge extends DataStruct {
 
     public String getModelName(){
         return modelName;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.year);
+        dest.writeString(this.modelName);
+    }
+
+    public static final Creator<Badge> CREATOR = new Creator<Badge>() {
+        @Override
+        public Badge createFromParcel(Parcel source) {
+            return new Badge(source);
+        }
+
+        @Override
+        public Badge[] newArray(int size) {
+            return new Badge[size];
+        }
+    };
+
+    protected Badge(Parcel source){
+        id = source.readLong();
+        name = source.readString();
+        year = source.readString();
+        modelName = source.readString();
     }
 }
