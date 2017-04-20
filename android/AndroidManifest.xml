@@ -2,11 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="yuqi.amc"
     android:versionCode="1"
-    android:versionName="1.0" >
-    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="25" />
+    android:versionName="1.0">
 
-    <permission android:name="yuqi.amc.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
-    <uses-permission android:name="yuqi.amc.permission.MAPS_RECEIVE"/>
+    <uses-sdk
+        android:minSdkVersion="23"
+        android:targetSdkVersion="25" />
+
+    <permission
+        android:name="yuqi.amc.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="yuqi.amc.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,44 +20,54 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-feature android:glEsVersion="0x00030001" android:required="true" />
+
+    <uses-feature
+        android:glEsVersion="0x00030001"
+        android:required="true" />
+
+    <!-- Google Play Services Version -->
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+    <!-- Android Google Maps API v2 Key -->
+    <meta-data
+        android:name="com.google.android.maps.v2.API_KEY"
+        android:value="AIzaSyBfbYzZDVMXlxJXPnNsp2JKAjcR6afEYy8" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="AMC"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".AndroidLauncher"
-                    android:theme="@style/GdxTheme"
-                    android:screenOrientation="portrait"
-            >
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".AndroidLauncher"
+            android:screenOrientation="portrait"
+            android:theme="@style/GdxTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainMenu" />
         <activity android:name=".Member" />
         <activity android:name=".ConfiguratorBrand" />
         <activity android:name=".ConfiguratorModel" />
         <activity android:name=".ConfiguratorBadge" />
-        <activity android:name=".Previewer"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboard|keyboardHidden|orientation"/>
+        <activity
+            android:name=".Previewer"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
         <activity android:name=".Checkout" />
         <activity android:name=".CheckoutServiceCenter" />
         <activity android:name=".CheckoutPaymentMethod" />
-        <activity android:name=".OrderTracking"></activity>
+        <activity android:name=".OrderTracking" />
+        <activity
+            android:name=".MainMenu"
+            android:label="@string/title_activity_main_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
-    <!-- Google Play Services Version -->
-    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"
-        />
-    <!-- Android Google Maps API v2 Key -->
-    <meta-data
-        android:name="com.google.android.maps.v2.API_KEY"
-        android:value="AIzaSyBfbYzZDVMXlxJXPnNsp2JKAjcR6afEYy8"
-    />
-
 
 </manifest>

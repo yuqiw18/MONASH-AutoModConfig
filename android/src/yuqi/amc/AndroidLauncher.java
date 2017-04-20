@@ -146,7 +146,7 @@ public class AndroidLauncher extends AndroidApplication {
 			Handler handler = new Handler();
 			handler.postDelayed(new Runnable() {
 				public void run() {
-					Intent main = new Intent(AndroidLauncher.this, ConfiguratorBrand.class);
+					Intent main = new Intent(AndroidLauncher.this, MainMenu.class);
 
 					// Set up main activity
 					main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -161,7 +161,7 @@ public class AndroidLauncher extends AndroidApplication {
 			Handler handler = new Handler();
 			handler.postDelayed(new Runnable() {
 				public void run() {
-					Intent main = new Intent(AndroidLauncher.this, ConfiguratorBrand.class);
+					Intent main = new Intent(AndroidLauncher.this, MainMenu.class);
 
 					// Set up main activity
 					main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
