@@ -14,7 +14,6 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-
     @Override
     public void onBackPressed() {
         finish();

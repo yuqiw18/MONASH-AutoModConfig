@@ -79,8 +79,6 @@ public class Renderer implements ApplicationListener {
         isLoading = false;
     }
 
-
-
     @Override
     public void render() {
 
@@ -104,6 +102,7 @@ public class Renderer implements ApplicationListener {
         modelBatch.dispose();
         instances.clear();
         assetManager.dispose();
+
     }
 
     @Override

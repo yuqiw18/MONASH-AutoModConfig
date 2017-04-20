@@ -84,9 +84,11 @@ public class DataAdapter extends BaseAdapter {
                     convertView.setTag(viewHolder);
                     break;
                 case "Previewer":
-
-                    return convertView;
-
+                    convertView = inflater.inflate(R.layout.list_part_item, null);
+                    viewHolder = new ViewHolder();
+                    viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textPartName);
+                    convertView.setTag(viewHolder);
+                    break;
                 default:
 
                     return convertView;
@@ -113,15 +115,11 @@ public class DataAdapter extends BaseAdapter {
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
                 break;
             case "Previewer":
-
-                return convertView;
-
+                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                break;
             default:
-
                 return convertView;
-
         }
-
         return convertView;
     }
 }

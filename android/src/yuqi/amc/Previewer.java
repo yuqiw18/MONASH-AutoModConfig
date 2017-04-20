@@ -28,11 +28,11 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
         //android.R.id.content
     }
 
-    @Override
-    public void onBackPressed() {
-        getSupportFragmentManager().beginTransaction().remove(rendererFragment).commit();
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        getSupportFragmentManager().beginTransaction().remove(rendererFragment).commit();
+//        super.onBackPressed();
+//    }
 
     @Override
     public void exit() {}

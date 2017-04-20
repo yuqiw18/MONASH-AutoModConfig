@@ -68,6 +68,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put("MODEL_NAME", ((Badge) data).getModelName());
             db.insert("BADGE", null, values);
         }
+
+        if (data instanceof Part){
+            values.put("PART_NAME", data.getName());
+            values.put("PART_TYPE", ((Part) data).getType());
+            values.put("PART_PRICE", ((Part) data).getPrice());
+            values.put("PART_STOCK", ((Part) data).getStock());
+            values.put("MODEL_NAME", ((Part) data).getModelName());
+            values.put("BADGE_NAME", ((Part) data).getBadgeName());
+            db.insert("PART", null, values);
+        }
         db.close();
     }
 
@@ -126,10 +136,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     break;
                 case "PART":
                     do {
-                        DataStruct newData = new Brand(
+                        DataStruct newData = new Part(
                                 cursor.getLong(0),
                                 cursor.getString(1),
-                                cursor.getString(2)
+                                cursor.getString(2),
+                                cursor.getDouble(3),
+                                cursor.getInt(4),
+                                cursor.getString(5),
+                                cursor.getString(6)
                         );
                         data.put(newData.getId(), newData);
                     }while(cursor.moveToNext());
@@ -142,7 +156,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean isEmpty(){
-
         SQLiteDatabase db = this.getReadableDatabase();
         boolean found = true;
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM BRAND", null);
@@ -153,6 +166,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return found;
+    }
+
+
+    public int countParts(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int num = 0;
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM PARTS", null);
+        if (cursor != null && cursor.moveToFirst()) {
+            num = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+
+        return num;
     }
 
 }

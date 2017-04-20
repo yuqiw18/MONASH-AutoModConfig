@@ -21,6 +21,7 @@ import java.net.URL;
 import yuqi.amc.DataStruct.Badge;
 import yuqi.amc.DataStruct.Brand;
 import yuqi.amc.DataStruct.Model;
+import yuqi.amc.DataStruct.Part;
 import yuqi.amc.Main;
 
 // Splash screen recreated using libGDX
@@ -112,6 +113,11 @@ public class AndroidLauncher extends AndroidApplication {
 								Badge badge = new Badge(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("year"), tempJSON.getString("modelName"));
 								databaseHelper.addData(badge);
 								Log.e("Loaded: ",badge.getName());
+								break;
+							case "part":
+								Part part = new Part(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("type"), tempJSON.getDouble("price"), tempJSON.getInt("stock"), tempJSON.getString("modelName"),tempJSON.getString("badgeName"));
+								databaseHelper.addData(part);
+								Log.e("Loaded: ",part.getName());
 								break;
 							default:
 								break;

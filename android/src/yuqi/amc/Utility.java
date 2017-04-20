@@ -11,7 +11,7 @@ public final class Utility {
 
     public static final String IMAGE_SOURCE = "http://yuqi.ninja/amc/img/";
     public static final String DATA_SOURCE = "http://yuqi.ninja/amc/data/";
-    public static final String DATA_CONTENT[] = {"brand", "model", "badge"};
+    public static final String DATA_CONTENT[] = {"brand", "model", "badge", "part"};
     public static final String DATA_FORMAT = ".json";
     public static final String IMAGE_FORMAT = ".png";
 
