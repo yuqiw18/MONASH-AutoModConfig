@@ -63,13 +63,6 @@ public class PartListFragment extends Fragment implements OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_part_list, container, false);
 
-        // Listview and database-related variables
-        databaseHelper = new DatabaseHelper(this.getContext());
-        partList = new ArrayList<>(databaseHelper.getData("PART", null, null).values());
-        partListView = (ListView) view.findViewById(R.id.listParts);
-        dataAdapter = new DataAdapter(getContext(), partList);
-        partListView.setAdapter(dataAdapter);
-
         // UI-related variables
         textRespray = (TextView) view.findViewById(R.id.textRespray);
         textBumper = (TextView) view.findViewById(R.id.textBumper);
@@ -105,6 +98,19 @@ public class PartListFragment extends Fragment implements OnClickListener {
         btnLighting = (ImageButton) view.findViewById(R.id.btnLighting);
         btnLighting.setOnClickListener(this);
 
+        // Listview and database-related variables
+        databaseHelper = new DatabaseHelper(this.getContext());
+
+        partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Respray"}).values());
+        partListView = (ListView) view.findViewById(R.id.listParts);
+
+        dataAdapter = new DataAdapter(getContext(), partList);
+        partListView.setAdapter(dataAdapter);
+
+        resetText();
+        sectionHeader.setText("RESPRAY");
+        textRespray.setTypeface(null, Typeface.BOLD);
+
         return view;
         // Initialise all the variables
     }
@@ -118,7 +124,79 @@ public class PartListFragment extends Fragment implements OnClickListener {
                 resetText();
                 sectionHeader.setText("RESPRAY");
                 textRespray.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", "PART_TYPE", new String[]{"Respray"}).values());
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Respray"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnBumper:
+                resetText();
+                sectionHeader.setText("BUMPER");
+                textBumper.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Bumper"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnBonnet:
+                resetText();
+                sectionHeader.setText("BONNET");
+                textBonnet.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Bonnet"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnSpoiler:
+                resetText();
+                sectionHeader.setText("SPOILER");
+                textSpoiler.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Spoiler"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnExhaust:
+                resetText();
+                sectionHeader.setText("EXHAUST");
+                textExhaust.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Exhaust"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnSuspension:
+                resetText();
+                sectionHeader.setText("SUSPENSION");
+                textSuspension.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Suspension"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnBrake:
+                resetText();
+                sectionHeader.setText("BRAKE");
+                textBrake.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Brake"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnRim:
+                resetText();
+                sectionHeader.setText("RIM");
+                textRim.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Rim"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnTyre:
+                resetText();
+                sectionHeader.setText("TYRE");
+                textTyre.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Tyre"}).values());
+                dataAdapter = new DataAdapter(getContext(), partList);
+                partListView.setAdapter(dataAdapter);
+                break;
+            case R.id.btnLighting:
+                resetText();
+                sectionHeader.setText("LIGHTING");
+                textLighting.setTypeface(null, Typeface.BOLD);
+                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Lighting"}).values());
                 dataAdapter = new DataAdapter(getContext(), partList);
                 partListView.setAdapter(dataAdapter);
                 break;

@@ -49,7 +49,7 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
             Model data = incomingData.getParcelable("MODEL");
 
-            badgeList = new ArrayList<>(databaseHelper.getData("BADGE", "MODEL_NAME", new String[]{data.getName()}).values());
+            badgeList = new ArrayList<>(databaseHelper.getData("BADGE", new String[]{"MODEL_NAME"}, new String[]{data.getName()}).values());
 
             Log.e("Got:",data.getName());
 

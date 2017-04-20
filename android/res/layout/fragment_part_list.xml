@@ -119,14 +119,14 @@
                 android:background="@drawable/img_placeholder" />
 
             <ImageButton
-                android:id="@+id/btnLighting"
+                android:id="@+id/btnTyre"
                 android:layout_width="@dimen/img64"
                 android:layout_height="@dimen/img64"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/img_placeholder" />
 
             <ImageButton
-                android:id="@+id/btnTyre"
+                android:id="@+id/btnLighting"
                 android:layout_width="@dimen/img64"
                 android:layout_height="@dimen/img64"
                 android:layout_marginTop="8dp"

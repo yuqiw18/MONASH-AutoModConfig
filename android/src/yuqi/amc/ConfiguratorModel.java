@@ -46,7 +46,7 @@ public class ConfiguratorModel extends AppCompatActivity {
 
             Brand data = incomingData.getParcelable("BRAND");
 
-            modelList = new ArrayList<>(databaseHelper.getData("MODEL", "BRAND_NAME", new String[]{data.getName()}).values());
+            modelList = new ArrayList<>(databaseHelper.getData("MODEL", new String[]{"BRAND_NAME"}, new String[]{data.getName()}).values());
 
             dataAdapter = new DataAdapter(this, modelList);
 

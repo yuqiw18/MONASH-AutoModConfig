@@ -81,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public HashMap<Long, DataStruct> getData(String tableName, String columnName, String[] args ) {
+    public HashMap<Long, DataStruct> getData(String tableName, String[] columnName, String[] args ) {
 
         HashMap<Long, DataStruct> data = new LinkedHashMap<>();
 
@@ -89,13 +89,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor;
 
-        if (columnName == null){
+        if (columnName != null){
 
-            cursor = db.rawQuery("SELECT * FROM " + tableName, null);
+            if(columnName.length == 1){
 
+                cursor = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + columnName[0] + " =?", args);
+            }else{
+                cursor = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + columnName[0] + " =?" + "AND " + columnName[1] + " =?", args);
+            }
         }else{
 
-            cursor = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + columnName + " =?", args);
+            cursor = db.rawQuery("SELECT * FROM " + tableName, null);
         }
 
         if(cursor.moveToFirst()) {
