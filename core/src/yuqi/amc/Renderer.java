@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.loaders.ModelLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
+import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.utils.Array;
@@ -55,27 +57,44 @@ public class Renderer implements ApplicationListener {
         Gdx.input.setInputProcessor(camController);
 
         assetManager = new AssetManager();
-        assetManager.load("gtr.obj",Model.class);
+        assetManager.load("gtr_body.obj",Model.class);
+        assetManager.load("gtr_body_window.obj",Model.class);
+        assetManager.load("gtr_rim.obj",Model.class);
+        assetManager.load("gtr_tyre.obj",Model.class);
         isLoading = true;
-
-//        ModelBuilder modelBuilder = new ModelBuilder();
-//        model = modelBuilder.createBox(5f, 5f, 5f,
-//                new Material(ColorAttribute.createDiffuse(Color.GREEN)),
-//                Usage.Position | Usage.Normal);
-//        instance = new ModelInstance(model);
-
-//
-//        ModelLoader loader = new ObjLoader();
-//        model = loader.loadModel(Gdx.files.internal("nissan_skyline_gtr.obj"));
-//        instance = new ModelInstance(model);
-
 
     }
 
     private void doneLoading(){
-        Model car = assetManager.get("gtr.obj", Model.class);
-        ModelInstance carInstance = new ModelInstance(car);
-        instances.add(carInstance);
+        Model body = assetManager.get("gtr_body.obj", Model.class);
+        ModelInstance bodyIns = new ModelInstance(body);
+        instances.add(bodyIns);
+
+        Model carWind = assetManager.get("gtr_body_window.obj", Model.class);
+        ModelInstance carWindInstance = new ModelInstance(carWind);
+        instances.add(carWindInstance);
+
+        Model rim = assetManager.get("gtr_rim.obj", Model.class);
+        ModelInstance rimIns = new ModelInstance(rim);
+        instances.add(rimIns);
+
+        Model tyre = assetManager.get("gtr_tyre.obj", Model.class);
+        ModelInstance tyreIns = new ModelInstance(tyre);
+        instances.add(tyreIns);
+
+//        Model body;
+//        Model bodyA;
+//        Model bodyB;
+//        Model bumper;
+//        Model bonnet;
+//        Model spoiler;
+//        Model exhaust;
+//        Model brake;
+//        Model rim;
+//        Model tyre;
+//        Model lightingA;
+//        Model lightingB;
+
         isLoading = false;
     }
 
