@@ -23,6 +23,8 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.utils.Array;
 
+import javax.jws.WebParam;
+
 /**
  * Created by Yuqi on 19/04/2017.
  */
@@ -61,6 +63,8 @@ public class Renderer implements ApplicationListener {
         assetManager.load("gtr_body_window.obj",Model.class);
         assetManager.load("gtr_rim.obj",Model.class);
         assetManager.load("gtr_tyre.obj",Model.class);
+        assetManager.load("gtr_bodyA.obj", Model.class);
+        assetManager.load("gtr_lightingA.obj", Model.class);
         isLoading = true;
 
     }
@@ -68,6 +72,8 @@ public class Renderer implements ApplicationListener {
     private void doneLoading(){
         Model body = assetManager.get("gtr_body.obj", Model.class);
         ModelInstance bodyIns = new ModelInstance(body);
+
+        bodyIns.materials.get(0).set(ColorAttribute.createDiffuse(Color.RED));
         instances.add(bodyIns);
 
         Model carWind = assetManager.get("gtr_body_window.obj", Model.class);
@@ -84,6 +90,9 @@ public class Renderer implements ApplicationListener {
 
 //        Model body;
 //        Model bodyA;
+        Model bodyA = assetManager.get("gtr_bodyA.obj", Model.class);
+        ModelInstance bodyAIns = new ModelInstance(bodyA);
+        instances.add(bodyAIns);
 //        Model bodyB;
 //        Model bumper;
 //        Model bonnet;
@@ -93,6 +102,12 @@ public class Renderer implements ApplicationListener {
 //        Model rim;
 //        Model tyre;
 //        Model lightingA;
+        Model lightingA = assetManager.get("gtr_lightingA.obj", Model.class);
+        ModelInstance lightingAIns = new ModelInstance(lightingA);
+        instances.add(lightingAIns);
+
+
+
 //        Model lightingB;
 
         isLoading = false;
@@ -110,6 +125,9 @@ public class Renderer implements ApplicationListener {
 
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+
+
 
         modelBatch.begin(cam);
         modelBatch.render(instances, environment);

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -127,6 +128,14 @@ public class PartListFragment extends Fragment implements OnClickListener {
             Log.e("Badge:", data.getName());
         }
 
+
+        partListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+
+            }
+        });
+
         return view;
         // Initialise all the variables
     }
@@ -236,4 +245,8 @@ public class PartListFragment extends Fragment implements OnClickListener {
         textTyre.setTypeface(null, Typeface.NORMAL);
         textLighting.setTypeface(null, Typeface.NORMAL);
     }
+
+
+
+
 }
