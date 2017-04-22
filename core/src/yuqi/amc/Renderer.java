@@ -30,6 +30,7 @@ public class Renderer implements ApplicationListener {
     private AssetManager assetManager;
     private Array<ModelInstance> instances = new Array<ModelInstance>();
     private boolean isLoading;
+    private boolean updateLoading;
 
     @Override
     public void create() {
@@ -213,7 +214,31 @@ public class Renderer implements ApplicationListener {
                 for (int i = 0; i < 4; i ++) {
                     instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.WHITE));
                 }
+                //replacePart();
                 break;
         }
+    }
+
+
+    public void replacePart(){
+
+        assetManager.load("mitsubishi_lancer_evo_bonnet.obj", Model.class);
+//        updateLoading = false;
+//
+        while (!assetManager.isLoaded("mitsubishi_lancer_evo_bonnet.obj", Model.class)){
+
+            System.out.println("Loading!!");
+            assetManager.update();
+        }
+
+//        if (updateLoading && assetManager.update()){
+
+            Model part = assetManager.get("mitsubishi_lancer_evo_bonnet.obj", Model.class);
+            instances.removeIndex(2);
+            instances.insert(2, new ModelInstance(part));
+            updateLoading = true;
+//        }
+
+
     }
 }

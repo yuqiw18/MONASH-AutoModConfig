@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import yuqi.amc.DataStruct.Badge;
 import yuqi.amc.DataStruct.DataStruct;
 import yuqi.amc.DataStruct.Model;
 import yuqi.amc.DataStruct.Part;
@@ -22,11 +23,13 @@ public class DataAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<DataStruct> dataList;
     private String identifier;
+    private DatabaseHelper databaseHelper;
 
     public DataAdapter(Context context, ArrayList<DataStruct> dataList){
         this.context = context;
         this.dataList = dataList;
         this.identifier = this.context.getClass().getSimpleName();
+        databaseHelper = new DatabaseHelper(context);
     }
 
     public static class ViewHolder{
@@ -73,7 +76,7 @@ public class DataAdapter extends BaseAdapter {
                 case "ConfiguratorModel":
                     convertView = inflater.inflate(R.layout.list_model_item, null);
                     viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textModelName);
+                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.textModelName);
                     viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textBodyType);
                     viewHolder.imageViewPlaceHolder = (ImageView) convertView.findViewById(R.id.imgModel);
                     convertView.setTag(viewHolder);
@@ -81,13 +84,14 @@ public class DataAdapter extends BaseAdapter {
                 case "ConfiguratorBadge":
                     convertView = inflater.inflate(R.layout.list_badge_item, null);
                     viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textBadgeName);
+                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.textBadgeName);
+                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textPartNum);
                     convertView.setTag(viewHolder);
                     break;
                 case "Previewer":
                     convertView = inflater.inflate(R.layout.list_part_item, null);
                     viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolder1 =  (TextView) convertView.findViewById(R.id.textPartName);
+                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.textPartName);
                     viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textPartPrice);
                     convertView.setTag(viewHolder);
                     break;
@@ -114,6 +118,7 @@ public class DataAdapter extends BaseAdapter {
                 break;
             case "ConfiguratorBadge":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                viewHolder.textViewPlaceHolder2.setText("Available Parts: " + databaseHelper.countParts(new String[]{((Badge)dataList.get(position)).getModelName(),((Badge)dataList.get(position)).getName()}));
                 break;
             case "Previewer":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());

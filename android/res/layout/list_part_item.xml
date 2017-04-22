@@ -18,12 +18,11 @@
         android:id="@+id/textPartPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/ui_label_default_value"
+        android:textSize="12sp"
         android:layout_alignBaseline="@+id/textCurrency"
         android:layout_alignBottom="@+id/textCurrency"
-        android:layout_marginBottom="8dp"
-        android:layout_toEndOf="@+id/textCurrency"
-        android:text="@string/ui_label_default_value"
-        android:textSize="12sp" />
+        android:layout_toEndOf="@+id/textCurrency" />
 
     <TextView
         android:id="@+id/textCurrency"

@@ -8,5 +8,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:text="@string/ui_label_default_value"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textPartNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textBadgeName"
+        android:layout_marginTop="4dp"
+        android:text="@string/ui_label_default_value" />
 </RelativeLayout>
