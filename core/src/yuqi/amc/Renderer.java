@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 import javax.jws.WebParam;
@@ -65,6 +66,7 @@ public class Renderer implements ApplicationListener {
         assetManager.load("gtr_tyre.obj",Model.class);
         assetManager.load("gtr_bodyA.obj", Model.class);
         assetManager.load("gtr_lightingA.obj", Model.class);
+        assetManager.load("stage.obj", Model.class);
         isLoading = true;
 
     }
@@ -73,7 +75,7 @@ public class Renderer implements ApplicationListener {
         Model body = assetManager.get("gtr_body.obj", Model.class);
         ModelInstance bodyIns = new ModelInstance(body);
 
-        bodyIns.materials.get(0).set(ColorAttribute.createDiffuse(Color.RED));
+        //bodyIns.materials.get(0).set(ColorAttribute.createDiffuse(Color.RED));
         instances.add(bodyIns);
 
         Model carWind = assetManager.get("gtr_body_window.obj", Model.class);
@@ -106,6 +108,11 @@ public class Renderer implements ApplicationListener {
         ModelInstance lightingAIns = new ModelInstance(lightingA);
         instances.add(lightingAIns);
 
+        Model stage = assetManager.get("stage.obj", Model.class);
+        ModelInstance stageIns = new ModelInstance(stage);
+        stageIns.transform.setToTranslation(0,-0.3f,0);
+        instances.add(stageIns);
+
 
 
 //        Model lightingB;
@@ -126,12 +133,15 @@ public class Renderer implements ApplicationListener {
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-
-
-
         modelBatch.begin(cam);
         modelBatch.render(instances, environment);
         modelBatch.end();
+
+//        if (cam.position.y < 0){
+//            cam.position.set(cam.position.x, 0, cam.position.z);
+//        }
+//
+//        System.out.println(cam.position);
     }
 
     @Override
@@ -152,5 +162,29 @@ public class Renderer implements ApplicationListener {
 
     @Override
     public void resume() {
+    }
+
+    public void updateScene(String type, String value){
+
+        switch (value){
+            case "Red":
+                instances.get(0).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#ff3333")));
+                break;
+            case "Blue":
+                instances.get(0).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#3366ff")));
+                break;
+            case "Green":
+                instances.get(0).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#2eb82e")));
+                break;
+            case "Yellow":
+                instances.get(0).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#ffcc00")));
+                break;
+            case "Black":
+                instances.get(0).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#1a1a1a")));
+                break;
+            default:
+                instances.get(0).materials.get(0).set(ColorAttribute.createDiffuse(Color.WHITE));
+                break;
+        }
     }
 }
