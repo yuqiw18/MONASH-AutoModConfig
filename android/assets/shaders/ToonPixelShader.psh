@@ -1,0 +1,44 @@
+//Pixel Shader Globals
+sampler2D tex0 : register(s0);
+sampler1D diffuseRamp : register(s1);
+
+float lineThickness;
+float lineHardness;
+float specularPower;
+
+struct PS_INPUT
+{
+	float4 Position: POSITION0;
+	float2 TexCoord: TEXCOORD0;
+	float3 Normal: TEXCOORD1;
+	float3 LightDir: TEXCOORD2;
+	float3 EyeDir: TEXCOORD3;
+};
+
+struct PS_OUTPUT
+{
+	float4 Colour: COLOR0;
+};
+
+PS_OUTPUT ps_main(in PS_INPUT In)
+{
+	PS_OUTPUT Output;
+
+	float4 texColour = tex2D(tex0, In.TexCoord);
+	float diffuse = clamp(dot(In.Normal, In.LightDir), 0.0, 1.0);
+	
+	float4 lightColour = tex1D(diffuseRamp, diffuse);
+
+	float fresnal = dot(In.Normal, In.EyeDir);
+	fresnal = clamp((fresnal - lineThickness) * lineHardness, 0.0, 1.0);
+	lightColour *= fresnal;
+
+	float3 reflect = normalize(2 * diffuse * In.Normal - In.LightDir);
+
+	float specular = pow(saturate(dot(reflect, In.EyeDir)), specularPower);
+	specular = clamp((specular - 0.5) * 1000.0, 0.0, 1.0);
+	
+	Output.Colour = saturate(lightColour * texColour + specular);
+
+	return Output;
+}

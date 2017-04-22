@@ -1,6 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib gtr_lightingA.mtl
+mtllib nissan_skyline_r34_lightingA.mtl
 g default
 v -1.416132 2.229502 -5.803145
 v -1.402959 2.229502 -5.811533
@@ -223,8 +223,8 @@ vn 0.176232 0.059357 -0.982557
 vn 0.190383 0.163384 -0.968019
 vn 0.190311 0.165614 -0.967654
 s off
-g polySurface73 Entity71
-usemtl lambert5SG
+g polySurface73 lightingA
+usemtl lambert2SG
 f 1//1 2//2 5//3 4//4
 f 2//5 3//6 6//7 5//8
 f 4//9 5//10 8//11 7//12
@@ -448,8 +448,8 @@ vn 0.268634 0.182858 -0.945727
 vn 0.268625 0.182853 -0.945730
 vn 0.268633 0.182839 -0.945731
 s off
-g Entity71 polySurface124
-usemtl lambert5SG
+g lightingA polySurface124
+usemtl lambert2SG
 f 61//161 64//162 65//163 62//164
 f 63//165 62//166 65//167
 f 64//168 66//169 67//170 65//171
@@ -712,8 +712,8 @@ vn -0.044395 0.189482 -0.980880
 vn -0.044401 0.188835 -0.981005
 vn -0.028370 0.088223 -0.995697
 s off
-g Entity71 polySurface125
-usemtl lambert5SG
+g lightingA polySurface125
+usemtl lambert2SG
 f 102//301 105//302 106//303 103//304
 f 103//305 106//306 107//307 104//308
 f 105//309 108//310 109//311 106//312
@@ -770,8 +770,8 @@ vn 0.013263 0.488311 -0.872569
 vn 0.013263 0.488311 -0.872569
 vn 0.000000 0.488354 -0.872646
 s off
-g Entity71 polySurface126
-usemtl lambert5SG
+g lightingA polySurface126
+usemtl lambert2SG
 f 163//461 167//462 166//463 162//464
 f 162//465 164//466 165//467 163//468
 g default
@@ -957,8 +957,8 @@ vn -0.268625 0.182853 -0.945730
 vn -0.268634 0.182858 -0.945727
 vn -0.268633 0.182839 -0.945731
 s off
-g Entity71 polySurface127
-usemtl lambert5SG
+g lightingA polySurface127
+usemtl lambert2SG
 f 168//469 169//470 172//471 171//472
 f 169//473 170//474 172//475
 f 171//476 172//477 174//478 173//479
@@ -1221,8 +1221,8 @@ vn 0.028370 0.088223 -0.995697
 vn 0.044401 0.188835 -0.981005
 vn 0.044395 0.189482 -0.980880
 s off
-g Entity71 polySurface128
-usemtl lambert5SG
+g lightingA polySurface128
+usemtl lambert2SG
 f 209//609 210//610 213//611 212//612
 f 210//613 211//614 214//615 213//616
 f 212//617 213//618 216//619 215//620
@@ -1485,8 +1485,8 @@ vn -0.190311 0.165614 -0.967654
 vn -0.190383 0.163384 -0.968019
 vn -0.176232 0.059357 -0.982557
 s off
-g Entity71 polySurface129
-usemtl lambert5SG
+g lightingA polySurface129
+usemtl lambert2SG
 f 269//769 272//770 273//771 270//772
 f 270//773 273//774 274//775 271//776
 f 272//777 275//778 276//779 273//780
@@ -1549,8 +1549,8 @@ vn -0.058228 -0.059037 -0.996556
 vn -0.058259 -0.059023 -0.996555
 vn -0.067418 -0.054823 -0.996217
 s off
-g Entity71 polySurface132
-usemtl lambert5SG
+g lightingA polySurface132
+usemtl lambert2SG
 f 334//929 333//930 330//931 329//932
 f 329//933 336//934 335//935 334//936
 f 331//937 330//938 333//939 332//940
@@ -1576,8 +1576,8 @@ vn 0.067418 -0.054823 -0.996217
 vn 0.058259 -0.059023 -0.996555
 vn 0.058228 -0.059037 -0.996556
 s off
-g Entity71 polySurface133
-usemtl lambert5SG
+g lightingA polySurface133
+usemtl lambert2SG
 f 342//941 337//942 338//943 341//944
 f 337//945 342//946 343//947 344//948
 f 339//949 340//950 341//951 338//952
