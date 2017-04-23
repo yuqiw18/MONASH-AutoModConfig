@@ -27,6 +27,7 @@ public class ConfiguratorBadge extends AppCompatActivity {
     private DataAdapter dataAdapter;
     private DatabaseHelper databaseHelper;
     private ArrayList<DataStruct> badgeList;
+    private String brandName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
             modelName.setText(data.getBrandName() + " " + data.getName());
 
-            //modelYear.setText(data.get())
+            brandName = data.getBrandName();
 
             Picasso.with(this).load(Utility.getImageAddress(data.getBrandName() + "_" + data.getName())).into(modelImage);
 
@@ -74,6 +75,7 @@ public class ConfiguratorBadge extends AppCompatActivity {
                 Badge selectedBadge = (Badge) badgeList.get(position);
                 Intent intent = new Intent(ConfiguratorBadge.this, Previewer.class);
                 intent.putExtra("BADGE",selectedBadge);
+                intent.putExtra("BRAND", brandName );
                 startActivity(intent);
             }
         });

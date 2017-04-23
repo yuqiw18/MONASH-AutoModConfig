@@ -15,6 +15,9 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Yuqi on 19/04/2017.
@@ -29,8 +32,11 @@ public class Renderer implements ApplicationListener {
     private ModelBatch modelBatch;
     private AssetManager assetManager;
     private Array<ModelInstance> instances = new Array<ModelInstance>();
-    private boolean isLoading;
-    private boolean updateLoading;
+    private boolean isLoading = false;
+    private boolean modelAssigned = false;
+    private String name;
+    private ArrayList<String> modelList;
+    private Map<String, String> colorSheet = new HashMap<String, String>();
 
     @Override
     public void create() {
@@ -55,111 +61,48 @@ public class Renderer implements ApplicationListener {
         Gdx.input.setInputProcessor(camController);
 
         assetManager = new AssetManager();
-        // Asset 0 - 3 can be affected by respraying the car
-        assetManager.load("nissan_skyline_r34_body.obj",Model.class);
-        assetManager.load("nissan_skyline_r34_bumper.obj",Model.class);
-        assetManager.load("nissan_skyline_r34_bonnet.obj", Model.class);
-        assetManager.load("nissan_skyline_r34_spoiler.obj", Model.class);
 
-        // Asset 4 - 7
-        assetManager.load("nissan_skyline_r34_exhaust.obj", Model.class);
-        assetManager.load("nissan_skyline_r34_brake.obj",Model.class);
-        assetManager.load("nissan_skyline_r34_rim.obj",Model.class);
-        assetManager.load("nissan_skyline_r34_tyre.obj",Model.class);
+        modelList = new ArrayList<String>();
 
-        // Asset
-        assetManager.load("nissan_skyline_r34_lightingA.obj", Model.class);
-        assetManager.load("nissan_skyline_r34_lightingB.obj", Model.class);
-        assetManager.load("nissan_skyline_r34_lightingC.obj", Model.class);
-
-        // Asset
-        assetManager.load("nissan_skyline_r34_chassis.obj",Model.class);
-
-        assetManager.load("stage.obj", Model.class);
-        isLoading = true;
-
+        colorSheet.put("Red","#ff3333");
+        colorSheet.put("Blue","#3366ff");
+        colorSheet.put("Green","#2eb82e");
+        colorSheet.put("Yellow","#ffcc00");
+        colorSheet.put("Black","#1a1a1a");
+        colorSheet.put("White","#ffffff");
     }
 
     private void doneLoading(){
-        Model body = assetManager.get("nissan_skyline_r34_body.obj", Model.class);
-        ModelInstance bodyIns = new ModelInstance(body);
-        instances.add(bodyIns);
-
-        Model bumper = assetManager.get("nissan_skyline_r34_bumper.obj", Model.class);
-        ModelInstance bumperIns = new ModelInstance(bumper);
-        instances.add(bumperIns);
-
-        Model bonnet = assetManager.get("nissan_skyline_r34_bonnet.obj", Model.class);
-        ModelInstance bonnetIns = new ModelInstance(bonnet);
-        instances.add(bonnetIns);
-
-        Model spoiler = assetManager.get("nissan_skyline_r34_spoiler.obj", Model.class);
-        ModelInstance spoilerIns = new ModelInstance(spoiler);
-        instances.add(spoilerIns);
-
-        Model exhaust = assetManager.get("nissan_skyline_r34_exhaust.obj", Model.class);
-        ModelInstance exhaustIns = new ModelInstance(exhaust);
-        instances.add(exhaustIns);
-
-        Model brake = assetManager.get("nissan_skyline_r34_brake.obj", Model.class);
-        ModelInstance brakeIns = new ModelInstance(brake);
-        instances.add(brakeIns);
-
-        Model rim = assetManager.get("nissan_skyline_r34_rim.obj", Model.class);
-        ModelInstance rimIns = new ModelInstance(rim);
-        instances.add(rimIns);
-
-        Model tyre = assetManager.get("nissan_skyline_r34_tyre.obj", Model.class);
-        ModelInstance tyreIns = new ModelInstance(tyre);
-        instances.add(tyreIns);
-
-        Model lightingA = assetManager.get("nissan_skyline_r34_lightingA.obj", Model.class);
-        ModelInstance lightingAIns = new ModelInstance(lightingA);
-        instances.add(lightingAIns);
-
-        Model lightingB = assetManager.get("nissan_skyline_r34_lightingB.obj", Model.class);
-        ModelInstance lightingBIns = new ModelInstance(lightingB);
-        instances.add(lightingBIns);
-
-        Model lightingC = assetManager.get("nissan_skyline_r34_lightingC.obj", Model.class);
-        ModelInstance lightingCIns = new ModelInstance(lightingC);
-        instances.add(lightingCIns);
-
-        Model chassis = assetManager.get("nissan_skyline_r34_chassis.obj", Model.class);
-        ModelInstance chassisIns = new ModelInstance(chassis);
-        instances.add(chassisIns);
-
-        Model stage = assetManager.get("stage.obj", Model.class);
-        ModelInstance stageIns = new ModelInstance(stage);
-        instances.add(stageIns);
-
+        for (int i = 0; i < modelList.size(); i++){
+            Model model = assetManager.get(modelList.get(i), Model.class);
+            ModelInstance modelInstance = new ModelInstance(model);
+            instances.add(modelInstance);
+        }
         isLoading = false;
     }
 
     @Override
     public void render() {
 
-        if (isLoading && assetManager.update()){
+        if (modelAssigned){
 
-            doneLoading();
+            if (isLoading && assetManager.update()){
+
+                doneLoading();
+            }
+
+            camController.update();
+
+            Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+            shader.begin();
+            modelBatch.begin(cam);
+            modelBatch.render(instances, environment);
+            modelBatch.end();
+            shader.end();
+
         }
-
-        camController.update();
-
-        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-
-        shader.begin();
-        modelBatch.begin(cam);
-        modelBatch.render(instances, environment);
-        modelBatch.end();
-        shader.end();
-
-//        if (cam.position.y < 0){
-//            cam.position.set(cam.position.x, 0, cam.position.z);
-//        }
-//
-//        System.out.println(cam.position);
     }
 
     @Override
@@ -184,61 +127,60 @@ public class Renderer implements ApplicationListener {
 
     public void updateScene(String type, String value){
 
-        switch (value){
-            case "Red":
-                for (int i = 0; i < 4; i ++){
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#ff3333")));
-                }
-                break;
-            case "Blue":
-                for (int i = 0; i < 4; i ++) {
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#3366ff")));
-                }
-                break;
-            case "Green":
-                for (int i = 0; i < 4; i ++) {
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#2eb82e")));
-                }
-                break;
-            case "Yellow":
-                for (int i = 0; i < 4; i ++) {
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#ffcc00")));
-                }
-                break;
-            case "Black":
-                for (int i = 0; i < 4; i ++) {
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf("#1a1a1a")));
-                }
-                break;
-            default:
-                for (int i = 0; i < 4; i ++) {
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.WHITE));
-                }
-                //replacePart();
-                break;
+        for (int i = 0; i < 4; i ++){
+            instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(colorSheet.get(value))));
         }
     }
-
 
     public void replacePart(){
 
         assetManager.load("mitsubishi_lancer_evo_bonnet.obj", Model.class);
 //        updateLoading = false;
 //
-        while (!assetManager.isLoaded("mitsubishi_lancer_evo_bonnet.obj", Model.class)){
+        while (!assetManager.update()){
 
             System.out.println("Loading!!");
-            assetManager.update();
+
         }
 
-//        if (updateLoading && assetManager.update()){
-
+//        if (assetManager.update()){
             Model part = assetManager.get("mitsubishi_lancer_evo_bonnet.obj", Model.class);
             instances.removeIndex(2);
             instances.insert(2, new ModelInstance(part));
-            updateLoading = true;
-//        }
+//}
+    }
 
+    public void initModels(String name){
 
+        // Asset 0 - 3 can be affected by respraying the car
+        modelList.add(name + "_body.obj");
+        modelList.add(name + "_bumper.obj");
+        modelList.add(name + "_bonnet.obj");
+        modelList.add(name + "_spoiler.obj");
+
+        // Asset 4 - 7
+        modelList.add(name + "_exhaust.obj");
+        modelList.add(name + "_brake.obj");
+        modelList.add(name + "_rim.obj");
+        modelList.add(name + "_tyre.obj");
+
+        // Asset
+        modelList.add(name + "_lightingA.obj");
+        modelList.add(name + "_lightingB.obj");
+        modelList.add(name + "_lightingC.obj");
+        modelList.add(name + "_chassis.obj");
+
+        // Asset
+        modelList.add("stage.obj");
+
+        loadModels();
+    }
+
+    private void loadModels(){
+        for (int i = 0; i< modelList.size(); i ++){
+            assetManager.load(modelList.get(i), Model.class);
+        }
+        isLoading = true;
+        modelAssigned = true;
     }
 }

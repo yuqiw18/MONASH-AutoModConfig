@@ -47,4 +47,9 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
     public void updateScene(Part part) {
         renderer.updateScene(part.getType(),part.getName());
     }
+
+    @Override
+    public void setupScene(String name) {
+        renderer.initModels(name);
+    }
 }

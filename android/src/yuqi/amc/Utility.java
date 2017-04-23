@@ -32,7 +32,7 @@ public final class Utility {
 
     // Format string
     public static String stringConvert(String input){
-        input = input.replaceAll("\\s","");
+        input = input.replaceAll("\\s","_");
         input = input.replaceAll("-","_");
         input = input.toLowerCase();
         return input;
@@ -43,6 +43,7 @@ public final class Utility {
         return IMAGE_SOURCE+ stringConvert(name)+ IMAGE_FORMAT;
 
     }
+
 }
 
 

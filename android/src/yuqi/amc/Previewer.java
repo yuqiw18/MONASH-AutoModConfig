@@ -1,6 +1,8 @@
 package yuqi.amc;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +19,6 @@ import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import java.util.ArrayList;
 
 import yuqi.amc.DataStruct.Badge;
-import yuqi.amc.DataStruct.Brand;
 import yuqi.amc.DataStruct.DataStruct;
 import yuqi.amc.DataStruct.Part;
 
@@ -54,6 +55,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
     private TextView sectionHeader;
 
     private Badge data;
+    private String brandName = null;
 
     private OnPartSelectListener onPartSelectListener;
 
@@ -99,6 +101,8 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
         btnLighting = (ImageButton) findViewById(R.id.btnLighting);
         btnLighting.setOnClickListener(this);
 
+        onPartSelectListener = (OnPartSelectListener) getSupportFragmentManager().findFragmentById(R.id.fragmentRenderer);
+
         // Listview and database-related variables
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
@@ -116,10 +120,9 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
 
         if (incomingData!=null){
             data = incomingData.getParcelable("BADGE");
+            brandName = incomingData.getString("BRAND");
             Log.e("Badge:", data.getName());
         }
-
-        onPartSelectListener = (OnPartSelectListener) getSupportFragmentManager().findFragmentById(R.id.fragmentRenderer);
 
         partListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -128,6 +131,14 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 onPartSelectListener.updateScene(selectedPart);
             }
         });
+
+        // Renderer-related functions should run on another thread
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                onPartSelectListener.setupScene(Utility.stringConvert(brandName + "_" + data.getModelName() + "_" + data.getName()));
+            }
+        }, 500);
     }
 
 //    @Override
@@ -248,6 +259,8 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
     public interface OnPartSelectListener{
 
         void updateScene(Part part);
+
+        void setupScene(String name);
 
     }
 
