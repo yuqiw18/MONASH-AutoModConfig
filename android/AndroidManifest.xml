@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:glEsVersion="0x00030001"
@@ -34,12 +36,10 @@
         android:name="com.google.android.maps.v2.API_KEY"
         android:value="AIzaSyBfbYzZDVMXlxJXPnNsp2JKAjcR6afEYy8" />
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="AMC"
         android:theme="@style/AppTheme">
         <activity
