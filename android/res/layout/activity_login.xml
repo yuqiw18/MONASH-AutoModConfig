@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_vertical_margin"
+    tools:context="yuqi.amc.Login">
+
+    <EditText
+        android:id="@+id/inpuLoginEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/inputLoginPassword"
+        android:layout_alignStart="@+id/inputLoginPassword"
+        android:ems="10"
+        android:hint="@string/login_email_hint"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:nextFocusDown="@+id/inputLoginPassword" />
+
+    <EditText
+        android:id="@+id/inputLoginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/login_password_hint"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputLoginPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/login_button"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+    <TextView
+        android:id="@+id/labelForgetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnLogin"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:text="@string/login_forget_password" />
+
+    <TextView
+        android:id="@+id/labelSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/labelForgetPassword"
+        android:layout_alignBottom="@+id/labelForgetPassword"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:text="@string/login_sign_up" />
+
+</RelativeLayout>

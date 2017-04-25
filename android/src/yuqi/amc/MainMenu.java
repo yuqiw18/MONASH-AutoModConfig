@@ -1,9 +1,8 @@
 package yuqi.amc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,9 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View.OnClickListener;
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class MainMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainMenu extends AppCompatActivity implements OnNavigationItemSelectedListener, OnClickListener {
+
+    private TextView navUsername;
+    private TextView navUserEmail;
+    private ImageView navUserImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +38,13 @@ public class MainMenu extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View navHeader = navigationView.getHeaderView(0);
+        navUsername = (TextView)navHeader.findViewById(R.id.navTextName);
+        navUserEmail = (TextView)navHeader.findViewById(R.id.navTextEmail);
+        navUserImg = (ImageView)navHeader.findViewById(R.id.navImgUser);
         navigationView.setNavigationItemSelectedListener(this);
+
+        loadPreference();
     }
 
     @Override
@@ -91,5 +103,22 @@ public class MainMenu extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == R.id.navTextName){
+            startActivity(new Intent(this, Login.class));
+        }
+
+    }
+
+    private void loadPreference(){
+        //Load the values using SharedPreference
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        //If failed loading the value, which means no saved user information, set default String value: "TAP TO SIGN IN"
+        navUsername.setText(sharedPreferences.getString("Name", "Sign In"));
+        navUserEmail.setText(sharedPreferences.getString("Email",""));
     }
 }
