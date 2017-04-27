@@ -1,5 +1,6 @@
 package yuqi.amc;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,6 +46,11 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         navigationView.setNavigationItemSelectedListener(this);
 
         loadPreference();
+
+        getSupportActionBar().setTitle("Automobile Modification Configurator");
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new ExplorerFragment()).commit();
+
     }
 
     @Override
