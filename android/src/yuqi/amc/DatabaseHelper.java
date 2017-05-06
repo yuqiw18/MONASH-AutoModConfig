@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -25,8 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Set Database Properties
     public static final String DATABASE_NAME = "AMC_DB";
     public static final int DATABASE_VERSION = 1;
-
-
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,13 +52,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put("BRAND_NAME", data.getName());
             values.put("BRAND_ORIGIN", ((Brand)data).getOrigin());
             db.insert("BRAND", null, values);
+            Log.e("BRAND", "ADDED");
         }
 
         if (data instanceof Model){
             values.put("MODEL_NAME", data.getName());
-            values.put("MODEL_BODY_TYPE", ((Model) data).getBodyType());
+            values.put("BODY_TYPE", ((Model) data).getBodyType());
+            values.put("DRIVE_TYPE", ((Model) data).getDriveType());
             values.put("BRAND_NAME", ((Model) data).getBrandName());
             db.insert("MODEL", null, values);
+            Log.e("M", "ADDED");
         }
 
         if (data instanceof Badge){
@@ -67,17 +69,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put("BADGE_YEAR", ((Badge) data).getYear());
             values.put("MODEL_NAME", ((Badge) data).getModelName());
             db.insert("BADGE", null, values);
+            Log.e("BADGE", "ADDED");
         }
 
-        if (data instanceof Part){
-            values.put("PART_NAME", data.getName());
-            values.put("PART_TYPE", ((Part) data).getType());
-            values.put("PART_PRICE", ((Part) data).getPrice());
-            values.put("PART_STOCK", ((Part) data).getStock());
-            values.put("MODEL_NAME", ((Part) data).getModelName());
-            values.put("BADGE_NAME", ((Part) data).getBadgeName());
-            db.insert("PART", null, values);
-        }
+//        if (data instanceof Part){
+//            values.put("PART_NAME", data.getName());
+//            values.put("PART_TYPE", ((Part) data).getType());
+//            values.put("PART_PRICE", ((Part) data).getPrice());
+//            values.put("PART_STOCK", ((Part) data).getStock());
+//            values.put("MODEL_NAME", ((Part) data).getModelName());
+//            values.put("BADGE_NAME", ((Part) data).getBadgeName());
+//            db.insert("PART", null, values);
+//        }
         db.close();
     }
 
@@ -122,7 +125,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                 cursor.getLong(0),
                                 cursor.getString(1),
                                 cursor.getString(2),
-                                cursor.getString(3)
+                                cursor.getString(3),
+                                cursor.getString(4)
                         );
                         data.put(newData.getId(), newData);
                     }while(cursor.moveToNext());

@@ -1,6 +1,7 @@
 package yuqi.amc;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -55,9 +58,9 @@ public class DataAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         // Check if view already exists. If not inflate it
         if(convertView == null) {
@@ -98,7 +101,6 @@ public class DataAdapter extends BaseAdapter {
                 default:
 
                     return convertView;
-
             }
 
         }else {
@@ -109,12 +111,62 @@ public class DataAdapter extends BaseAdapter {
 
             case "ConfiguratorBrand":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
-                Picasso.with(context).load(Utility.getImageAddress(dataList.get(position).getName())).placeholder(R.drawable.img_placeholder).into(viewHolder.imageViewPlaceHolder);
+                Picasso.with(context)
+                        .load(Utility.getImageAddress(dataList.get(position).getName()))
+                        .placeholder(R.drawable.img_placeholder)
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(viewHolder.imageViewPlaceHolder, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.e("Picasso", "Loaded Locally");
+                            }
+                            @Override
+                            public void onError() {
+                                Picasso.with(context)
+                                        .load(Utility.getImageAddress(dataList.get(position).getName()))
+                                        .placeholder(R.drawable.img_placeholder)
+                                        .into(viewHolder.imageViewPlaceHolder, new Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                Log.e("Picasso","Downloaded");
+                                            }
+                                            @Override
+                                            public void onError() {
+                                                Log.e("Picasso", "Could not load image.");
+                                            }
+                                        });
+                            }
+                        });
                 break;
             case "ConfiguratorModel":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
                 viewHolder.textViewPlaceHolder2.setText(((Model)dataList.get(position)).getBodyType());
-                Picasso.with(context).load((Utility.getImageAddress(((Model)dataList.get(position)).getBrandName()+"_"+dataList.get(position).getName()))).placeholder(R.drawable.img_placeholder_wide).into(viewHolder.imageViewPlaceHolder);
+                Picasso.with(context)
+                        .load((Utility.getImageAddress(((Model)dataList.get(position)).getBrandName()+"_"+dataList.get(position).getName())))
+                        .placeholder(R.drawable.img_placeholder_wide)
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(viewHolder.imageViewPlaceHolder, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.e("Picasso", "Loaded Locally");
+                            }
+                            @Override
+                            public void onError() {
+                                Picasso.with(context)
+                                        .load((Utility.getImageAddress(((Model)dataList.get(position)).getBrandName()+"_"+dataList.get(position).getName())))
+                                        .placeholder(R.drawable.img_placeholder_wide)
+                                        .into(viewHolder.imageViewPlaceHolder, new Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                Log.e("Picasso","Downloaded");
+                                            }
+                                            @Override
+                                            public void onError() {
+                                                Log.e("Picasso", "Could not load image.");
+                                            }
+                                        });
+                            }
+                        });
                 break;
             case "ConfiguratorBadge":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
@@ -129,4 +181,5 @@ public class DataAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
 }

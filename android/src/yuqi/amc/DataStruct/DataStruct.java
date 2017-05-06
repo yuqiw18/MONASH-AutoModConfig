@@ -14,6 +14,7 @@ public class DataStruct implements Parcelable {
 
     public DataStruct(){}
 
+    //
     public DataStruct(long id, String name){
         this.id = id;
         this.name = name;
@@ -50,7 +51,7 @@ public class DataStruct implements Parcelable {
     };
 
     protected DataStruct(Parcel source){
-        id = source.readLong();
+        id = source.readInt();
         name = source.readString();
     }
 }

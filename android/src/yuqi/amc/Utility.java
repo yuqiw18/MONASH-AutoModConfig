@@ -10,16 +10,11 @@ import java.lang.reflect.Field;
 public final class Utility {
 
     public static final String IMAGE_SOURCE = "http://yuqi.ninja/amc/img/";
-    public static final String DATA_SOURCE = "http://yuqi.ninja/amc/data/";
-    public static final String DATA_CONTENT[] = {"brand", "model", "badge", "part"};
-    public static final String DATA_FORMAT = ".json";
     public static final String IMAGE_FORMAT = ".png";
 
     // Convert string name to resource ID
     public static int getResourceID(String name, Class<?> c) {
-
         name = stringConvert(name);
-
         try {
             Field idField = c.getDeclaredField(name);
             return idField.getInt(idField);
@@ -39,9 +34,7 @@ public final class Utility {
     }
 
     public static String getImageAddress(String name){
-
         return IMAGE_SOURCE+ stringConvert(name)+ IMAGE_FORMAT;
-
     }
 
 }

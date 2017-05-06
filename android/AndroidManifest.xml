@@ -32,7 +32,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="AMC"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".ImageCache">
         <activity
             android:name=".AndroidLauncher"
             android:screenOrientation="portrait"

@@ -8,17 +8,20 @@ public class Model extends DataStruct {
             "(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             "MODEL_NAME TEXT NOT NULL," +
-            "MODEL_BODY_TYPE TEXT NOT NULL," +
+            "BODY_TYPE TEXT NOT NULL," +
+            "DRIVE_TYPE TEXT NOT NULL," +
             "BRAND_NAME TEXT NOT NULL," +
             "FOREIGN KEY(BRAND_NAME) REFERENCES BRAND(BRAND_NAME)" +
             ");";
 
     private String bodyType;
     private String brandName;
+    private String driveType;
 
-    public Model(long id, String name, String bodyType, String brandName){
+    public Model(long id, String name, String bodyType, String driveType, String brandName){
         super(id, name);
         this.bodyType = bodyType;
+        this.driveType = driveType;
         this.brandName = brandName;
     }
 
@@ -30,12 +33,14 @@ public class Model extends DataStruct {
         return brandName;
     }
 
+    public String getDriveType(){ return driveType; }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.id);
         dest.writeString(this.name);
         dest.writeString(this.bodyType);
+        dest.writeString(this.driveType);
         dest.writeString(this.brandName);
     }
 
@@ -55,6 +60,7 @@ public class Model extends DataStruct {
         id = source.readLong();
         name = source.readString();
         bodyType = source.readString();
+        driveType = source.readString();
         brandName = source.readString();
     }
 
