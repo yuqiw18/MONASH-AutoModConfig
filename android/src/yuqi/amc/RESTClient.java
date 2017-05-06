@@ -7,9 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class RESTClient {
+public class RestClient {
 
-    private RESTClient(){}
+    private RestClient(){}
 
     private static final String BASE_URI = "http://yuqi.ninja/rest/";
     protected static final String DATABASE_TABLE[] = {"brand", "model", "badge"};
