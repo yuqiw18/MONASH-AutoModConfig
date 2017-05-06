@@ -32,4 +32,27 @@
     <string name="dialog_forget_password_invalid">Email address is not valid.</string>
     <string name="dialog_forget_password_requested">Your password will be sent to the email if it is in our database.</string>
 
+    <string name="ui_message_unknown_error">Unknown Error</string>
+    <string name="ui_reg_name">Name:</string>
+    <string name="ui_reg_address">Address:</string>
+    <string name="ui_reg_suburb">Suburb:</string>
+    <string name="ui_reg_postcode">Postcode:</string>
+    <string name="ui_reg_state">State:</string>
+    <string name="ui_reg_country">Country:</string>
+    <string name="ui_reg_email">Email:</string>
+    <string name="ui_reg_password">Password:</string>
+    <string name="ui_reg_confirm_password">Confirm Password:</string>
+    <string name="ui_reg_header_login_detail">LOGIN DETAIL</string>
+    <string name="ui_reg_contact_detail">CONTACT DETAIL</string>
+    <string name="ui_reg_button">REGISTER</string>
+
+    <string-array name="country_values">
+        <item>PLEASE SELECT</item>
+        <item>AUSTRALIA</item>
+        <item>CANADA</item>
+        <item>NEW ZEALAND</item>
+        <item>UNITED KINGDOM</item>
+        <item>UNITED STATES</item>
+    </string-array>
+
 </resources>

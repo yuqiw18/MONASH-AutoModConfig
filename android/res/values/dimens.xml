@@ -12,4 +12,7 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_basic">16dp</dimen>
+    <dimen name="height_min">40dp</dimen>
+    <dimen name="ui_reg_label_width">128dp</dimen>
 </resources>
