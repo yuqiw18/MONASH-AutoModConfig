@@ -4,7 +4,7 @@ import android.app.Application;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-public class ImageCache extends Application {
+public class Global extends Application {
     @Override
     public void onCreate(){
         super.onCreate();

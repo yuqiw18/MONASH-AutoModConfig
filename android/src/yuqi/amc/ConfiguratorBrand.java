@@ -1,6 +1,6 @@
 package yuqi.amc;
-import yuqi.amc.DataStruct.Brand;
-import yuqi.amc.DataStruct.DataStruct;
+import yuqi.amc.SqliteData.Brand;
+import yuqi.amc.SqliteData.DataStruct;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

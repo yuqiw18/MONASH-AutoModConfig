@@ -1,4 +1,4 @@
-package yuqi.amc.DataStruct;
+package yuqi.amc.SqliteData;
 
 /**
  * Created by ClayW on 19/04/2017.

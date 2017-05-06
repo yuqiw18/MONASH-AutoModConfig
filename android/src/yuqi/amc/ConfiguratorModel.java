@@ -13,9 +13,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import yuqi.amc.DataStruct.Brand;
-import yuqi.amc.DataStruct.DataStruct;
-import yuqi.amc.DataStruct.Model;
+import yuqi.amc.SqliteData.Brand;
+import yuqi.amc.SqliteData.DataStruct;
+import yuqi.amc.SqliteData.Model;
 
 public class ConfiguratorModel extends AppCompatActivity {
 

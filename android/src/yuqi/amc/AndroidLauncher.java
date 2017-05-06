@@ -12,17 +12,9 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import yuqi.amc.DataStruct.Badge;
-import yuqi.amc.DataStruct.Brand;
-import yuqi.amc.DataStruct.Model;
-import yuqi.amc.DataStruct.Part;
-import yuqi.amc.Main;
+import yuqi.amc.SqliteData.Badge;
+import yuqi.amc.SqliteData.Brand;
+import yuqi.amc.SqliteData.Model;
 
 // Splash screen recreated using libGDX
 public class AndroidLauncher extends AndroidApplication {
@@ -42,14 +34,12 @@ public class AndroidLauncher extends AndroidApplication {
 
 		databaseHelper = new DatabaseHelper(getApplicationContext());
 
-		dbToProcess = RESTClient.DATABASE_TABLE.length;
+		dbToProcess = RestClient.DATABASE_TABLE.length;
 
 		if (databaseHelper.isEmpty()){
 			for (int i =0; i < dbToProcess; i++){
-
-				new AndroidLauncher.initDatabase().execute(RESTClient.DATABASE_TABLE[i]);
+				new initDatabase().execute(RestClient.DATABASE_TABLE[i]);
 			}
-
 		}else {
 			goToMain();
 		}
@@ -62,7 +52,13 @@ public class AndroidLauncher extends AndroidApplication {
 		@Override
 		protected String doInBackground(String... params){
 			identifier = params[0];
-			return RESTClient.requestData(identifier, null);
+			return RestClient.requestData(identifier, null);
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			progress ++;
+			Log.e("Progress:", String.valueOf(progress) + "/" + dbToProcess);
 		}
 
 		@Override
@@ -100,8 +96,6 @@ public class AndroidLauncher extends AndroidApplication {
 								break;
 						}
 					}
-					progress ++;
-					Log.e("Progress:", String.valueOf(progress) + "/" + dbToProcess);
 				}catch (Exception e){
 					e.printStackTrace();
 				}

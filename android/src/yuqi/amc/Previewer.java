@@ -1,6 +1,5 @@
 package yuqi.amc;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -18,9 +17,9 @@ import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
 import java.util.ArrayList;
 
-import yuqi.amc.DataStruct.Badge;
-import yuqi.amc.DataStruct.DataStruct;
-import yuqi.amc.DataStruct.Part;
+import yuqi.amc.SqliteData.Badge;
+import yuqi.amc.SqliteData.DataStruct;
+import yuqi.amc.SqliteData.Part;
 
 public class Previewer extends FragmentActivity implements AndroidFragmentApplication.Callbacks, OnClickListener {
 

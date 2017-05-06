@@ -7,7 +7,7 @@
     tools:context="yuqi.amc.Login">
 
     <EditText
-        android:id="@+id/inpuLoginEmail"
+        android:id="@+id/inputLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/inputLoginPassword"

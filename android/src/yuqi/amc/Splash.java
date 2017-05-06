@@ -18,9 +18,9 @@
 //import java.net.HttpURLConnection;
 //import java.net.URL;
 //
-//import yuqi.amc.DataStruct.Badge;
-//import yuqi.amc.DataStruct.Brand;
-//import yuqi.amc.DataStruct.Model;
+//import yuqi.amc.SqliteData.Badge;
+//import yuqi.amc.SqliteData.Brand;
+//import yuqi.amc.SqliteData.Model;
 //
 //public class Splash extends AppCompatActivity {
 //

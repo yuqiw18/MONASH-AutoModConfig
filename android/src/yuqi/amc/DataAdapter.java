@@ -15,10 +15,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import yuqi.amc.DataStruct.Badge;
-import yuqi.amc.DataStruct.DataStruct;
-import yuqi.amc.DataStruct.Model;
-import yuqi.amc.DataStruct.Part;
+import yuqi.amc.SqliteData.Badge;
+import yuqi.amc.SqliteData.DataStruct;
+import yuqi.amc.SqliteData.Model;
+import yuqi.amc.SqliteData.Part;
 
 
 public class DataAdapter extends BaseAdapter {
