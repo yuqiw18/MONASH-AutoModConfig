@@ -1,4 +1,4 @@
-package yuqi.amc.SqliteData;
+package yuqi.amc.SQLiteData;
 
 import android.os.Parcel;
 
