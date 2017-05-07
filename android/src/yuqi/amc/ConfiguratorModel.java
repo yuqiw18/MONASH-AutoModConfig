@@ -29,7 +29,7 @@ public class ConfiguratorModel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurator_model);
 
-        setTitle("Models");
+        setTitle(getString(R.string.title_model));
 
         TextView brandName = (TextView) findViewById(R.id.textCMBrandName);
         TextView brandOrigin = (TextView) findViewById(R.id.textCMBrandOrigin);

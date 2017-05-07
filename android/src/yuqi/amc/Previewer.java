@@ -4,7 +4,10 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -21,7 +24,7 @@ import yuqi.amc.SqliteData.Badge;
 import yuqi.amc.SqliteData.DataStruct;
 import yuqi.amc.SqliteData.Part;
 
-public class Previewer extends FragmentActivity implements AndroidFragmentApplication.Callbacks, OnClickListener {
+public class Previewer extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, OnClickListener {
 
     private ListView partListView;
     private DataAdapter dataAdapter;
@@ -39,7 +42,6 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
     private ImageButton btnRim;
     private ImageButton btnTyre;
     private ImageButton btnLighting;
-
     private TextView textRespray;
     private TextView textBumper;
     private TextView textBonnet;
@@ -50,20 +52,18 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
     private TextView textRim;
     private TextView textTyre;
     private TextView textLighting;
-
     private TextView sectionHeader;
-
     private Badge data;
     private String brandName = null;
 
     private OnPartSelectListener onPartSelectListener;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_previewer);
+
+        setTitle(getString(R.string.title_previewer));
 
         // UI-related variables
         textRespray = (TextView) findViewById(R.id.textRespray);
@@ -146,9 +146,15 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
 //        super.onBackPressed();
 //    }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_previewer, menu);
+        return true;
+    }
+
     @Override
     public void exit() {}
-
 
     @Override
     public void onClick(View v) {

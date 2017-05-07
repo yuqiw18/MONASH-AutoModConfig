@@ -58,6 +58,11 @@
     </string-array>
 
     <string name="title_register">Register</string>
+    <string name="title_brand">Brands</string>
+    <string name="title_model">Models</string>
+    <string name="title_badge">Badges</string>
+    <string name="title_previewer">Previewer</string>
+    <string name="title_checkout">Checkout</string>
 
     <string name="msg_reg_no_name">Please enter your name.</string>
     <string name="msg_reg_no_address">Please enter your address.</string>
@@ -99,5 +104,9 @@
     <string name="ui_previewer_rim">RIM</string>
     <string name="ui_previewer_tyre">TYRE</string>
     <string name="ui_previewer_lighting">LIGHTING</string>
+
+    <string name="menu_previewer_save">Save</string>
+    <string name="menu_previewer_checkout">Checkout</string>
+
 
 </resources>
