@@ -1,9 +1,12 @@
 package yuqi.amc;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
@@ -22,13 +27,12 @@ import java.util.ArrayList;
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.JsonData.Part;
 
-
 public class Previewer extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, OnClickListener {
 
     private ListView partListView;
     private ArrayList<Part> partList;
 
-    private long[] selectedProduct;
+    private Cart cart;
 
     private ImageButton btnRespray;
     private ImageButton btnBumper;
@@ -40,7 +44,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     private ImageButton btnRim;
     private ImageButton btnTyre;
     private ImageButton btnLighting;
-
 
     private TextView textRespray;
     private TextView textBumper;
@@ -57,6 +60,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     private String brandName = null;
 
     private OnPartSelectListener onPartSelectListener;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,7 +104,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         btnLighting = (ImageButton) findViewById(R.id.btnLighting);
         btnLighting.setOnClickListener(this);
 
-        selectedProduct = new long[8];
+        cart = new Cart();
 
         onPartSelectListener = (OnPartSelectListener) getSupportFragmentManager().findFragmentById(R.id.fragmentRenderer);
 
@@ -123,11 +127,15 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 //                Part selectedPart = (Part) partListOLD.get(position);
                 Part selectedPart = partList.get(position);
+                cart.addToCart(selectedPart);
                 onPartSelectListener.updateScene(selectedPart);
             }
         });
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         new fetchPartList().execute("Respray",data.getModelName(),data.getName());
+
 
         // Renderer-related functions should run on another thread
         Handler handler = new Handler();
@@ -147,6 +155,27 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        // View matched students on map (if has related location records)
+        if (id == R.id.menu_previewer_checkout) {
+            if (cart.isCartEmpty()){
+                Toast.makeText(getBaseContext(), getString(R.string.msg_checkout_no_item), Toast.LENGTH_LONG).show();
+            }else {
+                if (sharedPreferences.getBoolean("isSignedIn", false)){
+                    Intent intent = new Intent(this, Checkout.class);
+                    intent.putExtra("Cart", cart.getCart());
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getBaseContext(), getString(R.string.msg_checkout_no_login), Toast.LENGTH_LONG).show();
+                }
+            }
+        }else if (id == R.id.menu_previewer_save){
+
+
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 

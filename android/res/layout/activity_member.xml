@@ -73,7 +73,7 @@
         android:text="@string/ui_label_default_value" />
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/viewCheckout2"
         style="@style/Divider"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/textUserEmail" />
@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/view2"
+        android:layout_below="@+id/viewCheckout2"
         android:layout_marginStart="16dp"
         android:text="@string/ui_user_address"
         android:textSize="14sp" />

@@ -5,4 +5,93 @@
     android:layout_height="match_parent"
     tools:context="yuqi.amc.Checkout">
 
+
+
+    <TextView
+        android:id="@+id/textViewCheckout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/ui_checkout_post"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/labelCheckoutAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewCheckout"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:lines="3"
+        android:text="@string/ui_checkout_address_placeholder" />
+
+
+    <Button
+        android:id="@+id/btnCheckoutChangeAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/labelCheckoutAddress"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/ui_btn_checkout_change"
+        android:textColor="@android:color/white" />
+
+    <View
+        style="@style/Divider"
+        android:layout_below="@id/labelCheckoutAddress"
+        android:id="@+id/viewCheckout" />
+
+    <TextView
+        android:id="@+id/textViewCheckout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/viewCheckout"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/ui_checkout_payment_method"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/labelCheckoutPaymentMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewCheckout2"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/ui_checkout_address_placeholder" />
+
+    <Button
+        android:id="@+id/btnCheckoutChangePaymentMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnCheckoutChangeAddress"
+        android:layout_alignTop="@+id/labelCheckoutPaymentMethod"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/ui_btn_checkout_change"
+        android:textColor="@android:color/white" />
+
+    <View
+        style="@style/Divider"
+        android:layout_below="@id/labelCheckoutPaymentMethod"
+        android:id="@+id/viewCheckout2" />
+
+    <ListView
+        android:id="@+id/listCheckoutItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/viewCheckout2"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp" />
+
+
 </RelativeLayout>

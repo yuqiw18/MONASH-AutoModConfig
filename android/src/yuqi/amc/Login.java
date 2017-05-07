@@ -40,7 +40,17 @@ public class Login extends AppCompatActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnLogin){
-            new ValidateLogin().execute(textLoginEmail.getText().toString(),textLoginPassword.getText().toString());
+            String email = textLoginEmail.getText().toString().trim();
+            String password = textLoginPassword.getText().toString();
+            if (email.isEmpty()){
+                Toast.makeText(getBaseContext(), getString(R.string.msg_reg_no_email), Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (password.isEmpty()){
+                Toast.makeText(getBaseContext(), getString(R.string.msg_reg_no_password), Toast.LENGTH_LONG).show();
+                return;
+            }
+            new ValidateLogin().execute(email,password);
         }else if (v.getId() == R.id.labelForgetPassword){
             // Display a dialog for customers to enter their email address
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

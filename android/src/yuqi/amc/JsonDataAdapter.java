@@ -1,6 +1,7 @@
 package yuqi.amc;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class JsonDataAdapter extends BaseAdapter {
 
         }catch (Exception e){
             e.printStackTrace();
+            Log.e("JsonDataAdapter","No Data");
         }
     }
 
