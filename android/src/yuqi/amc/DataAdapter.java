@@ -8,18 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
 import yuqi.amc.SqliteData.Badge;
 import yuqi.amc.SqliteData.DataStruct;
 import yuqi.amc.SqliteData.Model;
-import yuqi.amc.SqliteData.Part;
-
 
 public class DataAdapter extends BaseAdapter {
 
@@ -35,7 +30,7 @@ public class DataAdapter extends BaseAdapter {
         databaseHelper = new DatabaseHelper(context);
     }
 
-    public static class ViewHolder{
+    private static class ViewHolder{
         TextView textViewPlaceHolder1;
         TextView textViewPlaceHolder2;
         TextView textViewPlaceHolder3;
@@ -91,15 +86,7 @@ public class DataAdapter extends BaseAdapter {
                     viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textPartNum);
                     convertView.setTag(viewHolder);
                     break;
-                case "Previewer":
-                    convertView = inflater.inflate(R.layout.list_part_item, null);
-                    viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.textPartName);
-                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textPartPrice);
-                    convertView.setTag(viewHolder);
-                    break;
                 default:
-
                     return convertView;
             }
 
@@ -170,11 +157,7 @@ public class DataAdapter extends BaseAdapter {
                 break;
             case "ConfiguratorBadge":
                 viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
-                viewHolder.textViewPlaceHolder2.setText("Available Parts: " + databaseHelper.countParts(new String[]{((Badge)dataList.get(position)).getModelName(),((Badge)dataList.get(position)).getName()}));
-                break;
-            case "Previewer":
-                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
-                viewHolder.textViewPlaceHolder2.setText(Double.toString(((Part)dataList.get(position)).getPrice()));
+                //viewHolder.textViewPlaceHolder2.setText("Available Parts: " + databaseHelper.countParts(new String[]{((Badge)dataList.get(position)).getModelName(),((Badge)dataList.get(position)).getName()}));
                 break;
             default:
                 return convertView;

@@ -120,7 +120,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
 
-            Customer customer = new Customer(name, password, email, address, suburb, Integer.valueOf(postcode), state, country);
+            Customer customer = new Customer(0, name, password, email, address, suburb, Integer.valueOf(postcode), state, country);
 
             btnRegister.setEnabled(false);
             btnRegister.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
@@ -154,6 +154,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     break;
                 case 1:
                     SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putLong("id",customer.getId());
                     editor.putString("name",customer.getName());
                     editor.putString("email",customer.getEmail());
                     editor.putString("password",customer.getPassword());

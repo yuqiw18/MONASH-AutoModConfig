@@ -19,7 +19,6 @@ import yuqi.amc.SqliteData.Model;
 // Splash screen recreated using libGDX
 public class AndroidLauncher extends AndroidApplication {
 
-	public static final int UPDATE_DB_REQUEST = 1;
 	private DatabaseHelper databaseHelper;
 	private int progress = 0;
 	private int dbToProcess = 0;
@@ -55,12 +54,6 @@ public class AndroidLauncher extends AndroidApplication {
 			return RestClient.requestData(table, null);
 		}
 
-//		@Override
-//		protected void onProgressUpdate(Void... values) {
-//			progress ++;
-//			Log.e("Progress:", String.valueOf(progress) + "/" + dbToProcess);
-//		}
-
 		@Override
 		protected void onPostExecute(String result){
 			if (result!=null){
@@ -87,11 +80,6 @@ public class AndroidLauncher extends AndroidApplication {
 								databaseHelper.addData(badge);
 								Log.e("Loaded: ",badge.getName());
 								break;
-//							case "part":
-//								Part part = new Part(tempJSON.getLong("id"), tempJSON.getString("name"), tempJSON.getString("type"), tempJSON.getDouble("price"), tempJSON.getInt("stock"), tempJSON.getString("modelName"),tempJSON.getString("badgeName"));
-//								databaseHelper.addData(part);
-//								Log.e("Loaded: ",part.getName());
-//								break;
 							default:
 								break;
 						}

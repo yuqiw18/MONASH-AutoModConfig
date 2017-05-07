@@ -1,36 +1,34 @@
 package yuqi.amc;
 
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-
+import yuqi.amc.JsonDataAdapter.JsonDataType;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
-
 import java.util.ArrayList;
 
 import yuqi.amc.SqliteData.Badge;
-import yuqi.amc.SqliteData.DataStruct;
-import yuqi.amc.SqliteData.Part;
+import yuqi.amc.JsonData.Part;
+
 
 public class Previewer extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, OnClickListener {
 
     private ListView partListView;
-    private DataAdapter dataAdapter;
-    private DatabaseHelper databaseHelper;
-    private ArrayList<DataStruct> partList;
-    private static String[] COLUMNS = {"PART_TYPE","MODEL_NAME","BADGE_NAME"};
+    private ArrayList<Part> partList;
+
+    private long[] selectedProduct;
 
     private ImageButton btnRespray;
     private ImageButton btnBumper;
@@ -42,6 +40,8 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     private ImageButton btnRim;
     private ImageButton btnTyre;
     private ImageButton btnLighting;
+
+
     private TextView textRespray;
     private TextView textBumper;
     private TextView textBonnet;
@@ -100,16 +100,11 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         btnLighting = (ImageButton) findViewById(R.id.btnLighting);
         btnLighting.setOnClickListener(this);
 
+        selectedProduct = new long[8];
+
         onPartSelectListener = (OnPartSelectListener) getSupportFragmentManager().findFragmentById(R.id.fragmentRenderer);
 
-        // Listview and database-related variables
-        databaseHelper = new DatabaseHelper(getApplicationContext());
-
-        partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Respray"}).values());
         partListView = (ListView) findViewById(R.id.listParts);
-
-        dataAdapter = new DataAdapter(this, partList);
-        partListView.setAdapter(dataAdapter);
 
         resetText();
         sectionHeader.setText("RESPRAY");
@@ -126,10 +121,13 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         partListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Part selectedPart = (Part) partList.get(position);
+//                Part selectedPart = (Part) partListOLD.get(position);
+                Part selectedPart = partList.get(position);
                 onPartSelectListener.updateScene(selectedPart);
             }
         });
+
+        new fetchPartList().execute("Respray",data.getModelName(),data.getName());
 
         // Renderer-related functions should run on another thread
         Handler handler = new Handler();
@@ -138,14 +136,8 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
                 onPartSelectListener.setupScene(Utility.stringConvert(brandName + "_" + data.getModelName() + "_" + data.getName()));
             }
         }, 500);
+
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        getSupportFragmentManager().beginTransaction().remove(rendererFragment).commit();
-//        super.onBackPressed();
-//    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -154,11 +146,15 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void exit() {}
 
     @Override
     public void onClick(View v) {
-
         String badge = data.getName();
         String model = data.getModelName();
 
@@ -167,81 +163,61 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_respray));
                 textRespray.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Respray"}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Respray",model,badge);
                 break;
             case R.id.btnBumper:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_bumper));
                 textBumper.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Bumper",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Bumper",model,badge);
                 break;
             case R.id.btnBonnet:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_bonnet));
                 textBonnet.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Bonnet",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Bonnet",model,badge);
                 break;
             case R.id.btnSpoiler:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_spoiler));
                 textSpoiler.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Spoiler",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Spoiler",model,badge);
                 break;
             case R.id.btnExhaust:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_exhaust));
                 textExhaust.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Exhaust",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Exhaust",model,badge);
                 break;
             case R.id.btnSuspension:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_suspension));
                 textSuspension.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Suspension",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Suspension",model,badge);
                 break;
             case R.id.btnBrake:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_brake));
                 textBrake.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Brake",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Brake",model,badge);
                 break;
             case R.id.btnRim:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_rim));
                 textRim.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Rim",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Lighting",model,badge);
                 break;
             case R.id.btnTyre:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_tyre));
                 textTyre.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Tyre",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Lighting",model,badge);
                 break;
             case R.id.btnLighting:
                 resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_lighting));
                 textLighting.setTypeface(null, Typeface.BOLD);
-                partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Lighting",model,badge}).values());
-                dataAdapter = new DataAdapter(this, partList);
-                partListView.setAdapter(dataAdapter);
+                new fetchPartList().execute("Lighting",model,badge);
                 break;
             default:
                 break;
@@ -262,11 +238,22 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     }
 
     public interface OnPartSelectListener{
-
         void updateScene(Part part);
-
         void setupScene(String name);
+    }
 
+    private class fetchPartList extends AsyncTask<String,Void,String>{
+        @Override
+        protected String doInBackground(String... params) {
+            return RestClient.requestData("part",params);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART );
+            partList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
+            partListView.setAdapter(jsonDataAdapter);
+        }
     }
 
 }

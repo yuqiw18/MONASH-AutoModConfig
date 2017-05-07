@@ -86,6 +86,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 Customer customer = Customer.jsonToCustomer(result);
                 if (customer!=null){
                     SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putLong("id", customer.getId());
                     editor.putString("name",customer.getName());
                     editor.putString("email",customer.getEmail());
                     editor.putString("password",customer.getPassword());
@@ -117,7 +118,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
             RestClient.requestData("request.password",params);
             return null;
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             Toast.makeText(getBaseContext(), getString(R.string.dialog_forget_password_requested), Toast.LENGTH_LONG).show();

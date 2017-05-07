@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 public class Customer {
 
+    private long id;
     private String name;
     private String password;
     private String email;
@@ -20,7 +21,8 @@ public class Customer {
 
     public Customer(){}
 
-    public Customer(String name, String password, String email, String address, String suburb, int postcode, String state, String country){
+    public Customer(long id, String name, String password, String email, String address, String suburb, int postcode, String state, String country){
+        this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
@@ -36,6 +38,7 @@ public class Customer {
         try {
             JSONArray jsonArray = new JSONArray(json);
             JSONObject jsonObject = jsonArray.getJSONObject(0);
+            customer.setId(jsonObject.getLong("CUSTOMER_ID"));
             customer.setName(jsonObject.getString("CUSTOMER_NAME"));
             customer.setEmail(jsonObject.getString("CUSTOMER_EMAIL"));
             customer.setPassword(jsonObject.getString("CUSTOMER_PASSWORD"));
@@ -50,6 +53,10 @@ public class Customer {
         }
         return customer;
     }
+
+    public long getId() { return id; }
+
+    public void setId(long id) { this.id = id; }
 
     public String getName() {
         return name;

@@ -14,7 +14,6 @@ import yuqi.amc.SqliteData.Badge;
 import yuqi.amc.SqliteData.Brand;
 import yuqi.amc.SqliteData.DataStruct;
 import yuqi.amc.SqliteData.Model;
-import yuqi.amc.SqliteData.Part;
 
 
 /**
@@ -36,7 +35,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(Brand.CREATE_STATEMENT);
         sqLiteDatabase.execSQL(Model.CREATE_STATEMENT);
         sqLiteDatabase.execSQL(Badge.CREATE_STATEMENT);
-        sqLiteDatabase.execSQL(Part.CREATE_STATEMENT);
     }
 
     @Override
@@ -71,16 +69,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.insert("BADGE", null, values);
             Log.e("BADGE", "ADDED");
         }
-
-//        if (data instanceof Part){
-//            values.put("PART_NAME", data.getName());
-//            values.put("PART_TYPE", ((Part) data).getType());
-//            values.put("PART_PRICE", ((Part) data).getPrice());
-//            values.put("PART_STOCK", ((Part) data).getStock());
-//            values.put("MODEL_NAME", ((Part) data).getModelName());
-//            values.put("BADGE_NAME", ((Part) data).getBadgeName());
-//            db.insert("PART", null, values);
-//        }
         db.close();
     }
 
@@ -142,20 +130,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         data.put(newData.getId(), newData);
                     }while(cursor.moveToNext());
                     break;
-                case "PART":
-                    do {
-                        DataStruct newData = new Part(
-                                cursor.getLong(0),
-                                cursor.getString(1),
-                                cursor.getString(2),
-                                cursor.getDouble(3),
-                                cursor.getInt(4),
-                                cursor.getString(5),
-                                cursor.getString(6)
-                        );
-                        data.put(newData.getId(), newData);
-                    }while(cursor.moveToNext());
-                    break;
             }
         }
         cursor.close();
@@ -176,17 +150,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return found;
     }
 
-    public int countParts(String[] args){
-        SQLiteDatabase db = this.getReadableDatabase();
-        int num = 0;
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM PART WHERE MODEL_NAME = ? AND BADGE_NAME = ?", args);
-        if (cursor != null && cursor.moveToFirst()) {
-            num = cursor.getInt(0);
-        }
-        cursor.close();
-        db.close();
-
-        return num;
-    }
+//    public int countParts(String[] args){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        int num = 0;
+//        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM PART WHERE MODEL_NAME = ? AND BADGE_NAME = ?", args);
+//        if (cursor != null && cursor.moveToFirst()) {
+//            num = cursor.getInt(0);
+//        }
+//        cursor.close();
+//        db.close();
+//
+//        return num;
+//    }
 
 }

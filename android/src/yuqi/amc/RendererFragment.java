@@ -6,8 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
-
-import yuqi.amc.SqliteData.Part;
+import yuqi.amc.JsonData.Part;
 import yuqi.amc.Previewer.OnPartSelectListener;
 
 public class RendererFragment extends AndroidFragmentApplication implements OnPartSelectListener {

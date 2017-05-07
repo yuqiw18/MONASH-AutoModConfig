@@ -22,8 +22,6 @@ public class ProfileFragment extends Fragment {
     }
 
 
-
-
     private class FetchOrderList extends AsyncTask<String,Void,String>{
 
         @Override
