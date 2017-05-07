@@ -10,10 +10,10 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import yuqi.amc.SqliteData.Badge;
-import yuqi.amc.SqliteData.Brand;
-import yuqi.amc.SqliteData.DataStruct;
-import yuqi.amc.SqliteData.Model;
+import yuqi.amc.SQLiteData.Badge;
+import yuqi.amc.SQLiteData.Brand;
+import yuqi.amc.SQLiteData.DataStruct;
+import yuqi.amc.SQLiteData.Model;
 
 
 /**

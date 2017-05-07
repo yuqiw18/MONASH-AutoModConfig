@@ -12,9 +12,9 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import yuqi.amc.SqliteData.Badge;
-import yuqi.amc.SqliteData.Brand;
-import yuqi.amc.SqliteData.Model;
+import yuqi.amc.SQLiteData.Badge;
+import yuqi.amc.SQLiteData.Brand;
+import yuqi.amc.SQLiteData.Model;
 
 // Splash screen recreated using libGDX
 public class AndroidLauncher extends AndroidApplication {

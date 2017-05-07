@@ -19,7 +19,7 @@ import yuqi.amc.JsonDataAdapter.JsonDataType;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import java.util.ArrayList;
 
-import yuqi.amc.SqliteData.Badge;
+import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.JsonData.Part;
 
 
@@ -157,7 +157,8 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     public void onClick(View v) {
         String badge = data.getName();
         String model = data.getModelName();
-
+        partList = null;
+        partListView.setAdapter(null);
         switch (v.getId()){
             case R.id.btnRespray:
                 resetText();

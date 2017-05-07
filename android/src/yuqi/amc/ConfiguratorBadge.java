@@ -16,15 +16,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import yuqi.amc.SqliteData.Badge;
-import yuqi.amc.SqliteData.DataStruct;
-import yuqi.amc.SqliteData.Model;
+import yuqi.amc.SQLiteData.Badge;
+import yuqi.amc.SQLiteData.DataStruct;
+import yuqi.amc.SQLiteData.Model;
 
 
 public class ConfiguratorBadge extends AppCompatActivity {
 
     private ListView badgeListView;
-    private DataAdapter dataAdapter;
+    private SQLiteDataAdapter dataAdapter;
     private DatabaseHelper databaseHelper;
     private ArrayList<DataStruct> badgeList;
     private String brandName;
@@ -55,7 +55,7 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
             Log.e("Got:",data.getName());
 
-            dataAdapter = new DataAdapter(this, badgeList);
+            dataAdapter = new SQLiteDataAdapter(this, badgeList);
 
             badgeListView.setAdapter(dataAdapter);
 

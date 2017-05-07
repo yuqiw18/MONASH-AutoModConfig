@@ -13,14 +13,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import yuqi.amc.SqliteData.Brand;
-import yuqi.amc.SqliteData.DataStruct;
-import yuqi.amc.SqliteData.Model;
+import yuqi.amc.SQLiteData.Brand;
+import yuqi.amc.SQLiteData.DataStruct;
+import yuqi.amc.SQLiteData.Model;
 
 public class ConfiguratorModel extends AppCompatActivity {
 
     private ListView modelListView;
-    private DataAdapter dataAdapter;
+    private SQLiteDataAdapter dataAdapter;
     private DatabaseHelper databaseHelper;
     private ArrayList<DataStruct> modelList;
 
@@ -48,7 +48,7 @@ public class ConfiguratorModel extends AppCompatActivity {
 
             modelList = new ArrayList<>(databaseHelper.getData("MODEL", new String[]{"BRAND_NAME"}, new String[]{data.getName()}).values());
 
-            dataAdapter = new DataAdapter(this, modelList);
+            dataAdapter = new SQLiteDataAdapter(this, modelList);
 
             modelListView.setAdapter(dataAdapter);
 

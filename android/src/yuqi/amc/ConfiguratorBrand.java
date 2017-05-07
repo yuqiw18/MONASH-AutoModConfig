@@ -1,6 +1,6 @@
 package yuqi.amc;
-import yuqi.amc.SqliteData.Brand;
-import yuqi.amc.SqliteData.DataStruct;
+import yuqi.amc.SQLiteData.Brand;
+import yuqi.amc.SQLiteData.DataStruct;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ConfiguratorBrand extends AppCompatActivity {
 
     private ListView brandListView;
-    private DataAdapter dataAdapter;
+    private SQLiteDataAdapter dataAdapter;
     private DatabaseHelper databaseHelper;
     private ArrayList<DataStruct> brandList;
 
@@ -35,7 +35,7 @@ public class ConfiguratorBrand extends AppCompatActivity {
 
         brandListView = (ListView) findViewById(R.id.listBrands);
 
-        dataAdapter = new DataAdapter(this, brandList);
+        dataAdapter = new SQLiteDataAdapter(this, brandList);
 
         brandListView.setAdapter(dataAdapter);
 

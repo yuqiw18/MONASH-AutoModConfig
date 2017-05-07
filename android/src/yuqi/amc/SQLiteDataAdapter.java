@@ -12,18 +12,18 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-import yuqi.amc.SqliteData.Badge;
-import yuqi.amc.SqliteData.DataStruct;
-import yuqi.amc.SqliteData.Model;
 
-public class DataAdapter extends BaseAdapter {
+import yuqi.amc.SQLiteData.DataStruct;
+import yuqi.amc.SQLiteData.Model;
+
+public class SQLiteDataAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<DataStruct> dataList;
     private String identifier;
     private DatabaseHelper databaseHelper;
 
-    public DataAdapter(Context context, ArrayList<DataStruct> dataList){
+    public SQLiteDataAdapter(Context context, ArrayList<DataStruct> dataList){
         this.context = context;
         this.dataList = dataList;
         this.identifier = this.context.getClass().getSimpleName();
