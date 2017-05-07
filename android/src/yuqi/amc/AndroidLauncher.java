@@ -47,19 +47,19 @@ public class AndroidLauncher extends AndroidApplication {
 
 	private class initDatabase extends AsyncTask<String, Void, String> {
 
-		String identifier;
+		String table;
 
 		@Override
 		protected String doInBackground(String... params){
-			identifier = params[0];
-			return RestClient.requestData(identifier, null);
+			table = params[0];
+			return RestClient.requestData(table, null);
 		}
 
-		@Override
-		protected void onProgressUpdate(Void... values) {
-			progress ++;
-			Log.e("Progress:", String.valueOf(progress) + "/" + dbToProcess);
-		}
+//		@Override
+//		protected void onProgressUpdate(Void... values) {
+//			progress ++;
+//			Log.e("Progress:", String.valueOf(progress) + "/" + dbToProcess);
+//		}
 
 		@Override
 		protected void onPostExecute(String result){
@@ -71,7 +71,7 @@ public class AndroidLauncher extends AndroidApplication {
 						long id = tempJSON.getLong("ID");
 						String name = tempJSON.getString("NAME");
 
-						switch (identifier){
+						switch (table){
 							case "brand":
 								Brand brand = new Brand(id, name, tempJSON.getString("BRAND_ORIGIN"));
 								databaseHelper.addData(brand);
@@ -101,6 +101,7 @@ public class AndroidLauncher extends AndroidApplication {
 				}
 			}
 
+			progress ++;
 			// If finish downloading
 			if (progress == dbToProcess){
 				goToMain();
@@ -197,7 +198,6 @@ public class AndroidLauncher extends AndroidApplication {
 //	}
 
 	private void goToMain() {
-
 		// Normal
 		if (progress == 0) {
 			Handler handler = new Handler();

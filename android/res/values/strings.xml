@@ -55,4 +55,33 @@
         <item>UNITED STATES</item>
     </string-array>
 
+    <string name="title_register">Register</string>
+
+    <string name="msg_reg_no_name">Please enter your name.</string>
+    <string name="msg_reg_no_address">Please enter your address.</string>
+    <string name="msg_reg_no_suburb">Please enter your suburb.</string>
+    <string name="msg_reg_no_postcode">Please enter your postcode.</string>
+    <string name="msg_reg_no_state">Please enter your state.</string>
+    <string name="msg_reg_no_country">Please select your country.</string>
+    <string name="msg_reg_no_email">Please enter your email address.</string>
+    <string name="msg_reg_invalid_email">Invalid email address.</string>
+    <string name="msg_reg_no_password">Please enter your password.</string>
+    <string name="msg_reg_no_password_confirm">Please confirm your password.</string>
+    <string name="msg_reg_invalid_password">Password length should be between 8 and 24.</string>
+    <string name="msg_reg_unmatched_password">Passwords don\'t match.</string>
+
+    <string name="msg_reg_server_ok"></string>
+    <string name="msg_reg_server_error">Email address already exists.</string>
+    <string name="msg_reg_server_fail">Server error. Please try later.</string>
+
+
+
+
+    <string name="nav_title_explorer">Explorer</string>
+    <string name="nav_title_configurator">Configurator</string>
+    <string name="nav_title_account_management">ACCOUNT MANAGEMENT</string>
+    <string name="nav_title_profile">My Profile</string>
+    <string name="nav_title_orders">Order History</string>
+    <string name="nav_title_sign_out">Sign Out</string>
+
 </resources>

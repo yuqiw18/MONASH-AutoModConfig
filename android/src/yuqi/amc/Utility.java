@@ -12,7 +12,6 @@ public final class Utility {
 
     public static final String IMAGE_SOURCE = "http://yuqi.ninja/amc/img/";
     public static final String IMAGE_FORMAT = ".png";
-
     private static final String ENCODE_TYPE = "UTF-8";
 
     // Convert string name to resource ID
@@ -21,8 +20,7 @@ public final class Utility {
         try {
             Field idField = c.getDeclaredField(name);
             return idField.getInt(idField);
-        } catch (Exception ex) {
-
+        } catch (Exception e) {
             Log.e("ERROR", "RESOURCE NOT FOUND");
             return -1;
         }
@@ -64,10 +62,6 @@ public final class Utility {
             return decoded;
         }
     }
-
-
-
-
 }
 
 

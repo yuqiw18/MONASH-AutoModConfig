@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +24,9 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
     private TextView navUsername;
     private TextView navUserEmail;
     private ImageView navUserImg;
+    private SharedPreferences sharedPreferences;
+    private NavigationView navigationView;
+    private Menu navigationMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +42,25 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         View navHeader = navigationView.getHeaderView(0);
+
         navUsername = (TextView)navHeader.findViewById(R.id.navTextName);
         navUserEmail = (TextView)navHeader.findViewById(R.id.navTextEmail);
         navUserImg = (ImageView)navHeader.findViewById(R.id.navImgUser);
+
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationMenu = navigationView.getMenu();
+
+        navigationMenu.findItem(R.id.nav_explorer).setChecked(true);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         loadPreference();
 
-        getSupportActionBar().setTitle("Automobile Modification Configurator");
+        getSupportActionBar().setTitle(getString(R.string.app_name));
+
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, new ExplorerFragment()).commit();
 
@@ -63,27 +76,27 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -91,18 +104,20 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_explorer) {
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_configurator) {
             startActivity(new Intent(this, ConfiguratorBrand.class));
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_orders) {
+
+        } else if (id == R.id.nav_signout){
 
         }
 
@@ -115,16 +130,24 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
     public void onClick(View v) {
 
         if (v.getId() == R.id.navTextName){
-            startActivity(new Intent(this, Login.class));
+            if (!sharedPreferences.getBoolean("isSignedIn", false)){
+                startActivity(new Intent(this, Login.class));
+            }
         }
 
     }
 
     private void loadPreference(){
         //Load the values using SharedPreference
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        //If failed loading the value, which means no saved user information, set default String value: "TAP TO SIGN IN"
-        navUsername.setText(sharedPreferences.getString("Name", "Sign In"));
-        navUserEmail.setText(sharedPreferences.getString("Email",""));
+        if (sharedPreferences.getBoolean("isSignedIn", false)){
+            navUsername.setText(sharedPreferences.getString("name", null));
+            navUserEmail.setText(sharedPreferences.getString("email", null));
+            navigationMenu.findItem(R.id.nav_account).setVisible(true);
+        }else {
+            //If failed loading the value, which means no saved user information, set default String value: "TAP TO SIGN IN"
+            navUsername.setText("TAP TO SIGN IN");
+            navUserEmail.setText(null);
+            navigationMenu.findItem(R.id.nav_account).setVisible(false);
+        }
     }
 }

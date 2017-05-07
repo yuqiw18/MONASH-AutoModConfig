@@ -58,10 +58,10 @@ public class RestClient {
     }
 
     // POST: Universal method for creating any type of class
-    protected static String createData(String methodPath, Object object){
+    protected static int createData(String methodPath, Object object){
 
         HttpURLConnection connection = null;
-        String responseCode = "0";
+        int responseCode = 200;
 
         try {
             Gson gson = new Gson();
@@ -84,8 +84,8 @@ public class RestClient {
             out.flush();
             out.close();
 
-            responseCode = String.valueOf(connection.getResponseCode());
-            Log.e("HTTP",responseCode);
+            responseCode = connection.getResponseCode();
+            Log.e("HTTP",String.valueOf(responseCode));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -157,5 +157,15 @@ public class RestClient {
     //RestClient.deleteData("/monashfriendfinder.profile/",24717837);
 
 
+
+    protected static int processResponseCode(int responseCode){
+        if (responseCode == 200 || responseCode == 202 || responseCode == 204){
+            return 1;
+        }else if (responseCode == 400 || responseCode == 500){
+            return 0;
+        }else {
+            return -1;
+        }
+    }
 
 }

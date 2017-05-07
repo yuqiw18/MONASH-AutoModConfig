@@ -3,9 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_explorer"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="@string/nav_title_explorer" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
@@ -15,21 +15,26 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_configurator"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Configurator" />
+            android:title="@string/nav_title_configurator" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:id="@+id/nav_account"
+        android:title="@string/nav_title_account_management">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/nav_title_profile" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_orders"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/nav_title_orders" />
+            <item
+                android:id="@+id/nav_signout"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="@string/nav_title_sign_out" />
         </menu>
     </item>
 

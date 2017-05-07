@@ -21,6 +21,8 @@ import yuqi.amc.JsonData.Customer;
 
 public class Login extends AppCompatActivity implements OnClickListener {
 
+    private EditText textLoginEmail;
+    private EditText textLoginPassword;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -28,6 +30,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setTitle("AMC Customer Login");
+        textLoginEmail = (EditText) findViewById(R.id.inputLoginEmail);
+        textLoginPassword = (EditText) findViewById(R.id.inputLoginPassword);
         Button btnLogin = (Button)findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -36,7 +40,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnLogin){
-            new validateLogin().execute();
+            new ValidateLogin().execute(textLoginEmail.getText().toString(),textLoginPassword.getText().toString());
         }else if (v.getId() == R.id.labelForgetPassword){
             // Display a dialog for customers to enter their email address
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -56,7 +60,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             Toast.makeText(getBaseContext(), getString(R.string.dialog_forget_password_invalid), Toast.LENGTH_LONG).show();
                         }else {
                             // Send request to server
-                            new requestPassword().execute(input);
+                            new RequestPassword().execute(input);
                             alertDialog.dismiss();
                         }
                     }else {
@@ -70,10 +74,10 @@ public class Login extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private class validateLogin extends AsyncTask<String, Void, String>{
+    private class ValidateLogin extends AsyncTask<String, Void, String>{
         @Override
         protected String doInBackground(String... params) {
-            return null;
+            return RestClient.requestData("login",params);
         }
 
         @Override
@@ -107,7 +111,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private class requestPassword extends AsyncTask<String,Void,Void>{
+    private class RequestPassword extends AsyncTask<String,Void,Void>{
         @Override
         protected Void doInBackground(String... params) {
             RestClient.requestData("request.password",params);
