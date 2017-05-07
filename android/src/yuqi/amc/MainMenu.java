@@ -105,16 +105,15 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
 
         if (id == R.id.nav_explorer) {
 
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_configurator) {
             startActivity(new Intent(this, ConfiguratorBrand.class));
 
         } else if (id == R.id.nav_profile) {
 
+
         } else if (id == R.id.nav_orders) {
+
 
         } else if (id == R.id.nav_signout){
             new AlertDialog.Builder(this)

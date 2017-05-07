@@ -159,7 +159,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
         switch (v.getId()){
             case R.id.btnRespray:
                 resetText();
-                sectionHeader.setText("RESPRAY");
+                sectionHeader.setText(getString(R.string.ui_previewer_respray));
                 textRespray.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", new String[]{"PART_TYPE"}, new String[]{"Respray"}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -167,7 +167,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnBumper:
                 resetText();
-                sectionHeader.setText("BUMPER");
+                sectionHeader.setText(getString(R.string.ui_previewer_bumper));
                 textBumper.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Bumper",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -175,7 +175,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnBonnet:
                 resetText();
-                sectionHeader.setText("BONNET");
+                sectionHeader.setText(getString(R.string.ui_previewer_bonnet));
                 textBonnet.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Bonnet",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -183,7 +183,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnSpoiler:
                 resetText();
-                sectionHeader.setText("SPOILER");
+                sectionHeader.setText(getString(R.string.ui_previewer_spoiler));
                 textSpoiler.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Spoiler",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -191,7 +191,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnExhaust:
                 resetText();
-                sectionHeader.setText("EXHAUST");
+                sectionHeader.setText(getString(R.string.ui_previewer_exhaust));
                 textExhaust.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Exhaust",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -199,7 +199,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnSuspension:
                 resetText();
-                sectionHeader.setText("SUSPENSION");
+                sectionHeader.setText(getString(R.string.ui_previewer_suspension));
                 textSuspension.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Suspension",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -207,7 +207,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnBrake:
                 resetText();
-                sectionHeader.setText("BRAKE");
+                sectionHeader.setText(getString(R.string.ui_previewer_brake));
                 textBrake.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Brake",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -215,7 +215,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnRim:
                 resetText();
-                sectionHeader.setText("RIM");
+                sectionHeader.setText(getString(R.string.ui_previewer_rim));
                 textRim.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Rim",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -223,7 +223,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnTyre:
                 resetText();
-                sectionHeader.setText("TYRE");
+                sectionHeader.setText(getString(R.string.ui_previewer_tyre));
                 textTyre.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Tyre",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
@@ -231,7 +231,7 @@ public class Previewer extends FragmentActivity implements AndroidFragmentApplic
                 break;
             case R.id.btnLighting:
                 resetText();
-                sectionHeader.setText("LIGHTING");
+                sectionHeader.setText(getString(R.string.ui_previewer_lighting));
                 textLighting.setTypeface(null, Typeface.BOLD);
                 partList = new ArrayList<>(databaseHelper.getData("PART", COLUMNS, new String[]{"Lighting",model,badge}).values());
                 dataAdapter = new DataAdapter(this, partList);
