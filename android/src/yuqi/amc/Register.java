@@ -2,6 +2,7 @@ package yuqi.amc;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -121,6 +122,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
             Customer customer = new Customer(name, password, email, address, suburb, Integer.valueOf(postcode), state, country);
 
+            btnRegister.setEnabled(false);
+            btnRegister.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
             new RegisterAccount().execute(customer);
 
         }
@@ -140,9 +143,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             int status = RestClient.processResponseCode(responseCode);
             switch (status){
                 case -1:
+                    btnRegister.setEnabled(true);
+                    btnRegister.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                     promptMessage(getString(R.string.msg_reg_server_fail));
                     break;
                 case 0:
+                    btnRegister.setEnabled(true);
+                    btnRegister.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                     promptMessage(getString(R.string.msg_reg_server_error));
                     break;
                 case 1:

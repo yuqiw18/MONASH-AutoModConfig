@@ -1,6 +1,8 @@
 package yuqi.amc;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,7 +34,7 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        setTitle("Explorer");
+        setTitle(getString(R.string.nav_title_explorer));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,17 +46,14 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View navHeader = navigationView.getHeaderView(0);
-
         navUsername = (TextView)navHeader.findViewById(R.id.navTextName);
         navUserEmail = (TextView)navHeader.findViewById(R.id.navTextEmail);
         navUserImg = (ImageView)navHeader.findViewById(R.id.navImgUser);
 
         navigationView.setNavigationItemSelectedListener(this);
-
         navigationMenu = navigationView.getMenu();
-
+        // Set the Explorer as checked
         navigationMenu.findItem(R.id.nav_explorer).setChecked(true);
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         loadPreference();
@@ -118,7 +117,24 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         } else if (id == R.id.nav_orders) {
 
         } else if (id == R.id.nav_signout){
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.dialog_title_confirmation))
+                    .setMessage(getString(R.string.dialog_msg_logout))
+                    .setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int selection) {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("isSignedIn", false);
+                            editor.commit();
+                            Intent intent = getIntent();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            finish();
+                            startActivity(intent);
+                            overridePendingTransition(0,0);
+                        }
 
+                    }).setNegativeButton(getString(R.string.dialog_no), null).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -145,7 +161,7 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
             navigationMenu.findItem(R.id.nav_account).setVisible(true);
         }else {
             //If failed loading the value, which means no saved user information, set default String value: "TAP TO SIGN IN"
-            navUsername.setText("TAP TO SIGN IN");
+            navUsername.setText(getString(R.string.ui_main_tap_to_login));
             navUserEmail.setText(null);
             navigationMenu.findItem(R.id.nav_account).setVisible(false);
         }

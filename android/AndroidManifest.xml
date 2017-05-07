@@ -72,7 +72,6 @@
             android:value="AIzaSyBfbYzZDVMXlxJXPnNsp2JKAjcR6afEYy8" />
 
         <activity android:name=".Login" />
-        <activity android:name=".SignUp" />
         <activity android:name=".Register"></activity>
     </application>
 
