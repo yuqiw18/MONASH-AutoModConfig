@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp">
+
+    <TextView
+        android:id="@+id/labelCenterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/ui_label_default_value"
+        android:textAlignment="textStart"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/labelInstallationFee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelCenterName"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/ui_label_default_value"
+        android:textAlignment="textStart"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/labelCenterRanking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelInstallationFee"
+        android:layout_marginBottom="8dp"
+        android:text="@string/ui_label_default_value"
+        android:textAlignment="textStart"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/labelCenterDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/labelCenterName"
+        android:layout_alignParentEnd="true"
+        android:text="@string/ui_label_default_value"
+        android:textAlignment="textEnd"
+        android:textSize="10sp" />
+
+
+</RelativeLayout>

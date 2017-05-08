@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <fragment
+    <com.google.android.gms.maps.MapView
         android:id="@+id/map_fragment"
-        android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        app:layout_heightPercent="60%" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        app:layout_heightPercent="40%"
+        android:layout_below="@id/map_fragment">
+        <TextView
+            android:id="@+id/sectionHeaderServiceCenter"
+            style="@style/DialogSection"
+            android:background="?android:attr/colorButtonNormal"
+            android:text="@string/dialog_map_service_center_header"
+            android:textColor="#666666" />
+
+        <ListView
+            android:id="@+id/listServiceCenters"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/sectionHeaderServiceCenter" />
+    </RelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

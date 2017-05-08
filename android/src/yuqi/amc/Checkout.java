@@ -9,13 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import yuqi.amc.MapDialogFragment.OnMapDetachListener;
+import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
 
-public class Checkout extends AppCompatActivity implements OnClickListener,OnMapDetachListener {
+public class Checkout extends AppCompatActivity implements OnClickListener, MapDialogInteractionListener {
 
     private TextView labelCheckoutAddress;
     private TextView labelCheckoutPaymentMethod;
@@ -64,6 +65,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener,OnMap
 //            AlertDialog dialog = builder.create();
 //            dialog.show();
             MapDialogFragment mapDialogFragment = new MapDialogFragment();
+            //mapDialogFragment.getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             mapDialogFragment.show(getFragmentManager(), "ServiceCenterMap");
 
         }else if (id == R.id.btnCheckoutChangePaymentMethod){

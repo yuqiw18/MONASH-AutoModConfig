@@ -115,7 +115,12 @@
 
     <string name="msg_checkout_no_item">The cart has no item.</string>
     <string name="msg_checkout_no_login">You need to sign in before the checkout.</string>
+    <string name="dialog_map_service_center_header">Available Service Centers</string>
+    <string name="dialog_map_service_center_no_access">Please enable the location service.</string>
 
+    <string name="ui_list_center_installation">Installation Fee from </string>
+    <string name="ui_list_center_installation_currency_aud">AU$</string>
+    <string name="ui_list_center_installation_footer"> .00*</string>
 
 
 </resources>

@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 
 import yuqi.amc.JsonData.Part;
+import yuqi.amc.JsonData.Servicing;
 
 public class JsonDataAdapter extends BaseAdapter {
 
@@ -56,7 +57,7 @@ public class JsonDataAdapter extends BaseAdapter {
                         dataList.add(Part.jsonToPart(jsonObject));
                         break;
                     case SERVICING:
-
+                        dataList.add(Servicing.jsonToServiceCenter(jsonObject));
                         break;
                     case TRACKING:
 
@@ -114,7 +115,12 @@ public class JsonDataAdapter extends BaseAdapter {
                     convertView.setTag(viewHolder);
                     break;
                 case SERVICING:
-
+                    convertView = inflater.inflate(R.layout.list_service_center_item, null);
+                    viewHolder = new ViewHolder();
+                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.labelCenterName);
+                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.labelInstallationFee);
+                    viewHolder.textViewPlaceHolder3 = (TextView) convertView.findViewById(R.id.labelCenterRanking);
+                    viewHolder.textViewPlaceHolder4 = (TextView) convertView.findViewById(R.id.labelCenterDistance);
                     break;
                 case TRACKING:
 
@@ -141,6 +147,15 @@ public class JsonDataAdapter extends BaseAdapter {
                 viewHolder.textViewPlaceHolder2.setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
                 break;
             case SERVICING:
+                viewHolder.textViewPlaceHolder1.setText(((Servicing)dataList.get(position)).getName());
+                viewHolder.textViewPlaceHolder2.setText("Installation Fee from AU$ " + ((Servicing)dataList.get(position)).getPrice());
+                double avgScore = ((Servicing) dataList.get(position)).getAvgScore();
+                if (avgScore!=-1d){
+                    viewHolder.textViewPlaceHolder3.setText("Rating: " + avgScore);
+                }else {
+                    viewHolder.textViewPlaceHolder3.setText("No Rating");
+                }
+                viewHolder.textViewPlaceHolder4.setText(((Servicing)dataList.get(position)).getDistance() + "Km");
                 break;
             case TRACKING:
 
