@@ -107,6 +107,7 @@
 
     <string name="menu_previewer_save">Save</string>
     <string name="menu_previewer_checkout">Checkout</string>
+    <string name="ui_btn_checkout_pick">Change</string>
     <string name="ui_btn_checkout_change">Change</string>
     <string name="ui_checkout_post">Posts to</string>
     <string name="ui_checkout_address_placeholder">100 Sample Street \n Caulfield East, Victoria 3145 \n Australia</string>
@@ -114,6 +115,7 @@
 
     <string name="msg_checkout_no_item">The cart has no item.</string>
     <string name="msg_checkout_no_login">You need to sign in before the checkout.</string>
+
 
 
 </resources>

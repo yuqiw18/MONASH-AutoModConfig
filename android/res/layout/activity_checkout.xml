@@ -32,14 +32,14 @@
 
 
     <Button
-        android:id="@+id/btnCheckoutChangeAddress"
+        android:id="@+id/btnCheckoutPickServiceCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/labelCheckoutAddress"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="@string/ui_btn_checkout_change"
+        android:text="@string/ui_btn_checkout_pick"
         android:textColor="@android:color/white" />
 
     <View
@@ -73,7 +73,7 @@
         android:id="@+id/btnCheckoutChangePaymentMethod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btnCheckoutChangeAddress"
+        android:layout_alignStart="@+id/btnCheckoutPickServiceCenter"
         android:layout_alignTop="@+id/labelCheckoutPaymentMethod"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/ui_btn_checkout_change"

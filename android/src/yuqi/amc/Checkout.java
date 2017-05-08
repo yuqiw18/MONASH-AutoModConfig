@@ -5,15 +5,17 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
 
-public class Checkout extends AppCompatActivity {
+public class Checkout extends AppCompatActivity implements OnClickListener{
 
     private TextView labelCheckoutAddress;
     private TextView labelCheckoutPaymentMethod;
-    private ListView listCartItem;
+    private ListView listCheckoutItem;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -32,9 +34,34 @@ public class Checkout extends AppCompatActivity {
 
         labelCheckoutAddress.setText(address);
 
-        Button btnChangeAddress = (Button) findViewById(R.id.btnCheckoutChangeAddress);
+        listCheckoutItem = (ListView) findViewById(R.id.listCheckoutItems);
+
+        Button btnChangeAddress = (Button) findViewById(R.id.btnCheckoutPickServiceCenter);
         Button btnChangePayment = (Button) findViewById(R.id.btnCheckoutChangePaymentMethod);
 
+        btnChangeAddress.setOnClickListener(this);
+        btnChangePayment.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.btnCheckoutChangeAddress){
+
+
+
+
+
+
+
+        }else if (id == R.id.btnCheckoutChangePaymentMethod){
+
+
+
+
+
+        }
     }
 
     private class FetchCart extends AsyncTask<String,Void,String>{
