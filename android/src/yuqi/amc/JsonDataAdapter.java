@@ -21,11 +21,13 @@ public class JsonDataAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Object> dataList;
     private JsonDataType dataType;
+    private JsonAdapterMode mode;
 
     // Customer is one of the JsonData but it will not be used in ListView therefore it is not included here
     public enum JsonDataType {BOOKING, ORDER, PART, SERVICING, TRACKING, PAYMENT}
+    public enum JsonAdapterMode {NULL, CHECKOUT}
 
-    // Viewholder pattern
+    // ViewHolder pattern
     private static class ViewHolder{
         TextView textViewPlaceHolder1;
         TextView textViewPlaceHolder2;
@@ -33,10 +35,11 @@ public class JsonDataAdapter extends BaseAdapter {
         TextView textViewPlaceHolder4;
     }
 
-    public JsonDataAdapter(Context context, String json, JsonDataType dataType){
+    public JsonDataAdapter(Context context, String json, JsonDataType dataType, JsonAdapterMode mode ){
         this.context = context;
         this.dataType = dataType;
         this.dataList = new ArrayList<>();
+        this.mode = mode;
         try {
             JSONArray jsonArray = new JSONArray(json);
             for (int i = 0; i < jsonArray.length(); i ++){

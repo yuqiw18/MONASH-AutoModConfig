@@ -34,7 +34,8 @@
             android:stretchColumns="*">
 
             <TableRow
-                android:layout_width="0dp">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/btnRespray"
@@ -68,7 +69,8 @@
             </TableRow>
 
             <TableRow
-                android:layout_width="0dp">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textRespray"
@@ -106,7 +108,7 @@
                     android:id="@+id/textExhaust"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Exhasut"
+                    android:text="Exhaust"
                     android:textAlignment="center"
                     android:gravity="center_horizontal"
                     android:textSize="12sp" />
