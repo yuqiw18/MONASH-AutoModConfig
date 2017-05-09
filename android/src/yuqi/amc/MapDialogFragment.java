@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +24,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.DatePickerDialog.OnDateSetListener;
-
-
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -68,8 +65,13 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     private ArrayList<Servicing> serviceCenterList;
 
     private static long MILLIS_PER_DAY = 86400000;
-    private String bookingDate, bookingTime;
+    private String bookingDate;
+    private Integer bookingTime;
 
+
+    private AlertDialog detialDialog;
+
+    private Object[] passInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -214,8 +216,8 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 btnConfirm.setOnClickListener(this);
 
                 builder.setView(dialogView);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                detialDialog = builder.create();
+                detialDialog.show();
             }
         }
 
@@ -264,7 +266,6 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
         }else if (id == R.id.btnServiceCenterDetailTimepicker){
 
-
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_time_picker, null);
 
@@ -272,22 +273,42 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             RadioButton rbtn11AM = (RadioButton) dialogView.findViewById(R.id.rbtn11AM);
             RadioButton rbtn2PM = (RadioButton) dialogView.findViewById(R.id.rbtn2PM);
 
-            rbtn8AM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked){
-                        bookingTime = "8:00 AM";
-                        Log.e("time","8");
-                    }
+            if (bookingTime!=null){
+                switch (bookingTime){
+                    case 8:
+                        rbtn8AM.setChecked(true);
+                        break;
+                    case 11:
+                        rbtn11AM.setChecked(true);
+                        break;
+                    case 2:
+                        rbtn2PM.setChecked(true);
+                        break;
                 }
-            });
+
+            }
+
+            builder.setView(dialogView);
+            final AlertDialog dialog = builder.create();
 
             rbtn8AM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
-                        bookingTime = "11:00 AM";
-                        Log.e("time","11");
+                        bookingTime = 8;
+                        dialog.dismiss();
+                        ((Button)selectedView).setText(getString(R.string.dialog_timepicker_8am));
+                    }
+                }
+            });
+
+            rbtn11AM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked){
+                        bookingTime = 11;
+                        dialog.dismiss();
+                        ((Button)selectedView).setText(getString(R.string.dialog_timepicker_11am));
                     }
                 }
             });
@@ -296,29 +317,14 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
-                        bookingTime = "2:00 PM";
-                        Log.e("time","2");
+                        bookingTime = 2;
+                        dialog.dismiss();
+                        ((Button)selectedView).setText(getString(R.string.dialog_timepicker_2pm));
                     }
                 }
             });
 
-            builder.setView(dialogView);
-            AlertDialog dialog = builder.create();
             dialog.show();
-
-
-//            Calendar calendar = Calendar.getInstance();
-//
-//            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-//                @Override
-//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                    bookingTime = hourOfDay + ":" + minute;
-//                    ((Button) selectedView).setText(bookingTime);
-//                }
-//            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
-//
-//            timePickerDialog.show();
-
 
         }else if(id == R.id.btnConfirmBooking){
             if (bookingDate==null){
@@ -331,13 +337,18 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 return;
             }
 
+            mapDialogInteractionListener.onBookingConfirm();
+
+            detialDialog.dismiss();
+            getDialog().dismiss();
+
         }
 
     }
 
     public interface MapDialogInteractionListener{
         void onDetected();
-        void onAddressSelect();
+        void onBookingConfirm();
     }
 
     @Override
