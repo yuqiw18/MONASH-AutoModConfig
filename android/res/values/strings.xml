@@ -136,5 +136,8 @@
 
     <string name="msg_booking_no_date">Please select the date for installation and service.</string>
     <string name="msg_booking_no_time">Please select the time for installation and service.</string>
+    <string name="dialog_timepicker_8am">8:00 AM</string>
+    <string name="dialog_timepicker_11am">11:00 AM</string>
+    <string name="dialog_timepicker_2pm">2:00 PM</string>
 
 </resources>
