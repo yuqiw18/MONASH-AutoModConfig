@@ -1,5 +1,6 @@
 package yuqi.amc;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -10,12 +11,15 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -125,18 +129,9 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-        this.location = location;
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        return false;
-    }
-
-    @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        this.googleMap.setOnMarkerClickListener(this);
 
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Handler handler = new Handler();
@@ -148,6 +143,62 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             }, 500);
         }
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.location = location;
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+        String snippet = marker.getSnippet();
+        Servicing selectedCenter = null;
+
+        if (snippet!=null && !snippet.isEmpty()){
+            for (Servicing s: serviceCenterList){
+                if (s.getId() == getCode(snippet)){
+                    selectedCenter = s;
+                }
+            }
+
+            if (selectedCenter!=null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_center_detail, null);
+
+                TextView labelName = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailName);
+                TextView labelAddress = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailAddress);
+                TextView labelScore = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailScore);
+                TextView labelDescription = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailDesc);
+                Button btnPickDate = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailDatepicker);
+                Button btnPickTime = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailTimepicker);
+                Button btnConfirm = (Button) dialogView.findViewById(R.id.btnConfirmBooking);
+
+                String name = selectedCenter.getName();
+                String address = selectedCenter.getAddress();
+                double avgScore = selectedCenter.getAvgScore();
+
+                labelName.setText(name);
+                labelAddress.setText(address);
+                if (avgScore!=-1d){
+                    labelScore.setText("Rating: " + avgScore);
+                }else {
+                    labelScore.setText("No Rating");
+                }
+                labelDescription.setText(selectedCenter.getDetail());
+
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+
+
+
+        }
+
+        return false;
+    }
+
 
     @Override
     public void onStart() {
@@ -164,6 +215,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
     public interface MapDialogInteractionListener{
         void onDetected();
+        void onAddressSelect();
     }
 
     @Override
@@ -188,14 +240,13 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 double lat = s.getLatitude();
                 double lng = s.getLongitude();
                 String name = s.getName();
-                String address = s.getAddress();
-                googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(name).snippet(address));
+                long id = s.getId();
+                googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(name).snippet("Center Code #" + id ));
             }
-
         }
     }
 
-
+    // Find my location on the map
     private void findMyLocation(){
         if (location != null && googleMap != null) {
 
@@ -212,5 +263,11 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 12));
         }
     }
+
+    // Extract center code from snippet
+    private static long getCode(String snippet){
+        return Long.valueOf(snippet.substring(snippet.indexOf("#") + 1));
+    }
+
 }
 

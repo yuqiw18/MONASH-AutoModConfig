@@ -4,6 +4,13 @@
     <string name="ui_user_address">Delivery Address</string>
     <string name="ui_user_payment">Payment Method</string>
     <string name="ui_label_default_value">UI_PLACEHOLDER</string>
+
+    <string name="ui_label_default_long_value">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non enim quaero quid verum, sed quid cuique dicendum sit. Cum id fugiunt, re eadem defendunt, quae Peripatetici, verba.
+        Et quidem, inquit, vehementer errat; Sed hoc sane concedamus. Sed potestne rerum maior esse dissensio? Duo Reges: constructio interrete.
+        Est enim effectrix multarum et magnarum voluptatum. Qualem igitur hominem natura inchoavit? Aut haec tibi, Torquate, sunt vituperanda aut patrocinium voluptatis repudiandum.
+        Quid ad utilitatem tantae pecuniae? Quod equidem non reprehendo; Nunc de hominis summo bono quaeritur; Quis istud, quaeso, nesciebat? De ingenio eius in his disputationibus,
+        non de moribus quaeritur.</string>
+
     <string name="ui_user_section_detail">My Details</string>
     <string name="ui_user_section_collection">Saved Configurations</string>
     <string name="ui_image_description_default">Image</string>
@@ -121,6 +128,13 @@
     <string name="ui_list_center_installation">Installation Fee from </string>
     <string name="ui_list_center_installation_currency_aud">AU$</string>
     <string name="ui_list_center_installation_footer"> .00*</string>
+    <string name="ui_checkout_service">Service Status</string>
+    <string name="ui_checkout_cancel">Cancel</string>
+
+    <string name="dialog_checkout_cancel_booking">Are you sure you wish to cancel the booking? You can pick any other service center before proceed your order.</string>
+    <string name="ui_btn_booking_pick_date">Pick Date</string>
+    <string name="ui_btn_booking_pick_time">Pick Time</string>
+    <string name="ui_btn_booking_confirm">Confirm</string>
 
 
 </resources>

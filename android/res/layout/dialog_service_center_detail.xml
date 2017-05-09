@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp">
+
+    <ImageView
+        android:id="@+id/imgServiceCenterDetail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/img128"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"
+        app:srcCompat="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/labelServiceCenterDetailName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imgServiceCenterDetail"
+        android:gravity="center_horizontal"
+        android:text="@string/ui_label_default_value"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/labelServiceCenterDetailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelServiceCenterDetailName"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/ui_label_default_value"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/labelServiceCenterDetailDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelServiceCenterDetailScore"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:lines="5"
+        android:text="@string/ui_label_default_long_value" />
+
+    <TextView
+        android:id="@+id/labelServiceCenterDetailScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelServiceCenterDetailAddress"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/ui_label_default_value"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btnServiceCenterDetailDatepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelServiceCenterDetailDesc"
+        android:text="@string/ui_btn_booking_pick_date" />
+
+    <Button
+        android:id="@+id/btnServiceCenterDetailTimepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/labelServiceCenterDetailDesc"
+        android:text="@string/ui_btn_booking_pick_time" />
+
+    <Button
+        android:id="@+id/btnConfirmBooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnServiceCenterDetailDatepicker"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/ui_btn_booking_confirm"
+        android:textColor="@android:color/white" />
+</RelativeLayout>

@@ -43,7 +43,6 @@ public class Servicing {
         return center;
     }
 
-
     public long getId() {
         return id;
     }
