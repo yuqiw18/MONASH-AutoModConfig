@@ -48,7 +48,6 @@
         android:layout_below="@+id/labelServiceCenterDetailScore"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:lines="5"
         android:text="@string/ui_label_default_long_value" />
 
     <TextView

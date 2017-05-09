@@ -1,7 +1,10 @@
 package yuqi.amc;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,6 +14,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +22,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+import android.app.DatePickerDialog.OnDateSetListener;
 
 
 
@@ -40,13 +47,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import yuqi.amc.JsonData.Servicing;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 import yuqi.amc.JsonDataAdapter.JsonAdapterMode;
 
 public class MapDialogFragment extends DialogFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnMarkerClickListener{
+        LocationListener, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
     private static final long MAX_UPDATE_INTERVAL = 10000; // 10 Seconds
     private static final long MIN_UPDATE_INTERVAL = 2000;  // 2 Seconds
@@ -56,9 +64,22 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     private Location location;
     private GoogleApiClient googleApiClient;
     private Marker marker;
+
     private double currentLat, currentLng;
+
     private ListView centerListView;
     private ArrayList<Servicing> serviceCenterList;
+
+    private static long MILLIS_PER_DAY = 86400000;
+    private String bookingDate, bookingTime;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+
+    }
 
     @Nullable
     @Override
@@ -100,7 +121,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        //getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     @Override
@@ -163,6 +184,10 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             }
 
             if (selectedCenter!=null){
+
+                bookingDate = null;
+                bookingTime = null;
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_center_detail, null);
 
@@ -170,8 +195,8 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 TextView labelAddress = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailAddress);
                 TextView labelScore = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailScore);
                 TextView labelDescription = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailDesc);
-                Button btnPickDate = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailDatepicker);
-                Button btnPickTime = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailTimepicker);
+                final Button btnPickDate = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailDatepicker);
+                final Button btnPickTime = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailTimepicker);
                 Button btnConfirm = (Button) dialogView.findViewById(R.id.btnConfirmBooking);
 
                 String name = selectedCenter.getName();
@@ -187,13 +212,14 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 }
                 labelDescription.setText(selectedCenter.getDetail());
 
+                btnPickDate.setOnClickListener(this);
+                btnPickTime.setOnClickListener(this);
+                btnConfirm.setOnClickListener(this);
+
                 builder.setView(dialogView);
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-
-
-
         }
 
         return false;
@@ -211,6 +237,63 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         googleApiClient.disconnect();
         mapDialogInteractionListener.onDetected();
         super.onDetach();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        final View selectedView = v;
+        int id = selectedView.getId();
+
+        if (id == R.id.btnServiceCenterDetailDatepicker){
+
+            Calendar calendar = Calendar.getInstance();
+            long baseDate = System.currentTimeMillis();
+            long startDate = baseDate + MILLIS_PER_DAY * 7;
+            long endDate = baseDate + MILLIS_PER_DAY * 35;
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    bookingDate = dayOfMonth + "-" +  (month+1) +"-" + year;
+                    ((Button) selectedView).setText(bookingDate);
+                }
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+            datePickerDialog.getDatePicker().setMinDate(startDate);
+            datePickerDialog.getDatePicker().setMaxDate(endDate);
+
+            datePickerDialog.show();
+
+        }else if (id == R.id.btnServiceCenterDetailTimepicker){
+
+            Calendar calendar = Calendar.getInstance();
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    bookingTime = hourOfDay + ":" + minute;
+                    ((Button) selectedView).setText(bookingTime);
+                }
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+
+            timePickerDialog.show();
+
+
+        }else if(id == R.id.btnConfirmBooking){
+            if (bookingDate==null){
+                Toast.makeText(getContext(),getString(R.string.msg_booking_no_date),Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (bookingTime==null){
+                Toast.makeText(getContext(),getString(R.string.msg_booking_no_time),Toast.LENGTH_LONG).show();
+                return;
+            }
+
+        }
+
+
     }
 
     public interface MapDialogInteractionListener{

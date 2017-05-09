@@ -121,6 +121,7 @@ public class JsonDataAdapter extends BaseAdapter {
                     viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.labelInstallationFee);
                     viewHolder.textViewPlaceHolder3 = (TextView) convertView.findViewById(R.id.labelCenterRanking);
                     viewHolder.textViewPlaceHolder4 = (TextView) convertView.findViewById(R.id.labelCenterDistance);
+                    convertView.setTag(viewHolder);
                     break;
                 case TRACKING:
 
@@ -133,7 +134,6 @@ public class JsonDataAdapter extends BaseAdapter {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
 
 
         switch (dataType){
