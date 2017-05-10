@@ -8,13 +8,14 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+
+import yuqi.amc.JsonData.Center;
 import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
 
 public class Checkout extends AppCompatActivity implements OnClickListener, MapDialogInteractionListener {
@@ -114,14 +115,15 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     }
 
     @Override
-    public void onDetected() {
+    public void onClose() {
         btnChangeAddress.setEnabled(true);
         btnChangeAddress.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-        layoutCheckoutBooking.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onAddressSelect() {
+    public void onCenterSelect(Center center, String date, Integer time) {
+        labelCheckoutAddress.setText(center.getAddress());
+        labelCheckoutBookingTime.setText(date + "\n" + time);
         layoutCheckoutBooking.setVisibility(View.VISIBLE);
     }
 

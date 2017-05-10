@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
-public class Servicing {
+public class Center {
 
     private long id;
     private double latitude;
@@ -16,10 +16,10 @@ public class Servicing {
     private Double avgScore;
     private double distance;
 
-    public Servicing(){}
+    public Center(){}
 
-    public static Servicing jsonToServiceCenter(JSONObject jsonObject){
-        Servicing center = new Servicing();
+    public static Center jsonToServiceCenter(JSONObject jsonObject){
+        Center center = new Center();
         try {
             center.setId(jsonObject.getLong("CENTER_ID"));
             center.setLatitude(jsonObject.getDouble("CENTER_LAT"));

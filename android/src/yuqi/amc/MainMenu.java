@@ -1,6 +1,7 @@
 package yuqi.amc;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +35,7 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        setTitle(getString(R.string.nav_title_explorer));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,6 +55,9 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         navigationMenu = navigationView.getMenu();
         // Set the Explorer as checked
         navigationMenu.findItem(R.id.nav_explorer).setChecked(true);
+
+
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         loadPreference();
@@ -71,7 +75,13 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            moveTaskToBack(true);
+            //moveTaskToBack(true);
+            int count = getFragmentManager().getBackStackEntryCount();
+            if (count == 0) {
+                super.onBackPressed();
+            } else {
+                getFragmentManager().popBackStack();
+            }
         }
     }
 
@@ -103,17 +113,18 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment nextFragment = null;
         if (id == R.id.nav_explorer) {
-
+            nextFragment = new ExplorerFragment();
 
         } else if (id == R.id.nav_configurator) {
             startActivity(new Intent(this, ConfiguratorBrand.class));
 
         } else if (id == R.id.nav_profile) {
-
+            nextFragment = new ProfileFragment();
 
         } else if (id == R.id.nav_orders) {
-
+            nextFragment = new OrderListFragment();
 
         } else if (id == R.id.nav_signout){
             new AlertDialog.Builder(this)
@@ -127,6 +138,8 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
                             editor.putBoolean("isSignedIn", false);
                             editor.commit();
                             Intent intent = getIntent();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             finish();
                             startActivity(intent);
@@ -134,6 +147,11 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
                         }
 
                     }).setNegativeButton(getString(R.string.dialog_no), null).show();
+        }
+
+        if (nextFragment != null){
+            navigationView.setCheckedItem(id);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, nextFragment).addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

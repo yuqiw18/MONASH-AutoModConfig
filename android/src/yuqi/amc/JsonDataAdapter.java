@@ -11,11 +11,10 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 
 import yuqi.amc.JsonData.Part;
-import yuqi.amc.JsonData.Servicing;
+import yuqi.amc.JsonData.Center;
 
 public class JsonDataAdapter extends BaseAdapter {
 
@@ -25,7 +24,7 @@ public class JsonDataAdapter extends BaseAdapter {
     private JsonAdapterMode mode;
 
     // Customer is one of the JsonData but it will not be used in ListView therefore it is not included here
-    public enum JsonDataType {BOOKING, ORDER, PART, SERVICING, TRACKING, PAYMENT}
+    public enum JsonDataType {BOOKING, ORDER, PART, CENTER, TRACKING, PAYMENT}
     public enum JsonAdapterMode {NULL, CHECKOUT}
 
     // ViewHolder pattern
@@ -56,8 +55,8 @@ public class JsonDataAdapter extends BaseAdapter {
                     case PART:
                         dataList.add(Part.jsonToPart(jsonObject));
                         break;
-                    case SERVICING:
-                        dataList.add(Servicing.jsonToServiceCenter(jsonObject));
+                    case CENTER:
+                        dataList.add(Center.jsonToServiceCenter(jsonObject));
                         break;
                     case TRACKING:
 
@@ -114,7 +113,7 @@ public class JsonDataAdapter extends BaseAdapter {
                     viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textPartPrice);
                     convertView.setTag(viewHolder);
                     break;
-                case SERVICING:
+                case CENTER:
                     convertView = inflater.inflate(R.layout.list_service_center_item, null);
                     viewHolder = new ViewHolder();
                     viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.labelCenterName);
@@ -146,16 +145,16 @@ public class JsonDataAdapter extends BaseAdapter {
                 viewHolder.textViewPlaceHolder1.setText(((Part)dataList.get(position)).getName());
                 viewHolder.textViewPlaceHolder2.setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
                 break;
-            case SERVICING:
-                viewHolder.textViewPlaceHolder1.setText(((Servicing)dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolder2.setText("Installation Fee from AU$ " + ((Servicing)dataList.get(position)).getPrice());
-                double avgScore = ((Servicing) dataList.get(position)).getAvgScore();
+            case CENTER:
+                viewHolder.textViewPlaceHolder1.setText(((Center)dataList.get(position)).getName());
+                viewHolder.textViewPlaceHolder2.setText("Installation Fee from AU$ " + ((Center)dataList.get(position)).getPrice());
+                double avgScore = ((Center) dataList.get(position)).getAvgScore();
                 if (avgScore!=-1d){
                     viewHolder.textViewPlaceHolder3.setText("Rating: " + avgScore);
                 }else {
                     viewHolder.textViewPlaceHolder3.setText("No Rating");
                 }
-                viewHolder.textViewPlaceHolder4.setText(((Servicing)dataList.get(position)).getDistance() + "Km");
+                viewHolder.textViewPlaceHolder4.setText(((Center)dataList.get(position)).getDistance() + "Km");
                 break;
             case TRACKING:
 

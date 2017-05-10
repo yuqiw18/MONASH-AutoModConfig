@@ -69,6 +69,10 @@
     <string name="title_previewer">Previewer</string>
     <string name="title_checkout">Checkout</string>
 
+    <string name="title_profile">Profile</string>
+    <string name="title_order">Order</string>
+
+
     <string name="msg_reg_no_name">Please enter your name.</string>
     <string name="msg_reg_no_address">Please enter your address.</string>
     <string name="msg_reg_no_suburb">Please enter your suburb.</string>

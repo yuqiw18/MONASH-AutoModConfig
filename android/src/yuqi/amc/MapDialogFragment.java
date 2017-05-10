@@ -43,12 +43,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import yuqi.amc.JsonData.Servicing;
+import yuqi.amc.JsonData.Center;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 import yuqi.amc.JsonDataAdapter.JsonAdapterMode;
 
 public class MapDialogFragment extends DialogFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMarkerClickListener, View.OnClickListener{
+
+    public interface MapDialogInteractionListener{
+        void onClose();
+        void onCenterSelect(Center center, String date, Integer time);
+    }
 
     private static final long MAX_UPDATE_INTERVAL = 10000; // 10 Seconds
     private static final long MIN_UPDATE_INTERVAL = 2000;  // 2 Seconds
@@ -62,22 +67,21 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     private double currentLat, currentLng;
 
     private ListView centerListView;
-    private ArrayList<Servicing> serviceCenterList;
+    private ArrayList<Center> serviceCenterList;
 
     private static long MILLIS_PER_DAY = 86400000;
     private String bookingDate;
     private Integer bookingTime;
 
 
-    private AlertDialog detialDialog;
+    private AlertDialog detailDialog;
 
-    private Object[] passInfo;
+    private Center selectedCenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
-
     }
 
     @Nullable
@@ -93,7 +97,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                     .addApi(LocationServices.API)
                     .build();
         }
-        marker = null;
+
         MapView mapView = (MapView) dialogView.findViewById(R.id.map_fragment);
         if (mapView != null) {
             mapView.onCreate(null);
@@ -102,7 +106,6 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         }
 
         centerListView = (ListView) dialogView.findViewById(R.id.listServiceCenters);
-
         centerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -113,6 +116,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             }
         });
 
+        marker = null;
 
         return dialogView;
     }
@@ -173,10 +177,10 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     public boolean onMarkerClick(Marker marker) {
 
         String snippet = marker.getSnippet();
-        Servicing selectedCenter = null;
+        selectedCenter = null;
 
         if (snippet!=null && !snippet.isEmpty()){
-            for (Servicing s: serviceCenterList){
+            for (Center s: serviceCenterList){
                 if (s.getId() == getCode(snippet)){
                     selectedCenter = s;
                 }
@@ -216,8 +220,8 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 btnConfirm.setOnClickListener(this);
 
                 builder.setView(dialogView);
-                detialDialog = builder.create();
-                detialDialog.show();
+                detailDialog = builder.create();
+                detailDialog.show();
             }
         }
 
@@ -234,7 +238,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     @Override
     public void onDetach() {
         googleApiClient.disconnect();
-        mapDialogInteractionListener.onDetected();
+        mapDialogInteractionListener.onClose();
         super.onDetach();
     }
 
@@ -337,18 +341,13 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 return;
             }
 
-            mapDialogInteractionListener.onBookingConfirm();
-
-            detialDialog.dismiss();
+            mapDialogInteractionListener.onCenterSelect(selectedCenter, bookingDate, bookingTime);
+;
+            detailDialog.dismiss();
             getDialog().dismiss();
 
         }
 
-    }
-
-    public interface MapDialogInteractionListener{
-        void onDetected();
-        void onBookingConfirm();
     }
 
     @Override
@@ -365,11 +364,11 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
         @Override
         protected void onPostExecute(String result) {
-            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.SERVICING, JsonAdapterMode.NULL );
-            serviceCenterList = (ArrayList<Servicing>)((ArrayList<?>)jsonDataAdapter.getDataList());
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.CENTER, JsonAdapterMode.NULL );
+            serviceCenterList = (ArrayList<Center>)((ArrayList<?>)jsonDataAdapter.getDataList());
             centerListView.setAdapter(jsonDataAdapter);
 
-            for (Servicing s: serviceCenterList) {
+            for (Center s: serviceCenterList) {
                 double lat = s.getLatitude();
                 double lng = s.getLongitude();
                 String name = s.getName();
