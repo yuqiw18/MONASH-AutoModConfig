@@ -121,4 +121,8 @@ public class Customer {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public String getFormattedAddress(){
+        return address + "\n" + suburb + " " + postcode + ", " + state + "\n" + country;
+    }
 }

@@ -69,7 +69,7 @@
     <string name="title_previewer">Previewer</string>
     <string name="title_checkout">Checkout</string>
 
-    <string name="title_profile">Profile</string>
+    <string name="title_account">Account</string>
     <string name="title_order">Order</string>
 
 
@@ -91,8 +91,8 @@
 
     <string name="nav_title_explorer">Explorer</string>
     <string name="nav_title_configurator">Configurator</string>
-    <string name="nav_title_account_management">ACCOUNT MANAGEMENT</string>
-    <string name="nav_title_profile">My Profile</string>
+    <string name="nav_title_dashboard">DASHBOARD</string>
+    <string name="nav_title_account">My Account</string>
     <string name="nav_title_orders">Order History</string>
     <string name="nav_title_sign_out">Sign Out</string>
 
@@ -121,6 +121,7 @@
     <string name="ui_checkout_post">Posts to</string>
     <string name="ui_checkout_address_placeholder">100 Sample Street \n Caulfield East, Victoria 3145 \n Australia</string>
     <string name="ui_checkout_payment_method">Payment Method</string>
+    <string name="ui_checkout_service_status">Installation Required</string>
 
     <string name="msg_checkout_no_item">The cart has no item.</string>
     <string name="msg_checkout_no_login">You need to sign in before the checkout.</string>
@@ -144,5 +145,10 @@
     <string name="dialog_timepicker_11am">11:00 AM</string>
     <string name="dialog_timepicker_2pm">2:00 PM</string>
     <string name="ui_previewer_category">CATEGORY</string>
+    <string name="ui_account_address">Delivery Address</string>
+    <string name="ui_account_payment_method">Payment Method</string>
+    <string name="ui_account_detail">My Details</string>
+    <string name="ui_account_saved_config">Saved Configurations</string>
+    <string name="ui_btn_account_edit">Edit</string>
 
 </resources>

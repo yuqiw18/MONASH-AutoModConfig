@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/img64"
+                android:layout_height="@dimen/img64"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:srcCompat="@drawable/user_image" />
+
+            <TextView
+                android:id="@+id/labelAccountName"
+                style="@style/SubView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView"
+                android:text="@string/ui_label_default_value"
+                android:textAlignment="textStart"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelAccountEmail"
+                style="@style/SubView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ui_label_default_value"
+                android:textAlignment="textStart"
+                android:layout_below="@+id/labelAccountName"
+                android:layout_toEndOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/sectionHeaderAccount"
+                style="@style/Section"
+                android:background="?android:attr/colorButtonNormal"
+                android:text="@string/ui_account_detail"
+                android:textColor="#666666"
+                android:layout_below="@+id/imageView"
+                android:layout_alignParentStart="true" />
+
+
+            <TextView
+                android:id="@+id/textViewAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sectionHeaderAccount"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/ui_account_address"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/labelAccountAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewAccount"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:lines="3"
+                android:text="@string/ui_checkout_address_placeholder" />
+
+            <Button
+                android:id="@+id/btnAccountChangeAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/labelAccountAddress"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/ui_btn_account_edit"
+                android:textColor="@android:color/white" />
+
+            <View
+                android:id="@+id/viewAccount"
+                style="@style/Divider"
+                android:layout_below="@id/labelAccountAddress" />
+
+
+            <TextView
+                android:id="@+id/textViewAccount2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/viewAccount"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/ui_account_payment_method"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/labelAccountPaymentMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewAccount2"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:lines="3"
+                android:text="@string/ui_checkout_address_placeholder" />
+
+            <Button
+                android:id="@+id/btnAccountAddPaymentMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/labelAccountPaymentMethod"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/ui_btn_checkout_pick"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/sectionHeaderAccount2"
+                style="@style/Section"
+                android:layout_below="@id/labelAccountPaymentMethod"
+                android:background="?android:attr/colorButtonNormal"
+                android:text="@string/ui_account_saved_config"
+                android:textColor="#666666" />
+
+            <ListView
+                android:id="@+id/listSavedConfig"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/sectionHeaderAccount2" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

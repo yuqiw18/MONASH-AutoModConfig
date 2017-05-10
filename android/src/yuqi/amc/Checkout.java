@@ -122,16 +122,31 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
     @Override
     public void onCenterSelect(Center center, String date, Integer time) {
-        labelCheckoutAddress.setText(center.getAddress());
-        labelCheckoutBookingTime.setText(date + "\n" + time);
+        labelCheckoutAddress.setText(center.getFormmattedAddress());
+
+        labelCheckoutBookingTime.setText(getString(R.string.ui_checkout_service_status) + "\n" + Utility.formateDate(date) + "\n" + formatTime(time));
         layoutCheckoutBooking.setVisibility(View.VISIBLE);
     }
 
     private void loadDefaultAddress(){
         String address = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
-                + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getInt("postcode", 0000)
-                + ", " + sharedPreferences.getString("state", "STATE") + "\n"
+                + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")
+                + " " + sharedPreferences.getInt("postcode", 0000) + "\n"
                 + sharedPreferences.getString("country", "COUNTRY");
         labelCheckoutAddress.setText(address);
     }
+
+    private static String formatTime(Integer time){
+        switch (time){
+            case 8:
+                return "8:00 AM";
+            case 11:
+                return "11:00 AM";
+            case 2:
+                return "2:00 PM";
+            default:
+                return "0:00 AM";
+        }
+    }
+
 }

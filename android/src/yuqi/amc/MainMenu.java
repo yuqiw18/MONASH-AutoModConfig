@@ -120,8 +120,8 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         } else if (id == R.id.nav_configurator) {
             startActivity(new Intent(this, ConfiguratorBrand.class));
 
-        } else if (id == R.id.nav_profile) {
-            nextFragment = new ProfileFragment();
+        } else if (id == R.id.nav_account) {
+            nextFragment = new AccountFragment();
 
         } else if (id == R.id.nav_orders) {
             nextFragment = new OrderListFragment();
@@ -167,7 +167,6 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
                 startActivity(new Intent(this, Login.class));
             }
         }
-
     }
 
     private void loadPreference(){

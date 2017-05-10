@@ -3,6 +3,11 @@ package yuqi.amc;
 import android.util.Base64;
 import android.util.Log;
 import java.lang.reflect.Field;
+import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by yuqi on 14/4/17.
@@ -38,30 +43,35 @@ public final class Utility {
         return IMAGE_SOURCE+ stringConvert(name)+ IMAGE_FORMAT;
     }
 
-    // Encoding
-    protected static String Encode(String content){
-        String encoded = null;
-        try{
-            byte[] data = content.getBytes(ENCODE_TYPE);
-            encoded = Base64.encodeToString(data, Base64.DEFAULT);
+    // SHA-512 Hashing
+
+
+    public static String formateDate(String strDate){
+        try {
+            Date date = new SimpleDateFormat("dd-MM-yyyy").parse(strDate);
+            return new SimpleDateFormat("dd MMM yyyy").format(date).toUpperCase();
         }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            return encoded;
+            return "1 JAN 1970";
         }
     }
 
-    protected static String Decode(String content){
-        String decoded = null;
-        try{
-            byte[] data = Base64.decode(content, Base64.DEFAULT);
-            decoded = new String(data, ENCODE_TYPE);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            return decoded;
+    private String Hash(String password){
+        String generatedPassword = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] bytes = md.digest(password.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return generatedPassword;
     }
+
 }
 
 
