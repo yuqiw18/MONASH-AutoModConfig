@@ -143,5 +143,6 @@
     <string name="dialog_timepicker_8am">8:00 AM</string>
     <string name="dialog_timepicker_11am">11:00 AM</string>
     <string name="dialog_timepicker_2pm">2:00 PM</string>
+    <string name="ui_previewer_category">CATEGORY</string>
 
 </resources>

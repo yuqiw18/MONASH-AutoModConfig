@@ -19,7 +19,11 @@ public class OrderListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_order, container, false);
+
+
+
+        return view;
     }
 
 
@@ -27,7 +31,7 @@ public class OrderListFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            return null;
+            return RestClient.requestData("transaction", params);
         }
 
         @Override

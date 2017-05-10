@@ -2,7 +2,6 @@ package yuqi.amc;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
@@ -46,16 +45,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     private ImageButton btnTyre;
     private ImageButton btnLighting;
 
-    private TextView textRespray;
-    private TextView textBumper;
-    private TextView textBonnet;
-    private TextView textSpoiler;
-    private TextView textExhaust;
-    private TextView textSuspension;
-    private TextView textBrake;
-    private TextView textRim;
-    private TextView textTyre;
-    private TextView textLighting;
     private TextView sectionHeader;
     private Badge data;
     private String brandName = null;
@@ -69,18 +58,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         setContentView(R.layout.activity_previewer);
 
         setTitle(getString(R.string.title_previewer));
-
-        // UI-related variables
-        textRespray = (TextView) findViewById(R.id.textRespray);
-        textBumper = (TextView) findViewById(R.id.textBumper);
-        textBonnet = (TextView) findViewById(R.id.textBonnet);
-        textSpoiler = (TextView) findViewById(R.id.textSpoiler);
-        textExhaust = (TextView) findViewById(R.id.textExhaust);
-        textSuspension = (TextView) findViewById(R.id.textSuspension);
-        textBrake = (TextView) findViewById(R.id.textBrake);
-        textRim = (TextView) findViewById(R.id.textRim);
-        textTyre = (TextView) findViewById(R.id.textTyre);
-        textLighting = (TextView) findViewById(R.id.textLighting);
 
         sectionHeader = (TextView) findViewById(R.id.sectionHeader);
 
@@ -111,9 +88,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
         partListView = (ListView) findViewById(R.id.listParts);
 
-        resetText();
         sectionHeader.setText("RESPRAY");
-        textRespray.setTypeface(null, Typeface.BOLD);
 
         Bundle incomingData = getIntent().getExtras();
 
@@ -189,83 +164,53 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         String model = data.getModelName();
         partList = null;
         partListView.setAdapter(null);
-        switch (v.getId()){
+
+        int id = v.getId();
+
+        switch (id){
             case R.id.btnRespray:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_respray));
-                textRespray.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Respray",model,badge);
                 break;
             case R.id.btnBumper:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_bumper));
-                textBumper.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Bumper",model,badge);
                 break;
             case R.id.btnBonnet:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_bonnet));
-                textBonnet.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Bonnet",model,badge);
                 break;
             case R.id.btnSpoiler:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_spoiler));
-                textSpoiler.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Spoiler",model,badge);
                 break;
             case R.id.btnExhaust:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_exhaust));
-                textExhaust.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Exhaust",model,badge);
                 break;
             case R.id.btnSuspension:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_suspension));
-                textSuspension.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Suspension",model,badge);
                 break;
             case R.id.btnBrake:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_brake));
-                textBrake.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Brake",model,badge);
                 break;
             case R.id.btnRim:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_rim));
-                textRim.setTypeface(null, Typeface.BOLD);
-                new fetchPartList().execute("Lighting",model,badge);
+                new fetchPartList().execute("Rim",model,badge);
                 break;
             case R.id.btnTyre:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_tyre));
-                textTyre.setTypeface(null, Typeface.BOLD);
-                new fetchPartList().execute("Lighting",model,badge);
+                new fetchPartList().execute("Tyre",model,badge);
                 break;
             case R.id.btnLighting:
-                resetText();
                 sectionHeader.setText(getString(R.string.ui_previewer_lighting));
-                textLighting.setTypeface(null, Typeface.BOLD);
                 new fetchPartList().execute("Lighting",model,badge);
                 break;
             default:
                 break;
         }
-    }
-
-    public void resetText(){
-        textRespray.setTypeface(null, Typeface.NORMAL);
-        textBumper.setTypeface(null, Typeface.NORMAL);
-        textBonnet.setTypeface(null, Typeface.NORMAL);
-        textSpoiler.setTypeface(null, Typeface.NORMAL);
-        textExhaust.setTypeface(null, Typeface.NORMAL);
-        textSuspension.setTypeface(null, Typeface.NORMAL);
-        textBrake.setTypeface(null, Typeface.NORMAL);
-        textRim.setTypeface(null, Typeface.NORMAL);
-        textTyre.setTypeface(null, Typeface.NORMAL);
-        textLighting.setTypeface(null, Typeface.NORMAL);
     }
 
     public interface OnPartSelectListener{

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/img_64"
+                android:layout_height="@dimen/img_64"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                app:srcCompat="@drawable/img_default_user" />
+
+            <TextView
+                android:id="@+id/labelProfileName"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/ui_label_default_value"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelProfileID"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/labelProfileName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/ui_label_default_value"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/labelProfileEmail"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/labelProfileID"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/ui_label_default_value"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/labelProfileGender"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/labelProfileEmail"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/ui_label_default_value"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/labelProfileDOB"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/labelProfileGender"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/ui_label_default_value"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/sectionHeader"
+                style="@style/section"
+                android:background="?android:attr/colorButtonNormal"
+                android:text="@string/subscription_header_1st"
+                android:textColor="#666666"
+                android:layout_below="@id/labelProfileDOB"/>
+
+            <TableLayout
+                android:id="@+id/tableProfileSectionOne"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sectionHeader"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileCourse"
+                        android:text="@string/subscription_course" />
+
+                    <EditText
+                        android:id="@+id/textProfileCourse"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:hint="@string/subscription_course_hint"
+                        android:inputType="textPersonName" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileAddress"
+                        android:text="@string/subscription_study_mode" />
+
+                    <Spinner
+                        android:id="@+id/spinnerProfileStudyMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:entries="@array/studyMode" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileAddress"
+                        android:text="@string/subscription_address" />
+
+                    <EditText
+                        android:id="@+id/textProfileAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileSuburb"
+                        android:text="@string/subscription_suburb" />
+
+                    <EditText
+                        android:id="@+id/textProfileSuburb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfilePostcode"
+                        android:text="@string/subscription_postcode" />
+
+                    <EditText
+                        android:id="@+id/textProfilePostcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:maxLength="4" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/sectionHeader2"
+                style="@style/section"
+                android:layout_below="@id/tableProfileSectionOne"
+                android:background="?android:attr/colorButtonNormal"
+                android:text="@string/subscription_header_2nd"
+                android:textColor="#666666" />
+
+            <TableLayout
+                android:id="@+id/tableProfileSectionTwo"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sectionHeader2"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/spinnerProfileNationality"
+                        android:text="@string/subscription_nationality" />
+
+                    <Spinner
+                        android:id="@+id/spinnerProfileNationality"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:spinnerMode="dialog"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/spinnerProfileNativeLanguage"
+                        android:text="@string/subscription_native_language" />
+
+                    <Spinner
+                        android:id="@+id/spinnerProfileNativeLanguage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:spinnerMode="dialog"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileOccupation"
+                        android:text="@string/subscription_occupation" />
+
+                    <EditText
+                        android:id="@+id/textProfileOccupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:ems="10"
+                        android:hint="@string/subscription_occupation_hint"
+                        android:inputType="textPersonName" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileFavouriteMovie"
+                        android:text="@string/subscription_favourite_movie" />
+
+                    <EditText
+                        android:id="@+id/textProfileFavouriteMovie"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:hint="@string/subscription_favourite_movie_hint"
+                        android:inputType="textPersonName" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileFavouriteSport"
+                        android:text="@string/subscription_favourite_sport" />
+
+                    <EditText
+                        android:id="@+id/textProfileFavouriteSport"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:ems="10"
+                        android:hint="@string/subscription_favourite_sport_hint"
+                        android:inputType="textPersonName" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfileFavouriteUnit"
+                        android:text="@string/subscription_favourite_unit" />
+
+                    <EditText
+                        android:id="@+id/textProfileFavouriteUnit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:hint="@string/subscription_favourite_unit_hint"
+                        android:inputType="textPersonName" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/sectionHeader3"
+                style="@style/section"
+                android:layout_below="@id/tableProfileSectionTwo"
+                android:background="?android:attr/colorButtonNormal"
+                android:text="@string/edit_header_3rd"
+                android:textColor="#666666" />
+
+            <TableLayout
+                android:id="@+id/tableProfileSectionThree"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sectionHeader3"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfilePassword"
+                        android:text="@string/login_password_hint" />
+
+                    <EditText
+                        android:id="@+id/textProfilePassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:hint="@string/edit_profile_password_hint"
+                        android:inputType="textPassword" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/height_min">
+
+                    <TextView
+                        android:layout_width="@dimen/width_128"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/textProfilePasswordConfirm"
+                        android:text="@string/edit_profile_confrim_password" />
+
+                    <EditText
+                        android:id="@+id/textProfilePasswordConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:inputType="textPassword" />
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btnUpdate"
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tableProfileSectionThree"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/profile_button_update"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                style="@style/subView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnUpdate"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/profile_extra_info"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+            </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

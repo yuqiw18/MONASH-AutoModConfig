@@ -88,7 +88,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View dialogView = inflater.inflate(R.layout.dialog_service_center, null);
+        View dialogView = inflater.inflate(R.layout.dialog_service_center_map, null);
 
         if (googleApiClient == null){
             googleApiClient = new GoogleApiClient.Builder(getActivity().getApplicationContext())
