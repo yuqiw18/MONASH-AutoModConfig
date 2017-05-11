@@ -8,9 +8,11 @@
     tools:context="yuqi.amc.MainMenu"
     tools:showIn="@layout/app_bar_main_menu">
 
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
 
 </ScrollView>

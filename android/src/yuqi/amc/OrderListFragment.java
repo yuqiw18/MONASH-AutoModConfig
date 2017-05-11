@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -34,10 +36,22 @@ public class OrderListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         orderListView = (ListView) view.findViewById(R.id.listOrders);
-        new FetchOrderList().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
+        orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.e("SELECTED", String.valueOf(orderList.get(position).getDatetime()));
+
+            }
+        });
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        new FetchOrderList().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
+    }
 
     private class FetchOrderList extends AsyncTask<String,Void,String>{
 

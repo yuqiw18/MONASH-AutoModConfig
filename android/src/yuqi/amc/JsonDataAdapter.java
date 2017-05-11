@@ -53,6 +53,7 @@ public class JsonDataAdapter extends BaseAdapter {
                         break;
                     case ORDER:
                         dataList.add(Order.jsonToOrder(jsonObject));
+                        Log.e("Order","Fetched");
                         break;
                     case PART:
                         dataList.add(Part.jsonToPart(jsonObject));
@@ -103,7 +104,6 @@ public class JsonDataAdapter extends BaseAdapter {
 
             switch (dataType) {
                 case BOOKING:
-
                     convertView.setTag(viewHolder);
                     break;
                 case ORDER:
@@ -154,6 +154,7 @@ public class JsonDataAdapter extends BaseAdapter {
                 viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Order)dataList.get(position)).getDatetime()));
                 viewHolder.textViewPlaceHolders.get(2).setText(String.valueOf(((Order)dataList.get(position)).getPrice()));
                 viewHolder.textViewPlaceHolders.get(3).setText("TEST");
+                Log.e("View","Added");
                 break;
             case PART:
                 viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());

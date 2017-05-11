@@ -85,7 +85,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
         partListView = (ListView) findViewById(R.id.listParts);
 
-        sectionHeader.setText("RESPRAY");
+        sectionHeader.setText(getString(R.string.ui_previewer_respray));
 
         Bundle incomingData = getIntent().getExtras();
 
@@ -147,8 +147,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
 
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
