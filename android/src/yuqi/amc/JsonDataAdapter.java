@@ -29,22 +29,12 @@ public class JsonDataAdapter extends BaseAdapter {
     public enum JsonDataType {BOOKING, ORDER, PART, CENTER, TRACKING, PAYMENT}
     public enum JsonAdapterMode {CHECKOUT}
 
-    // ViewHolder pattern
+    // ViewHolder pattern - Expandable
     private static class ViewHolder{
         ArrayList<TextView> textViewPlaceHolders;
-        TextView textViewPlaceHolder1;
-        TextView textViewPlaceHolder2;
-        TextView textViewPlaceHolder3;
-        TextView textViewPlaceHolder4;
-
-        protected ViewHolder(){
+        public ViewHolder(){
             textViewPlaceHolders = new ArrayList<>();
         }
-
-        protected void addTextPlaceHolder(TextView textView){
-            textViewPlaceHolders.add(textView);
-        }
-
     }
 
     public JsonDataAdapter(Context context, String json, JsonDataType dataType, JsonAdapterMode mode ){
@@ -119,26 +109,26 @@ public class JsonDataAdapter extends BaseAdapter {
                 case ORDER:
                     convertView = inflater.inflate(R.layout.list_order_item, null);
                     viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.labelOrderName);
-                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.labelOrderDatetime);
-                    viewHolder.textViewPlaceHolder3 = (TextView) convertView.findViewById(R.id.labelOrderPrice);
-                    viewHolder.textViewPlaceHolder4 = (TextView) convertView.findViewById(R.id.labelOrderStatus);
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelOrderName));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelOrderDatetime));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelOrderPrice));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelOrderStatus));
                     convertView.setTag(viewHolder);
                     break;
                 case PART:
                     convertView = inflater.inflate(R.layout.list_part_item, null);
                     viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.textPartName);
-                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.textPartPrice);
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartName));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartPrice));
                     convertView.setTag(viewHolder);
                     break;
                 case CENTER:
                     convertView = inflater.inflate(R.layout.list_service_center_item, null);
                     viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolder1 = (TextView) convertView.findViewById(R.id.labelCenterName);
-                    viewHolder.textViewPlaceHolder2 = (TextView) convertView.findViewById(R.id.labelInstallationFee);
-                    viewHolder.textViewPlaceHolder3 = (TextView) convertView.findViewById(R.id.labelCenterRanking);
-                    viewHolder.textViewPlaceHolder4 = (TextView) convertView.findViewById(R.id.labelCenterDistance);
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelCenterName));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelInstallationFee));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelCenterRanking));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelCenterDistance));
                     convertView.setTag(viewHolder);
                     break;
                 case TRACKING:
@@ -160,25 +150,25 @@ public class JsonDataAdapter extends BaseAdapter {
             case BOOKING:
                 break;
             case ORDER:
-                viewHolder.textViewPlaceHolder1.setText("ORDER ID:" + ((Order)dataList.get(position)).getId());
-                viewHolder.textViewPlaceHolder2.setText(String.valueOf(((Order)dataList.get(position)).getDatetime()));
-                viewHolder.textViewPlaceHolder4.setText(String.valueOf(((Order)dataList.get(position)).getPrice()));
-                viewHolder.textViewPlaceHolder3.setText("TEST");
+                viewHolder.textViewPlaceHolders.get(0).setText("ORDER ID:" + ((Order)dataList.get(position)).getId());
+                viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Order)dataList.get(position)).getDatetime()));
+                viewHolder.textViewPlaceHolders.get(2).setText(String.valueOf(((Order)dataList.get(position)).getPrice()));
+                viewHolder.textViewPlaceHolders.get(3).setText("TEST");
                 break;
             case PART:
-                viewHolder.textViewPlaceHolder1.setText(((Part)dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolder2.setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
+                viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
+                viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
                 break;
             case CENTER:
-                viewHolder.textViewPlaceHolder1.setText(((Center)dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolder2.setText("Installation Fee from AU$ " + ((Center)dataList.get(position)).getPrice());
+                viewHolder.textViewPlaceHolders.get(0).setText(((Center)dataList.get(position)).getName());
+                viewHolder.textViewPlaceHolders.get(1).setText("Installation Fee from AU$ " + ((Center)dataList.get(position)).getPrice());
                 double avgScore = ((Center) dataList.get(position)).getAvgScore();
                 if (avgScore!=-1d){
-                    viewHolder.textViewPlaceHolder3.setText("Rating: " + avgScore);
+                    viewHolder.textViewPlaceHolders.get(2).setText("Rating: " + avgScore);
                 }else {
-                    viewHolder.textViewPlaceHolder3.setText("No Rating");
+                    viewHolder.textViewPlaceHolders.get(2).setText("No Rating");
                 }
-                viewHolder.textViewPlaceHolder4.setText(((Center)dataList.get(position)).getDistance() + "Km");
+                viewHolder.textViewPlaceHolders.get(3).setText(((Center)dataList.get(position)).getDistance() + "Km");
                 break;
             case TRACKING:
 
