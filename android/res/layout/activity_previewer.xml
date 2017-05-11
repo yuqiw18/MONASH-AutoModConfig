@@ -19,9 +19,10 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_below="@id/fragmentRenderer"
         android:layout_width="match_parent"
-        app:layout_heightPercent="60%">
+        app:layout_heightPercent="60%"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/sectionHeaderCategory"
@@ -54,61 +55,81 @@
                         android:id="@+id/btnRespray"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_respray"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnBumper"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_placeholder"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnBonnet"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_placeholder"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnSpoiler"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_spoiler"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnExhaust"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_exhaust"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnSuspension"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_suspension"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnBrake"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_brake"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnRim"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_rim"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnTyre"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_tyre"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
 
                     <ImageButton
                         android:id="@+id/btnLighting"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder" />
+                        android:background="@drawable/img_lighting"
+                        android:backgroundTint="@color/grey_out"
+                        android:contentDescription="@string/acc_image_category" />
                 </TableRow>
             </TableLayout>
         </HorizontalScrollView>
@@ -131,6 +152,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/sectionHeader"
+            android:paddingEnd="0dp"
             android:paddingStart="8dp" />
 
     </RelativeLayout>

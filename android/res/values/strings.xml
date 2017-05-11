@@ -156,6 +156,9 @@
     <string name="ui_btn_account_edit">Edit</string>
 
 
+    <string name="acc_image_category">Option</string>
+
+
 
 
 </resources>

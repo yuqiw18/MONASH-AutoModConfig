@@ -2,6 +2,7 @@ package yuqi.amc;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
@@ -107,8 +108,9 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        new fetchPartList().execute("Respray",data.getModelName(),data.getName());
+        btnRespray.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
 
+        new fetchPartList().execute("Respray",data.getModelName(),data.getName());
 
         // Renderer-related functions should run on another thread
         Handler handler = new Handler();
@@ -162,45 +164,57 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
         int id = v.getId();
 
+        resetColor();
+
         switch (id){
             case R.id.btnRespray:
                 sectionHeader.setText(getString(R.string.ui_previewer_respray));
+                btnRespray.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Respray",model,badge);
                 break;
             case R.id.btnBumper:
                 sectionHeader.setText(getString(R.string.ui_previewer_bumper));
+                btnBumper.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Bumper",model,badge);
                 break;
             case R.id.btnBonnet:
                 sectionHeader.setText(getString(R.string.ui_previewer_bonnet));
+                btnBonnet.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Bonnet",model,badge);
                 break;
             case R.id.btnSpoiler:
                 sectionHeader.setText(getString(R.string.ui_previewer_spoiler));
+                btnSpoiler.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Spoiler",model,badge);
                 break;
             case R.id.btnExhaust:
                 sectionHeader.setText(getString(R.string.ui_previewer_exhaust));
+                btnExhaust.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Exhaust",model,badge);
                 break;
             case R.id.btnSuspension:
                 sectionHeader.setText(getString(R.string.ui_previewer_suspension));
+                btnSuspension.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Suspension",model,badge);
                 break;
             case R.id.btnBrake:
                 sectionHeader.setText(getString(R.string.ui_previewer_brake));
+                btnBrake.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Brake",model,badge);
                 break;
             case R.id.btnRim:
                 sectionHeader.setText(getString(R.string.ui_previewer_rim));
+                btnRim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Rim",model,badge);
                 break;
             case R.id.btnTyre:
                 sectionHeader.setText(getString(R.string.ui_previewer_tyre));
+                btnTyre.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Tyre",model,badge);
                 break;
             case R.id.btnLighting:
                 sectionHeader.setText(getString(R.string.ui_previewer_lighting));
+                btnLighting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
                 new fetchPartList().execute("Lighting",model,badge);
                 break;
             default:
@@ -225,6 +239,21 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
             partList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             partListView.setAdapter(jsonDataAdapter);
         }
+    }
+
+    private void resetColor(){
+
+        btnRespray.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnBumper.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnBonnet.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnSpoiler.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnExhaust.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnSuspension.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnBrake.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnRim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnTyre.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+        btnLighting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+
     }
 
 }

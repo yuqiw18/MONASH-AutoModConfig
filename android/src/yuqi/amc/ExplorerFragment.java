@@ -152,9 +152,6 @@ public class ExplorerFragment extends android.app.Fragment {
     }
 
 
-
-
-
     public static class PreConfigListFragment extends Fragment {
 final String ARG_SECTION_NUMBER = "section_number";
 
