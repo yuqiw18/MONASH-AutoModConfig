@@ -114,7 +114,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:lines="3"
-                android:text="@string/ui_checkout_address_placeholder" />
+                android:text="@string/ui_label_default_value_null" />
 
             <Button
                 android:id="@+id/btnAccountAddPaymentMethod"
@@ -124,7 +124,7 @@
                 android:layout_alignTop="@+id/labelAccountPaymentMethod"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="@string/ui_btn_checkout_pick"
+                android:text="@string/ui_btn_account_payment_edit"
                 android:textColor="@android:color/white" />
 
             <TextView

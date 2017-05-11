@@ -25,7 +25,6 @@ public class Order {
         this.customerId = customerId;
         this.price = price;
         this.detail = detail;
-
     }
 
     public static Order jsonToOrder(JSONObject jsonObject){

@@ -8,12 +8,15 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+
+import java.util.HashMap;
 
 import yuqi.amc.JsonData.Center;
 import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
@@ -56,6 +59,16 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
         layoutCheckoutBooking.setVisibility(View.GONE);
         loadDefaultAddress();
+
+        Bundle incomingData = getIntent().getExtras();
+
+        if (incomingData!=null){
+
+            HashMap<String, Integer> cart = (HashMap<String, Integer>) incomingData.getSerializable("Cart");
+
+            Log.e("Found",String.valueOf(cart.get("Respray")));
+
+        }
     }
 
     @Override

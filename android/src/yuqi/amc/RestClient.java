@@ -156,8 +156,6 @@ public class RestClient {
     }
     //RestClient.deleteData("/monashfriendfinder.profile/",24717837);
 
-
-
     protected static int processResponseCode(int responseCode){
         if (responseCode == 200 || responseCode == 202 || responseCode == 204){
             return 1;

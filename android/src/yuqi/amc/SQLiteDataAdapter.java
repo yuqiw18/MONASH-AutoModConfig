@@ -13,6 +13,8 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
+import yuqi.amc.SQLiteData.Badge;
+import yuqi.amc.SQLiteData.Brand;
 import yuqi.amc.SQLiteData.DataStruct;
 import yuqi.amc.SQLiteData.Model;
 
@@ -97,9 +99,10 @@ public class SQLiteDataAdapter extends BaseAdapter {
         switch (identifier){
 
             case "ConfiguratorBrand":
-                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                final Brand brand = (Brand) dataList.get(position);
+                viewHolder.textViewPlaceHolder1.setText(brand.getName());
                 Picasso.with(context)
-                        .load(Utility.getImageAddress(dataList.get(position).getName()))
+                        .load(Utility.getImageAddress(brand.getName()))
                         .placeholder(R.drawable.img_placeholder)
                         .networkPolicy(NetworkPolicy.OFFLINE)
                         .into(viewHolder.imageViewPlaceHolder, new Callback() {
@@ -110,7 +113,7 @@ public class SQLiteDataAdapter extends BaseAdapter {
                             @Override
                             public void onError() {
                                 Picasso.with(context)
-                                        .load(Utility.getImageAddress(dataList.get(position).getName()))
+                                        .load(Utility.getImageAddress(brand.getName()))
                                         .placeholder(R.drawable.img_placeholder)
                                         .into(viewHolder.imageViewPlaceHolder, new Callback() {
                                             @Override
@@ -126,10 +129,11 @@ public class SQLiteDataAdapter extends BaseAdapter {
                         });
                 break;
             case "ConfiguratorModel":
-                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
-                viewHolder.textViewPlaceHolder2.setText(((Model)dataList.get(position)).getBodyType());
+                final Model model = (Model) dataList.get(position);
+                viewHolder.textViewPlaceHolder1.setText(model.getName());
+                viewHolder.textViewPlaceHolder2.setText(model.getBodyType() + " " +model.getDriveType());
                 Picasso.with(context)
-                        .load((Utility.getImageAddress(((Model)dataList.get(position)).getBrandName()+"_"+dataList.get(position).getName())))
+                        .load(Utility.getImageAddress(model.getBrandName()+"_"+model.getName()))
                         .placeholder(R.drawable.img_placeholder_wide)
                         .networkPolicy(NetworkPolicy.OFFLINE)
                         .into(viewHolder.imageViewPlaceHolder, new Callback() {
@@ -140,7 +144,7 @@ public class SQLiteDataAdapter extends BaseAdapter {
                             @Override
                             public void onError() {
                                 Picasso.with(context)
-                                        .load((Utility.getImageAddress(((Model)dataList.get(position)).getBrandName()+"_"+dataList.get(position).getName())))
+                                        .load(Utility.getImageAddress(model.getBrandName()+"_"+model.getName()))
                                         .placeholder(R.drawable.img_placeholder_wide)
                                         .into(viewHolder.imageViewPlaceHolder, new Callback() {
                                             @Override
@@ -156,7 +160,8 @@ public class SQLiteDataAdapter extends BaseAdapter {
                         });
                 break;
             case "ConfiguratorBadge":
-                viewHolder.textViewPlaceHolder1.setText(dataList.get(position).getName());
+                final Badge badge = (Badge) dataList.get(position);
+                viewHolder.textViewPlaceHolder1.setText(badge.getName());
                 //viewHolder.textViewPlaceHolder2.setText("Available Parts: " + databaseHelper.countParts(new String[]{((Badge)dataList.get(position)).getModelName(),((Badge)dataList.get(position)).getName()}));
                 break;
             default:

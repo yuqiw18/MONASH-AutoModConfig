@@ -181,7 +181,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
         if (snippet!=null && !snippet.isEmpty()){
             for (Center s: serviceCenterList){
-                if (s.getId() == getCode(snippet)){
+                if (s.getId() == Long.valueOf(snippet)){
                     selectedCenter = s;
                 }
             }
@@ -225,9 +225,8 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             }
         }
 
-        return false;
+        return true;
     }
-
 
     @Override
     public void onStart() {
@@ -364,7 +363,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
         @Override
         protected void onPostExecute(String result) {
-            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.CENTER, JsonAdapterMode.NULL );
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.CENTER, null);
             serviceCenterList = (ArrayList<Center>)((ArrayList<?>)jsonDataAdapter.getDataList());
             centerListView.setAdapter(jsonDataAdapter);
 
@@ -373,7 +372,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 double lng = s.getLongitude();
                 String name = s.getName();
                 long id = s.getId();
-                googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(name).snippet("Center Code #" + id ));
+                googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).snippet(String.valueOf(id)));
             }
         }
     }
@@ -394,11 +393,6 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             marker = googleMap.addMarker(new MarkerOptions().position(newLocation).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 12));
         }
-    }
-
-    // Extract center code from snippet
-    private static long getCode(String snippet){
-        return Long.valueOf(snippet.substring(snippet.indexOf("#") + 1));
     }
 
 }

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ProfileEditFragment extends Fragment {
+public class OrderDetailDialogFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,9 +22,7 @@ public class ProfileEditFragment extends Fragment {
     }
 
 
-
-
-    private class FetchOrderList extends AsyncTask<String,Void,String>{
+    private class FetchOrderDetail extends AsyncTask<String,Void,String>{
 
         @Override
         protected String doInBackground(String... params) {

@@ -56,8 +56,6 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         // Set the Explorer as checked
         navigationMenu.findItem(R.id.nav_explorer).setChecked(true);
 
-
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         loadPreference();
@@ -107,7 +105,6 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -174,12 +171,12 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         if (sharedPreferences.getBoolean("isSignedIn", false)){
             navUsername.setText(sharedPreferences.getString("name", null));
             navUserEmail.setText(sharedPreferences.getString("email", null));
-            navigationMenu.findItem(R.id.nav_account).setVisible(true);
+            navigationMenu.findItem(R.id.nav_dashboard).setVisible(true);
         }else {
             //If failed loading the value, which means no saved user information, set default String value: "TAP TO SIGN IN"
             navUsername.setText(getString(R.string.ui_main_tap_to_login));
             navUserEmail.setText(null);
-            navigationMenu.findItem(R.id.nav_account).setVisible(false);
+            navigationMenu.findItem(R.id.nav_dashboard).setVisible(false);
         }
     }
 }

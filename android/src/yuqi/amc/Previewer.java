@@ -17,10 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
-
 import yuqi.amc.JsonDataAdapter.JsonDataType;
-import yuqi.amc.JsonDataAdapter.JsonAdapterMode;
-
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import java.util.ArrayList;
 
@@ -226,7 +223,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
         @Override
         protected void onPostExecute(String result) {
-            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, JsonAdapterMode.NULL );
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, null );
             partList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             partListView.setAdapter(jsonDataAdapter);
         }
