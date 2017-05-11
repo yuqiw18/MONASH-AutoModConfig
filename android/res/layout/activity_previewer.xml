@@ -63,7 +63,7 @@
                         android:id="@+id/btnBumper"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder"
+                        android:background="@drawable/img_bumper"
                         android:backgroundTint="@color/grey_out"
                         android:contentDescription="@string/acc_image_category" />
 
@@ -71,7 +71,7 @@
                         android:id="@+id/btnBonnet"
                         android:layout_width="@dimen/img64"
                         android:layout_height="@dimen/img64"
-                        android:background="@drawable/img_placeholder"
+                        android:background="@drawable/img_bonnet"
                         android:backgroundTint="@color/grey_out"
                         android:contentDescription="@string/acc_image_category" />
 
