@@ -68,6 +68,10 @@ public class Cart {
         return cart;
     }
 
+    public Long getValue(String key){
+        return cart.get(key);
+    }
+
     public static String getQuery(HashMap<String, Long> cart){
 
         ArrayList<Long> itemList = new ArrayList<>();

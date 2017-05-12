@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
     private OnPartSelectListener onPartSelectListener;
     private SharedPreferences sharedPreferences;
+    private String currentPart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,8 +88,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
         partListView = (ListView) findViewById(R.id.listParts);
 
-        sectionHeader.setText(getString(R.string.ui_previewer_respray));
-
         Bundle incomingData = getIntent().getExtras();
 
         if (incomingData!=null){
@@ -103,12 +103,18 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
                 Part selectedPart = partList.get(position);
                 cart.addToCart(selectedPart);
                 onPartSelectListener.updateScene(selectedPart);
+                Log.e("Item", String.valueOf(view.getId()));
             }
         });
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         btnRespray.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
+
+
+        sectionHeader.setText(getString(R.string.ui_previewer_respray));
+
+        currentPart = "Respray";
 
         new fetchPartList().execute("Respray",data.getModelName(),data.getName());
 
@@ -157,69 +163,61 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
     @Override
     public void onClick(View v) {
+
         String badge = data.getName();
         String model = data.getModelName();
+
         partList = null;
         partListView.setAdapter(null);
 
-        int id = v.getId();
-
         resetColor();
 
-        switch (id){
+        switch (v.getId()){
             case R.id.btnRespray:
                 sectionHeader.setText(getString(R.string.ui_previewer_respray));
-                btnRespray.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Respray",model,badge);
+                currentPart = "Respray";
                 break;
             case R.id.btnBumper:
                 sectionHeader.setText(getString(R.string.ui_previewer_bumper));
-                btnBumper.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Bumper",model,badge);
+                currentPart = "Bumper";
                 break;
             case R.id.btnBonnet:
                 sectionHeader.setText(getString(R.string.ui_previewer_bonnet));
-                btnBonnet.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Bonnet",model,badge);
+                currentPart = "Bonnet";
                 break;
             case R.id.btnSpoiler:
                 sectionHeader.setText(getString(R.string.ui_previewer_spoiler));
-                btnSpoiler.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Spoiler",model,badge);
+                currentPart = "Spoiler";
                 break;
             case R.id.btnExhaust:
                 sectionHeader.setText(getString(R.string.ui_previewer_exhaust));
-                btnExhaust.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Exhaust",model,badge);
+                currentPart = "Exhaust";
                 break;
             case R.id.btnSuspension:
                 sectionHeader.setText(getString(R.string.ui_previewer_suspension));
-                btnSuspension.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Suspension",model,badge);
+                currentPart = "Suspension";
                 break;
             case R.id.btnBrake:
                 sectionHeader.setText(getString(R.string.ui_previewer_brake));
-                btnBrake.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Brake",model,badge);
+                currentPart = "Brake";
                 break;
             case R.id.btnRim:
                 sectionHeader.setText(getString(R.string.ui_previewer_rim));
-                btnRim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Rim",model,badge);
+                currentPart = "Rim";
                 break;
             case R.id.btnTyre:
                 sectionHeader.setText(getString(R.string.ui_previewer_tyre));
-                btnTyre.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Tyre",model,badge);
+                currentPart = "Tyre";
                 break;
             case R.id.btnLighting:
                 sectionHeader.setText(getString(R.string.ui_previewer_lighting));
-                btnLighting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                new fetchPartList().execute("Lighting",model,badge);
+                currentPart = "Lighting";
                 break;
             default:
                 break;
         }
+        v.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
+        new fetchPartList().execute(currentPart,model,badge);
     }
 
     public interface OnPartSelectListener{
@@ -238,6 +236,38 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
             JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, null );
             partList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             partListView.setAdapter(jsonDataAdapter);
+
+            Long selectedItem = cart.getValue(currentPart);
+
+            Log.e("Selected",String.valueOf(selectedItem));
+
+            for (int i = 0; i < partList.size(); i ++){
+
+                if (selectedItem != null && partList.get(i).getId() == selectedItem){
+
+                    Log.e("Got Item", i + "_");
+
+                    Log.e("FirstVisiblePosition",partListView.getFirstVisiblePosition() + "_");
+                    Log.e("HeaderViewsCount",partListView.getHeaderViewsCount() + "_");
+
+                    int firstPos = partListView.getFirstVisiblePosition() - partListView.getHeaderViewsCount();
+
+                    Log.e("firstPos",firstPos + "_");
+
+                    int childPos = i - firstPos;
+
+                    Log.e("ChildCount",partListView.getChildCount() + "_");
+
+//                    if (childPos < 0 || childPos >= partListView.getChildCount()){
+//
+//                        Log.e("??","??");
+//
+//                        return;
+//                    }
+//
+//                    partListView.getChildAt(childPos).setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
+                }
+            }
         }
     }
 

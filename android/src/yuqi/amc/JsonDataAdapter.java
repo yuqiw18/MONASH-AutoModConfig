@@ -190,7 +190,6 @@ public class JsonDataAdapter extends BaseAdapter {
 
                 break;
         }
-
         return convertView;
     }
 
