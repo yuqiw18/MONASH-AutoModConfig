@@ -66,7 +66,6 @@
                         android:id="@+id/textRegAddress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                         android:ems="10"
                         android:inputType="textPersonName" />
                 </TableRow>
@@ -141,7 +140,7 @@
                         android:layout_width="@dimen/ui_reg_label_width"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:labelFor="@+id/textRegCountry"
+                        android:labelFor="@+id/spinnerRegCountry"
                         android:text="@string/ui_reg_country" />
 
                     <Spinner

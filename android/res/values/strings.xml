@@ -157,8 +157,7 @@
 
 
     <string name="acc_image_category">Option</string>
-
-
+    <string name="ui_btn_edit_apply">Apply</string>
 
 
 </resources>

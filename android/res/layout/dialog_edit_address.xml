@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:id="@+id/tableLayout">
+
+        <TableRow
+            android:layout_width="0dp"
+            android:minHeight="@dimen/height_min">
+
+            <TextView
+                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/textEditAddress"
+                android:text="@string/ui_reg_address" />
+
+            <EditText
+                android:id="@+id/textEditAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:minHeight="@dimen/height_min">
+
+            <TextView
+
+                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/textEditSuburb"
+                android:text="@string/ui_reg_suburb" />
+
+            <EditText
+                android:id="@+id/textEditSuburb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:minHeight="@dimen/height_min">
+
+            <TextView
+
+                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/textEditPostcode"
+                android:text="@string/ui_reg_postcode" />
+
+            <EditText
+                android:id="@+id/textEditPostcode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="number" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="0dp"
+            android:minHeight="@dimen/height_min">
+
+            <TextView
+
+                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/textEditState"
+                android:text="@string/ui_reg_state" />
+
+            <EditText
+                android:id="@+id/textEditState"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:minHeight="@dimen/height_min">
+
+            <TextView
+
+                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/spinnerEditCountry"
+                android:text="@string/ui_reg_country" />
+
+            <Spinner
+                android:id="@+id/spinnerEditCountry"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/country_values" />
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btnEditApply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/ui_btn_edit_apply" />
+
+
+</RelativeLayout>
