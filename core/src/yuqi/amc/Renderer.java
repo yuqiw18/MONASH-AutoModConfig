@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Array;
 import java.util.ArrayList;
@@ -34,9 +35,7 @@ public class Renderer implements ApplicationListener {
     private Array<ModelInstance> instances = new Array<ModelInstance>();
     private boolean isLoading = false;
     private boolean modelAssigned = false;
-    private String name;
     private ArrayList<String> modelList;
-    private Map<String, String> colorSheet = new HashMap<String, String>();
 
     @Override
     public void create() {
@@ -63,13 +62,6 @@ public class Renderer implements ApplicationListener {
         assetManager = new AssetManager();
 
         modelList = new ArrayList<String>();
-
-        colorSheet.put("Red","#ff3333");
-        colorSheet.put("Blue","#3366ff");
-        colorSheet.put("Green","#2eb82e");
-        colorSheet.put("Yellow","#ffcc00");
-        colorSheet.put("Black","#1a1a1a");
-        colorSheet.put("White","#ffffff");
     }
 
     private void doneLoading(){
@@ -127,8 +119,15 @@ public class Renderer implements ApplicationListener {
 
     public void updateScene(String type, String value){
 
-        for (int i = 0; i < 4; i ++){
-            instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(colorSheet.get(value))));
+        switch (type){
+            case "Respray":
+                for (int i = 0; i < 4; i ++){
+                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(value)));
+                }
+                break;
+            default:
+                break;
+
         }
     }
 
@@ -183,4 +182,6 @@ public class Renderer implements ApplicationListener {
         isLoading = true;
         modelAssigned = true;
     }
+
+
 }

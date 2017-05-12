@@ -16,6 +16,7 @@ public class Part {
     private String description;
     private String compatModel;
     private String compatBadge;
+    private String value;
 
     public Part(){}
 
@@ -34,6 +35,7 @@ public class Part {
             part.setDescription(jsonObject.getString("PART_DESCRIPTION"));
             part.setCompatModel(jsonObject.getString("PART_COMPAT_MODEL"));
             part.setCompatBadge(jsonObject.getString("PART_COMPAT_BADGE"));
+            part.setValue(jsonObject.getString("PART_EXTRA_VALUE"));
         }catch (Exception e){
             e.printStackTrace();
             part = null;
@@ -104,4 +106,8 @@ public class Part {
     public void setCompatBadge(String compatBadge) {
         this.compatBadge = compatBadge;
     }
+
+    public String getValue() { return value; }
+
+    public void setValue(String value) { this.value = value; }
 }
