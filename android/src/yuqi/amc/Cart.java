@@ -1,6 +1,8 @@
 package yuqi.amc;
 
 import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,5 +66,33 @@ public class Cart {
 
     public HashMap<String, Long> getCart() {
         return cart;
+    }
+
+    public static String getQuery(HashMap<String, Long> cart){
+
+        ArrayList<Long> itemList = new ArrayList<>();
+
+        for(Map.Entry<String, Long> entry : cart.entrySet()) {
+            Long id = entry.getValue();
+            if (id!=null){
+                itemList.add(id);
+            }
+        }
+
+        String query = "";
+
+        for (int i =0; i < itemList.size(); i ++){
+
+            query += String.valueOf(itemList.get(i));
+
+            if (i + 1 != itemList.size()){
+                query += ",";
+            }
+
+        }
+
+        Log.e("Query", query);
+
+        return query;
     }
 }

@@ -15,4 +15,5 @@
     <dimen name="margin_basic">16dp</dimen>
     <dimen name="height_min">40dp</dimen>
     <dimen name="ui_reg_label_width">128dp</dimen>
+    <dimen name="ui_edit_label_width">80dp</dimen>
 </resources>

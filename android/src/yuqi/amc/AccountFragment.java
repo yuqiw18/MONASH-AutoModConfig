@@ -90,7 +90,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
             editPostcode.setText(String.valueOf(sharedPreferences.getInt("postcode", 00000000)));
             editState.setText(sharedPreferences.getString("state", ""));
 
-
             ArrayAdapter<String> countryDataAdapter;
             String[] countryList = getResources().getStringArray(R.array.country_values);
             List<String> data = Arrays.asList(countryList);
@@ -111,8 +110,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
             alertDialog.show();
 
-
-
         }else if (id == R.id.btnAccountAddPaymentMethod){
 
 
@@ -124,7 +121,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.title_account));
     }
-
 
     private class GetPaymentInfo extends AsyncTask<String,Void,String>{
 

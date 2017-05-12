@@ -28,7 +28,7 @@ public class Part {
         try {
             //JSONObject jsonObject = new JSONObject(jsonObj);
             part.setId(jsonObject.getLong("ID"));
-            part.setName(jsonObject.getString("PART_NAME"));
+            part.setName(jsonObject.getString("NAME"));
             part.setType(jsonObject.getString("PART_TYPE"));
             part.setPrice(jsonObject.getDouble("PART_PRICE"));
             part.setStock(jsonObject.getInt("PART_STOCK"));

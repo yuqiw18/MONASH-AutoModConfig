@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -116,11 +115,19 @@ public class JsonDataAdapter extends BaseAdapter {
                     convertView.setTag(viewHolder);
                     break;
                 case PART:
-                    convertView = inflater.inflate(R.layout.list_part_item, null);
-                    viewHolder = new ViewHolder();
-                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartName));
-                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartPrice));
-                    convertView.setTag(viewHolder);
+                    if (mode == JsonAdapterMode.CHECKOUT){
+                        convertView = inflater.inflate(R.layout.list_cart_item, null);
+                        viewHolder = new ViewHolder();
+                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textCartName));
+                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textCartPrice));
+                        convertView.setTag(viewHolder);
+                    }else {
+                        convertView = inflater.inflate(R.layout.list_part_item, null);
+                        viewHolder = new ViewHolder();
+                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartName));
+                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartPrice));
+                        convertView.setTag(viewHolder);
+                    }
                     break;
                 case CENTER:
                     convertView = inflater.inflate(R.layout.list_service_center_item, null);
@@ -157,8 +164,13 @@ public class JsonDataAdapter extends BaseAdapter {
                 Log.e("View","Added");
                 break;
             case PART:
-                viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
+                if (mode == JsonAdapterMode.CHECKOUT){
+                    viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
+                    viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
+                }else{
+                    viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
+                    viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
+                }
                 break;
             case CENTER:
                 viewHolder.textViewPlaceHolders.get(0).setText(((Center)dataList.get(position)).getName());

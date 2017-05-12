@@ -16,10 +16,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import yuqi.amc.JsonData.Center;
+import yuqi.amc.JsonData.Part;
 import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
+import yuqi.amc.JsonDataAdapter.JsonDataType;
+import yuqi.amc.JsonDataAdapter.JsonAdapterMode;
 
 public class Checkout extends AppCompatActivity implements OnClickListener, MapDialogInteractionListener {
 
@@ -32,6 +36,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private Button btnChangeAddress;
     private Button btnChangePayment;
     private SharedPreferences sharedPreferences;
+    private ArrayList<Part> cartList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +63,16 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         btnCancelBooking.setOnClickListener(this);
 
         layoutCheckoutBooking.setVisibility(View.GONE);
+
         loadDefaultAddress();
 
         Bundle incomingData = getIntent().getExtras();
 
         if (incomingData!=null){
 
-            HashMap<String, Integer> cart = (HashMap<String, Integer>) incomingData.getSerializable("Cart");
+            HashMap<String, Long> cart = (HashMap<String, Long>) incomingData.getSerializable("Cart");
 
-            Log.e("Found",String.valueOf(cart.get("Respray")));
-
+            new FetchCart().execute(Cart.getQuery(cart));
         }
     }
 
@@ -119,11 +124,13 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private class FetchCart extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... params) {
-            return null;
+            return RestClient.requestData("part", params);
         }
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(String result) {
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, JsonAdapterMode.CHECKOUT );
+            cartList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
+            listCheckoutItem.setAdapter(jsonDataAdapter);
         }
     }
 

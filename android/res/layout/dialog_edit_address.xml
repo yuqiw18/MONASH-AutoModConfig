@@ -16,7 +16,7 @@
             android:minHeight="@dimen/height_min">
 
             <TextView
-                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_width="@dimen/ui_edit_label_width"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:labelFor="@+id/textEditAddress"
@@ -36,7 +36,7 @@
 
             <TextView
 
-                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_width="@dimen/ui_edit_label_width"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:labelFor="@+id/textEditSuburb"
@@ -56,7 +56,7 @@
 
             <TextView
 
-                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_width="@dimen/ui_edit_label_width"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:labelFor="@+id/textEditPostcode"
@@ -77,7 +77,7 @@
 
             <TextView
 
-                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_width="@dimen/ui_edit_label_width"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:labelFor="@+id/textEditState"
@@ -97,7 +97,7 @@
 
             <TextView
 
-                android:layout_width="@dimen/ui_reg_label_width"
+                android:layout_width="@dimen/ui_edit_label_width"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:labelFor="@+id/spinnerEditCountry"
@@ -114,12 +114,14 @@
 
     <Button
         android:id="@+id/btnEditApply"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tableLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="@string/ui_btn_edit_apply" />
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/ui_btn_edit_apply"
+        android:textColor="@android:color/white" />
 
 
 </RelativeLayout>
