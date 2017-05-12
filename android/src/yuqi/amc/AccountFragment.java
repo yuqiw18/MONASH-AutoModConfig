@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
         if (id == R.id.btnAccountChangeAddress){
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_forget_password, null);
+            View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_address, null);
 
             EditText editAddress = (EditText)dialogView.findViewById(R.id.textEditAddress);
             EditText editSuburb = (EditText)dialogView.findViewById(R.id.textEditSuburb);
@@ -86,11 +85,10 @@ public class AccountFragment extends Fragment implements OnClickListener {
             Spinner spinnerCountry = (Spinner)dialogView.findViewById(R.id.spinnerEditCountry);
 
 
-
-            editAddress.setText(sharedPreferences.getString("address", null));
-            editSuburb.setText(sharedPreferences.getString("suburb", null));
-            editPostcode.setText(sharedPreferences.getInt("postcode", 0));
-            editState.setText(sharedPreferences.getString("state", null));
+            editAddress.setText(sharedPreferences.getString("address", ""));
+            editSuburb.setText(sharedPreferences.getString("suburb", ""));
+            editPostcode.setText(String.valueOf(sharedPreferences.getInt("postcode", 00000000)));
+            editState.setText(sharedPreferences.getString("state", ""));
 
 
             ArrayAdapter<String> countryDataAdapter;
