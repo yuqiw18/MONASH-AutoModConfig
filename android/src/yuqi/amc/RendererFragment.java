@@ -30,6 +30,6 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
 
     @Override
     public void setupScene(String name) {
-        renderer.initModels(name);
+        renderer.loadModels(name);
     }
 }

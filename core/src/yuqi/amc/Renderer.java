@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class Renderer implements ApplicationListener {
     private CameraInputController camController;
     private ModelBatch modelBatch;
     private AssetManager assetManager;
+    //private HashMap<String,ModelInstance> instances1 = new HashMap<>();
     private Array<ModelInstance> instances = new Array<ModelInstance>();
     private boolean isLoading = false;
     private boolean modelAssigned = false;
@@ -64,7 +66,7 @@ public class Renderer implements ApplicationListener {
 
         assetManager = new AssetManager();
 
-        modelList = new ArrayList<String>();
+        modelList = new ArrayList<>();
     }
 
     private void doneLoading(){
@@ -102,23 +104,52 @@ public class Renderer implements ApplicationListener {
     }
 
     @Override
-    public void dispose() {
-        modelBatch.dispose();
-        instances.clear();
-        assetManager.dispose();
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
     public void pause() {
+
     }
 
     @Override
     public void resume() {
+
+    }
+
+    public void replacePart(){
+
+    Gdx.graphics.setContinuousRendering(false);
+
+        modelAssigned = false;
+//
+        modelBatch.dispose();
+        //pause();
+
+        if (!assetManager.isLoaded("mitsubishi_lancer_evo_bonnet.obj")){
+            assetManager.load("mitsubishi_lancer_evo_bonnet.obj", Model.class);
+            assetManager.load("audi_a5_sline_bonnet.obj", Model.class);
+
+            assetManager.finishLoading();
+
+        }
+
+        Model part = assetManager.get("audi_a5_sline_bonnet.obj", Model.class);
+        instances.set(2, new ModelInstance(part));
+        Gdx.app.log("Load","Yes");
+
+
+        //this.resume();
+
+        modelBatch = new ModelBatch();
+
+        modelAssigned = true;
+
+    Gdx.graphics.setContinuousRendering(true);
+
+    }
+
+    @Override
+    public void dispose() {
+        modelBatch.dispose();
+        instances.clear();
+        assetManager.dispose();
     }
 
     public void updateScene(String type, String value){
@@ -129,31 +160,21 @@ public class Renderer implements ApplicationListener {
                     instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(value)));
                 }
                 break;
+            case "Spoiler":
+                if (instances.get(3).transform.getScaleX() == 0){
+                    instances.get(3).transform.setToScaling(1,1,1);
+                }else {
+                    instances.get(3).transform.setToScaling(0,0,0);
+                }
+                break;
             default:
+                replacePart();
                 break;
 
         }
     }
 
-    public void replacePart(){
-
-        assetManager.load("mitsubishi_lancer_evo_bonnet.obj", Model.class);
-//        updateLoading = false;
-//
-        while (!assetManager.update()){
-
-            System.out.println("Loading!!");
-
-        }
-
-//        if (assetManager.update()){
-            Model part = assetManager.get("mitsubishi_lancer_evo_bonnet.obj", Model.class);
-            instances.removeIndex(2);
-            instances.insert(2, new ModelInstance(part));
-//}
-    }
-
-    public void initModels(String name){
+    public void loadModels(String name){
 
         // Asset 0 - 3 can be affected by respraying the car
         modelList.add(name + "_body.obj");
@@ -176,10 +197,6 @@ public class Renderer implements ApplicationListener {
         // Asset
         modelList.add("stage.obj");
 
-        loadModels();
-    }
-
-    private void loadModels(){
         for (int i = 0; i< modelList.size(); i ++){
             assetManager.load(modelList.get(i), Model.class);
         }
@@ -189,9 +206,12 @@ public class Renderer implements ApplicationListener {
 
 
     public interface RendererStateListener{
-
         void onRendererLoaded();
         void onRendererReload();
-
     }
+
+    @Override
+    public void resize(int width, int height) {
+    }
+
 }

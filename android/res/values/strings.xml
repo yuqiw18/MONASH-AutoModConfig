@@ -63,6 +63,12 @@
         <item>UNITED STATES</item>
     </string-array>
 
+    <string-array name="payment_type">
+        <item>PLEASE SELECT</item>
+        <item>MASTERCARD</item>
+        <item>PAYPAL</item>
+    </string-array>
+
     <string name="title_register">Register</string>
     <string name="title_brand">Brands</string>
     <string name="title_model">Models</string>
@@ -159,6 +165,7 @@
     <string name="acc_image_category">Option</string>
     <string name="ui_btn_edit_apply">Apply</string>
     <string name="ui_checkout_cart_item">CART</string>
+    <string name="ui_payment_payment_type">Payment Type</string>
 
 
 </resources>

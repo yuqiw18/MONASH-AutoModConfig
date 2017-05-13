@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
     private TextView labelAccountPaymentMethod;
     private Button btnAccountEditInfo;
     private Button btnAccountPaymentMethod;
+    private RelativeLayout layoutPaymentInfo;
 
     private SharedPreferences sharedPreferences;
 
@@ -64,6 +66,9 @@ public class AccountFragment extends Fragment implements OnClickListener {
         btnAccountEditInfo.setOnClickListener(this);
         btnAccountPaymentMethod.setOnClickListener(this);
 
+        layoutPaymentInfo = (RelativeLayout) view.findViewById(R.id.layoutPaymentInfo);
+
+        layoutPaymentInfo.setVisibility(View.GONE);
 
         new GetPaymentInfo().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
 
@@ -112,7 +117,8 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
         }else if (id == R.id.btnAccountAddPaymentMethod){
 
-
+            PaymentMethodDialogFragment paymentMethodDialogFragment = new PaymentMethodDialogFragment();
+            paymentMethodDialogFragment.show(getFragmentManager(), "PaymentManager");
         }
     }
 
@@ -145,6 +151,8 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
                     labelAccountPaymentMethod.setText(paymentMethod);
                     btnAccountPaymentMethod.setText(getString(R.string.ui_btn_account_payment_edit));
+
+                    layoutPaymentInfo.setVisibility(View.VISIBLE);
 
                 }else {
                     labelAccountPaymentMethod.setText(getString(R.string.ui_account_no_payment));
