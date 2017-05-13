@@ -33,12 +33,12 @@ public class Renderer implements ApplicationListener {
     private CameraInputController camController;
     private ModelBatch modelBatch;
     private AssetManager assetManager;
-    //private HashMap<String,ModelInstance> instances1 = new HashMap<>();
-    private Array<ModelInstance> instances = new Array<ModelInstance>();
+    private Array<ModelInstance> instances = new Array<>();
     private boolean isLoading = false;
     private boolean modelAssigned = false;
     private ArrayList<String> modelList;
     private RendererStateListener rendererStateListener;
+    private String currentColor = "#ffffff";
 
     @Override
     public void create() {
@@ -113,35 +113,46 @@ public class Renderer implements ApplicationListener {
 
     }
 
-    public void replacePart(){
+    public void replacePart(int pos, String fileName){
 
-    Gdx.graphics.setContinuousRendering(false);
+        Gdx.graphics.setContinuousRendering(false);
 
         modelAssigned = false;
-//
-        modelBatch.dispose();
-        //pause();
 
-        if (!assetManager.isLoaded("mitsubishi_lancer_evo_bonnet.obj")){
-            assetManager.load("mitsubishi_lancer_evo_bonnet.obj", Model.class);
-            assetManager.load("audi_a5_sline_bonnet.obj", Model.class);
-
+        if (!assetManager.isLoaded(fileName)){
+            assetManager.load(fileName, Model.class);
             assetManager.finishLoading();
+            Gdx.app.log("ReplacePart", "New Model Loaded");
+        }
+
+        Model part = assetManager.get(fileName, Model.class);
+
+        ModelInstance modelInstance = new ModelInstance(part);
+
+        if (instances.get(pos).model == modelInstance.model){
+
+            Model defaultPart = assetManager.get(modelList.get(pos), Model.class);
+
+            instances.set(pos, new ModelInstance(defaultPart));
+
+            Gdx.app.log("ReplacePart", "Replace with New");
+
+
+        }else {
+
+            instances.set(pos, new ModelInstance(part));
+
+            Gdx.app.log("ReplacePart", "Back to Default");
 
         }
 
-        Model part = assetManager.get("audi_a5_sline_bonnet.obj", Model.class);
-        instances.set(2, new ModelInstance(part));
-        Gdx.app.log("Load","Yes");
-
-
-        //this.resume();
-
-        modelBatch = new ModelBatch();
+        if (pos == 0 || pos == 1 || pos ==2 || pos == 3){
+            instances.get(pos).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
+        }
 
         modelAssigned = true;
 
-    Gdx.graphics.setContinuousRendering(true);
+        Gdx.graphics.setContinuousRendering(true);
 
     }
 
@@ -159,6 +170,7 @@ public class Renderer implements ApplicationListener {
                 for (int i = 0; i < 4; i ++){
                     instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(value)));
                 }
+                currentColor = value;
                 break;
             case "Spoiler":
                 if (instances.get(3).transform.getScaleX() == 0){
@@ -167,8 +179,10 @@ public class Renderer implements ApplicationListener {
                     instances.get(3).transform.setToScaling(0,0,0);
                 }
                 break;
+            case "Bonnet":
+                replacePart(2,"mitsubishi_lancer_evo_bonnet.obj");
+                break;
             default:
-                replacePart();
                 break;
 
         }
