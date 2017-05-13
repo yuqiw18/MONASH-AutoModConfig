@@ -152,8 +152,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/sectionHeader"
-            android:paddingEnd="0dp"
-            android:paddingStart="8dp" />
+            android:paddingEnd="0dp" />
 
     </RelativeLayout>
 </android.support.percent.PercentRelativeLayout>

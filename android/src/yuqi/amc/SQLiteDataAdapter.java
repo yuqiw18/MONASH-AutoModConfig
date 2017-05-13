@@ -35,11 +35,9 @@ public class SQLiteDataAdapter extends BaseAdapter {
     private static class ViewHolder{
         ArrayList<TextView> textViewPlaceHolders;
         ImageView imageViewPlaceHolder;
-
         public ViewHolder(){
             textViewPlaceHolders = new ArrayList<>();
         }
-
     }
 
     @Override

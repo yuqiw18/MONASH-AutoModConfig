@@ -18,6 +18,7 @@
             <TextView
                 android:id="@+id/sectionHeader"
                 style="@style/Section"
+                android:layout_marginTop="0dp"
                 android:background="?android:attr/colorButtonNormal"
                 android:text="@string/ui_reg_contact_detail"
                 android:textColor="#666666" />

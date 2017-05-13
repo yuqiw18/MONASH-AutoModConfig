@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="4dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="4dp">
 
     <TextView
         android:id="@+id/textCartName"
@@ -18,11 +22,11 @@
         android:id="@+id/textCartPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ui_label_default_value"
-        android:textSize="12sp"
         android:layout_alignBaseline="@+id/textCartCurrency"
         android:layout_alignBottom="@+id/textCartCurrency"
-        android:layout_toEndOf="@+id/textCartCurrency" />
+        android:layout_toEndOf="@+id/textCartCurrency"
+        android:text="@string/ui_label_default_value"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/textCartCurrency"

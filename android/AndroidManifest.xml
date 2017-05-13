@@ -33,7 +33,7 @@
         android:required="true" />
 
     <application
-        android:name=".Global"
+        android:name=".GlobalSetting"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="AMC"
