@@ -126,19 +126,22 @@
         android:text="@string/ui_btn_checkout_change"
         android:textColor="@android:color/white" />
 
-    <View
-        style="@style/Divider"
+    <TextView
+        android:id="@+id/sectionHeaderCheckout"
+        style="@style/Section"
         android:layout_below="@id/labelCheckoutPaymentMethod"
-        android:id="@+id/viewCheckout3" />
+        android:layout_marginBottom="0dp"
+        android:background="?android:attr/colorButtonNormal"
+        android:text="@string/ui_checkout_cart_item"
+        android:textColor="#666666" />
+
 
     <ListView
         android:id="@+id/listCheckoutItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/viewCheckout3"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_below="@+id/sectionHeaderCheckout" />
 
 
 </RelativeLayout>

@@ -80,16 +80,5 @@ public class ConfiguratorBadge extends AppCompatActivity {
             }
         });
 
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.option_checkout, menu);
-
-        return super.onCreateOptionsMenu(menu);
     }
 }

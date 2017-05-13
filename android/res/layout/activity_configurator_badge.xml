@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context="yuqi.amc.ConfiguratorBadge">
 
     <ImageView
@@ -14,6 +13,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/ui_image_description_default"
         app:srcCompat="@drawable/img_placeholder_wide" />
 
@@ -22,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/imgCBModel"
         android:gravity="center_vertical"
         android:text="@string/ui_label_default_value"

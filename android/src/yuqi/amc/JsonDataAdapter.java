@@ -125,6 +125,7 @@ public class JsonDataAdapter extends BaseAdapter {
                         convertView = inflater.inflate(R.layout.list_part_item, null);
                         viewHolder = new ViewHolder();
                         viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartName));
+                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartDescription));
                         viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartPrice));
                         convertView.setTag(viewHolder);
                     }
@@ -169,7 +170,8 @@ public class JsonDataAdapter extends BaseAdapter {
                     viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
                 }else{
                     viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
-                    viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
+                    viewHolder.textViewPlaceHolders.get(1).setText(((Part)dataList.get(position)).getDescription());
+                    viewHolder.textViewPlaceHolders.get(2).setText("$ " + ((Part)dataList.get(position)).getPrice() +"0");
                 }
                 break;
             case CENTER:

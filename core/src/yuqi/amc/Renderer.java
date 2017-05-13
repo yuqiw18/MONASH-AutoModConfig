@@ -36,9 +36,12 @@ public class Renderer implements ApplicationListener {
     private boolean isLoading = false;
     private boolean modelAssigned = false;
     private ArrayList<String> modelList;
+    private RendererStateListener rendererStateListener;
 
     @Override
     public void create() {
+
+        //rendererStateListener = (RendererStateListener)
 
         modelBatch = new ModelBatch();
 
@@ -71,6 +74,7 @@ public class Renderer implements ApplicationListener {
             instances.add(modelInstance);
         }
         isLoading = false;
+        //rendererStateListener.onRendererLoaded();
     }
 
     @Override
@@ -184,4 +188,10 @@ public class Renderer implements ApplicationListener {
     }
 
 
+    public interface RendererStateListener{
+
+        void onRendererLoaded();
+        void onRendererReload();
+
+    }
 }
