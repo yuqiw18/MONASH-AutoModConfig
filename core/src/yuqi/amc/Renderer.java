@@ -100,7 +100,7 @@ public class Renderer implements ApplicationListener {
             //shader.begin();
             modelBatch.begin(cam);
             modelBatch.render(instances, environment);
-            modelBatch.flush();
+            //modelBatch.flush();
             modelBatch.end();
             //shader.end();
         }
@@ -136,20 +136,19 @@ public class Renderer implements ApplicationListener {
             // If it is same model then set back to the default one [DESELECT]
             Model defaultPart = assetManager.get(modelList.get(pos), Model.class);
 
-            instances.get(pos).model.dispose();
+            //instances.get(pos).model.dispose();
 
             instances.set(pos, new ModelInstance(defaultPart));
 
-            Gdx.app.log("ReplacePart", "Replace with New");
-
+            Gdx.app.log("ReplacePart", "Back to Default");
 
         }else {
 
-            instances.get(pos).model.dispose();
+            //instances.get(pos).model.dispose();
 
-            instances.set(pos, new ModelInstance(part));
+            instances.set(pos, modelInstance);
 
-            Gdx.app.log("ReplacePart", "Back to Default");
+            Gdx.app.log("ReplacePart", "Replace with New");
 
         }
 
