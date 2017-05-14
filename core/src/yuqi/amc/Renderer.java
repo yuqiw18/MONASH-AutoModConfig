@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
@@ -36,7 +37,7 @@ public class Renderer implements ApplicationListener {
     private Array<ModelInstance> instances = new Array<>();
     private boolean isLoading = false;
     private boolean modelAssigned = false;
-    private ArrayList<String> modelList;
+    private ArrayList<String> modelList = new ArrayList<>();
     private RendererStateListener rendererStateListener;
     private String currentColor = "#ffffff";
 
@@ -59,14 +60,12 @@ public class Renderer implements ApplicationListener {
         cam.update();
 
         ShaderProgram.pedantic = false;
-        shader = new ShaderProgram(Gdx.files.internal("shaders/VertexShader.vsh"), Gdx.files.internal("shaders/PhongPixelShader.psh"));
+        //shader = new ShaderProgram(Gdx.files.internal("shaders/VertexShader.vsh"), Gdx.files.internal("shaders/PhongPixelShader.psh"));
 
         camController = new CameraInputController(cam);
         Gdx.input.setInputProcessor(camController);
 
         assetManager = new AssetManager();
-
-        modelList = new ArrayList<>();
     }
 
     private void doneLoading(){
@@ -92,14 +91,18 @@ public class Renderer implements ApplicationListener {
             camController.update();
 
             Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+//            Gdx.gl.glColorMask(GL30.GL_TRUE,GL20.GL_TRUE,GL20.GL_TRUE,GL20.GL_TRUE);
+//            Gdx.gl.glDepthMask();
+            Gdx.gl.glClearColor( 0, 0, 0, 1 );
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT);
+            Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT | GL30.GL_STENCIL_BUFFER_BIT);
 
-            shader.begin();
+            //shader.begin();
             modelBatch.begin(cam);
             modelBatch.render(instances, environment);
+            modelBatch.flush();
             modelBatch.end();
-            shader.end();
-
+            //shader.end();
         }
     }
 
@@ -116,7 +119,6 @@ public class Renderer implements ApplicationListener {
     public void replacePart(int pos, String fileName){
 
         Gdx.graphics.setContinuousRendering(false);
-
         modelAssigned = false;
 
         if (!assetManager.isLoaded(fileName)){
@@ -131,7 +133,10 @@ public class Renderer implements ApplicationListener {
 
         if (instances.get(pos).model == modelInstance.model){
 
+            // If it is same model then set back to the default one [DESELECT]
             Model defaultPart = assetManager.get(modelList.get(pos), Model.class);
+
+            instances.get(pos).model.dispose();
 
             instances.set(pos, new ModelInstance(defaultPart));
 
@@ -139,6 +144,8 @@ public class Renderer implements ApplicationListener {
 
 
         }else {
+
+            instances.get(pos).model.dispose();
 
             instances.set(pos, new ModelInstance(part));
 
@@ -150,20 +157,17 @@ public class Renderer implements ApplicationListener {
             instances.get(pos).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
         }
 
-        modelAssigned = true;
+        modelBatch.dispose();
 
+        modelAssigned = true;
         Gdx.graphics.setContinuousRendering(true);
 
     }
 
-    @Override
-    public void dispose() {
-        modelBatch.dispose();
-        instances.clear();
-        assetManager.dispose();
-    }
-
     public void updateScene(String type, String value){
+
+
+        Gdx.app.log("updateScene", value);
 
         switch (type){
             case "Respray":
@@ -173,11 +177,7 @@ public class Renderer implements ApplicationListener {
                 currentColor = value;
                 break;
             case "Spoiler":
-                if (instances.get(3).transform.getScaleX() == 0){
-                    instances.get(3).transform.setToScaling(1,1,1);
-                }else {
-                    instances.get(3).transform.setToScaling(0,0,0);
-                }
+                replacePart(3, value);
                 break;
             case "Bonnet":
                 replacePart(2,"mitsubishi_lancer_evo_bonnet.obj");
@@ -226,6 +226,13 @@ public class Renderer implements ApplicationListener {
 
     @Override
     public void resize(int width, int height) {
+    }
+
+    @Override
+    public void dispose() {
+        modelBatch.dispose();
+        instances.clear();
+        assetManager.dispose();
     }
 
 }
