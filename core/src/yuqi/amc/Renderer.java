@@ -40,6 +40,7 @@ public class Renderer implements ApplicationListener {
     private ArrayList<String> modelList = new ArrayList<>();
     private RendererStateListener rendererStateListener;
     private String currentColor = "#ffffff";
+    private static boolean DEBUG_MODE = true;
 
     @Override
     public void create() {
@@ -60,7 +61,7 @@ public class Renderer implements ApplicationListener {
         cam.update();
 
         ShaderProgram.pedantic = false;
-        //shader = new ShaderProgram(Gdx.files.internal("shaders/VertexShader.vsh"), Gdx.files.internal("shaders/PhongPixelShader.psh"));
+        shader = new ShaderProgram(Gdx.files.internal("shaders/VertexShader.vsh"), Gdx.files.internal("shaders/PhongPixelShader.psh"));
 
         camController = new CameraInputController(cam);
         Gdx.input.setInputProcessor(camController);
@@ -97,12 +98,12 @@ public class Renderer implements ApplicationListener {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT);
             Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT | GL30.GL_STENCIL_BUFFER_BIT);
 
-            //shader.begin();
+            shader.begin();
             modelBatch.begin(cam);
             modelBatch.render(instances, environment);
             //modelBatch.flush();
             modelBatch.end();
-            //shader.end();
+            shader.end();
         }
     }
 
@@ -188,24 +189,38 @@ public class Renderer implements ApplicationListener {
     }
 
     public void loadModels(String name){
+        if (DEBUG_MODE){
 
-        // Asset 0 - 3 can be affected by respraying the car
-        modelList.add(name + "_body.obj");
-        modelList.add(name + "_bumper.obj");
-        modelList.add(name + "_bonnet.obj");
-        modelList.add(name + "_spoiler.obj");
+            modelList.add("mercedes_benz_s_s65_amg_body.obj");
+            modelList.add("mercedes_benz_s_s65_amg_bumper.obj");
+            modelList.add("mercedes_benz_s_s65_amg_bonnet.obj");
+            modelList.add("mercedes_benz_s_s65_amg_spoiler.obj");
 
-        // Asset 4 - 7
-        modelList.add(name + "_exhaust.obj");
-        modelList.add(name + "_brake.obj");
-        modelList.add(name + "_rim.obj");
-        modelList.add(name + "_tyre.obj");
+            modelList.add("mercedes_benz_s_s65_amg_exhaust.obj");
 
-        // Asset
-        modelList.add(name + "_lightingA.obj");
-        modelList.add(name + "_lightingB.obj");
-        modelList.add(name + "_lightingC.obj");
-        modelList.add(name + "_chassis.obj");
+            modelList.add("mercedes_benz_s_s65_amg_chassis.obj");
+
+        }else {
+
+            // Asset 0 - 3 can be affected by respraying the car
+            modelList.add(name + "_body.obj");
+            modelList.add(name + "_bumper.obj");
+            modelList.add(name + "_bonnet.obj");
+            modelList.add(name + "_spoiler.obj");
+
+            // Asset 4 - 7
+            modelList.add(name + "_exhaust.obj");
+            modelList.add(name + "_brake.obj");
+            modelList.add(name + "_rim.obj");
+            modelList.add(name + "_tyre.obj");
+
+            // Asset
+            modelList.add(name + "_lightingA.obj");
+            modelList.add(name + "_lightingB.obj");
+            modelList.add(name + "_lightingC.obj");
+            modelList.add(name + "_chassis.obj");
+
+        }
 
         // Asset
         modelList.add("stage.obj");
