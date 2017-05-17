@@ -37,7 +37,8 @@ public class Renderer implements ApplicationListener {
     private Array<ModelInstance> instances = new Array<>();
     private boolean isLoading = false;
     private boolean modelAssigned = false;
-    private ArrayList<String> modelList = new ArrayList<>();
+    private ArrayList<String> defaultModelList = new ArrayList<>();
+    private ArrayList<String> modifiedModelList = new ArrayList<>();
     private RendererStateListener rendererStateListener;
     private String currentColor = "#ffffff";
     private static boolean DEBUG_MODE = false;
@@ -60,8 +61,8 @@ public class Renderer implements ApplicationListener {
         cam.far = 300f;
         cam.update();
 
-        ShaderProgram.pedantic = false;
-        shader = new ShaderProgram(Gdx.files.internal("shaders/VertexShader.vsh"), Gdx.files.internal("shaders/PhongPixelShader.psh"));
+        //ShaderProgram.pedantic = false;
+        //shader = new ShaderProgram(Gdx.files.internal("shaders/VertexShader.vsh"), Gdx.files.internal("shaders/PhongPixelShader.psh"));
 
         camController = new CameraInputController(cam);
         Gdx.input.setInputProcessor(camController);
@@ -70,8 +71,8 @@ public class Renderer implements ApplicationListener {
     }
 
     private void doneLoading(){
-        for (int i = 0; i < modelList.size(); i++){
-            Model model = assetManager.get(modelList.get(i), Model.class);
+        for (int i = 0; i < defaultModelList.size(); i++){
+            Model model = assetManager.get(defaultModelList.get(i), Model.class);
             ModelInstance modelInstance = new ModelInstance(model);
             instances.add(modelInstance);
         }
@@ -98,12 +99,12 @@ public class Renderer implements ApplicationListener {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT);
             Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT | GL30.GL_STENCIL_BUFFER_BIT);
 
-            shader.begin();
+            //shader.begin();
             modelBatch.begin(cam);
             modelBatch.render(instances, environment);
             //modelBatch.flush();
             modelBatch.end();
-            shader.end();
+            //shader.end();
         }
     }
 
@@ -134,23 +135,17 @@ public class Renderer implements ApplicationListener {
 
         if (instances.get(pos).model == modelInstance.model){
 
-            // If it is same model then set back to the default one [DESELECT]
-            Model defaultPart = assetManager.get(modelList.get(pos), Model.class);
-
-            //instances.get(pos).model.dispose();
-
-            instances.set(pos, (new ModelInstance(defaultPart)).copy());
-
-            Gdx.app.log("ReplacePart", "Back to Default");
+            modifiedModelList.set(pos, defaultModelList.get(pos));
 
         }else {
+            modifiedModelList.set(pos, fileName);
+        }
 
-            //instances.get(pos).model.dispose();
+        instances = new Array<>();
 
-            instances.set(pos, modelInstance.copy());
-
-            Gdx.app.log("ReplacePart", "Replace with New");
-
+        for (int i = 0; i < modifiedModelList.size(); i++){
+            Model model = assetManager.get(modifiedModelList.get(i), Model.class);
+            instances.add(new ModelInstance(model));
         }
 
         if (pos == 0 || pos == 1 || pos ==2 || pos == 3){
@@ -194,42 +189,44 @@ public class Renderer implements ApplicationListener {
     public void loadModels(String name){
         if (DEBUG_MODE){
 
-            modelList.add("mercedes_benz_s_s65_amg_body.obj");
-            modelList.add("mercedes_benz_s_s65_amg_bumper.obj");
-            modelList.add("mercedes_benz_s_s65_amg_bonnet.obj");
-            modelList.add("mercedes_benz_s_s65_amg_spoiler.obj");
+            defaultModelList.add("mercedes_benz_s_s65_amg_body.obj");
+            defaultModelList.add("mercedes_benz_s_s65_amg_bumper.obj");
+            defaultModelList.add("mercedes_benz_s_s65_amg_bonnet.obj");
+            defaultModelList.add("mercedes_benz_s_s65_amg_spoiler.obj");
 
-            modelList.add("mercedes_benz_s_s65_amg_exhaust.obj");
+            defaultModelList.add("mercedes_benz_s_s65_amg_exhaust.obj");
 
-            modelList.add("mercedes_benz_s_s65_amg_chassis.obj");
+            defaultModelList.add("mercedes_benz_s_s65_amg_chassis.obj");
 
         }else {
 
             // Asset 0 - 3 can be affected by respraying the car
-            modelList.add(name + "_body.obj");
-            modelList.add(name + "_bumper.obj");
-            modelList.add(name + "_bonnet.obj");
-            modelList.add(name + "_spoiler.obj");
+            defaultModelList.add(name + "_body.obj");
+            defaultModelList.add(name + "_bumper.obj");
+            defaultModelList.add(name + "_bonnet.obj");
+            defaultModelList.add(name + "_spoiler.obj");
 
             // Asset 4 - 7
-            modelList.add(name + "_exhaust.obj");
-            modelList.add(name + "_brake.obj");
-            modelList.add(name + "_rim.obj");
-            modelList.add(name + "_tyre.obj");
+            defaultModelList.add(name + "_exhaust.obj");
+            defaultModelList.add(name + "_brake.obj");
+            defaultModelList.add(name + "_rim.obj");
+            defaultModelList.add(name + "_tyre.obj");
 
             // Asset
-            modelList.add(name + "_lightingA.obj");
-            modelList.add(name + "_lightingB.obj");
-            modelList.add(name + "_lightingC.obj");
-            modelList.add(name + "_chassis.obj");
+            defaultModelList.add(name + "_lightingA.obj");
+            defaultModelList.add(name + "_lightingB.obj");
+            defaultModelList.add(name + "_lightingC.obj");
+            defaultModelList.add(name + "_chassis.obj");
 
         }
 
         // Asset
-        modelList.add("stage.obj");
+        defaultModelList.add("stage.obj");
 
-        for (int i = 0; i< modelList.size(); i ++){
-            assetManager.load(modelList.get(i), Model.class);
+        modifiedModelList = defaultModelList;
+
+        for (int i = 0; i< defaultModelList.size(); i ++){
+            assetManager.load(defaultModelList.get(i), Model.class);
         }
         isLoading = true;
         modelAssigned = true;
