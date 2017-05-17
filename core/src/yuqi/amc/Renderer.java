@@ -40,7 +40,7 @@ public class Renderer implements ApplicationListener {
     private ArrayList<String> modelList = new ArrayList<>();
     private RendererStateListener rendererStateListener;
     private String currentColor = "#ffffff";
-    private static boolean DEBUG_MODE = true;
+    private static boolean DEBUG_MODE = false;
 
     @Override
     public void create() {
@@ -139,7 +139,7 @@ public class Renderer implements ApplicationListener {
 
             //instances.get(pos).model.dispose();
 
-            instances.set(pos, new ModelInstance(defaultPart));
+            instances.set(pos, (new ModelInstance(defaultPart)).copy());
 
             Gdx.app.log("ReplacePart", "Back to Default");
 
@@ -147,7 +147,7 @@ public class Renderer implements ApplicationListener {
 
             //instances.get(pos).model.dispose();
 
-            instances.set(pos, modelInstance);
+            instances.set(pos, modelInstance.copy());
 
             Gdx.app.log("ReplacePart", "Replace with New");
 
@@ -166,24 +166,27 @@ public class Renderer implements ApplicationListener {
 
     public void updateScene(String type, String value){
 
+        if (!isLoading){
 
-        Gdx.app.log("updateScene", value);
+            Gdx.app.log("updateScene", value);
 
-        switch (type){
-            case "Respray":
-                for (int i = 0; i < 4; i ++){
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(value)));
-                }
-                currentColor = value;
-                break;
-            case "Spoiler":
-                replacePart(3, value);
-                break;
-            case "Bonnet":
-                replacePart(2,"mitsubishi_lancer_evo_bonnet.obj");
-                break;
-            default:
-                break;
+            switch (type){
+                case "Respray":
+                    for (int i = 0; i < 4; i ++){
+                        instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(value)));
+                    }
+                    currentColor = value;
+                    break;
+                case "Spoiler":
+                    replacePart(3, value);
+                    break;
+                case "Bonnet":
+                    replacePart(2,"mitsubishi_lancer_evo_bonnet.obj");
+                    break;
+                default:
+                    break;
+
+            }
 
         }
     }
