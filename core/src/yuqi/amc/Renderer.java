@@ -51,6 +51,7 @@ public class Renderer implements ApplicationListener {
     private RendererStateListener rendererStateListener;
     private String currentColor = "#ffffff";
     private static boolean DEBUG_MODE = false;
+    private static String MODEL_FORMAT = ".g3dj";
 
     @Override
     public void create() {
@@ -281,7 +282,8 @@ public class Renderer implements ApplicationListener {
     public void loadModels(String name){
         if (DEBUG_MODE){
 
-            defaultModelList.add("mercedes_benz_s_s65_amg_body.obj");
+            defaultModelList.add("mercedes_benz_s_s65_amg_body.g3dj");
+            defaultModelList.add("nissan_skyline_r34_lighting.g3dj");
             defaultModelList.add("mercedes_benz_s_s65_amg_bumper.obj");
             defaultModelList.add("mercedes_benz_s_s65_amg_bonnet.obj");
             defaultModelList.add("mercedes_benz_s_s65_amg_spoiler.obj");
@@ -293,27 +295,25 @@ public class Renderer implements ApplicationListener {
         }else {
 
             // Asset 0 - 3 can be affected by respraying the car
-            defaultModelList.add(name + "_body.obj");
-            defaultModelList.add(name + "_bumper.obj");
-            defaultModelList.add(name + "_bonnet.obj");
-            defaultModelList.add(name + "_spoiler.obj");
+            defaultModelList.add(name + "_body.g3dj");
+            defaultModelList.add(name + "_bumper.g3dj");
+            defaultModelList.add(name + "_bonnet.g3dj");
+            defaultModelList.add("placeholder_spoiler.g3dj");
 
             // Asset 4 - 7
-            defaultModelList.add(name + "_exhaust.obj");
-            defaultModelList.add(name + "_brake.obj");
-            defaultModelList.add(name + "_rim.obj");
-            defaultModelList.add(name + "_tyre.obj");
+            defaultModelList.add(name + "_exhaust.g3dj");
+            defaultModelList.add(name + "_brake.g3dj");
+            defaultModelList.add(name + "_rim.g3dj");
+            defaultModelList.add(name + "_tyre.g3dj");
 
             // Asset
-            defaultModelList.add(name + "_lightingA.obj");
-            defaultModelList.add(name + "_lightingB.obj");
-            defaultModelList.add(name + "_lightingC.obj");
-            defaultModelList.add(name + "_chassis.obj");
+            defaultModelList.add(name + "_lighting.g3dj");
+            defaultModelList.add(name + "_other.g3dj");
 
         }
 
         // Asset
-        defaultModelList.add("stage.obj");
+        defaultModelList.add("stage.g3dj");
 
         modifiedModelList = (ArrayList<String>)defaultModelList.clone();
 
