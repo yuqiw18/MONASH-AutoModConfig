@@ -18,6 +18,8 @@ import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxNativesLoader;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +70,8 @@ public class Renderer implements ApplicationListener {
         Gdx.input.setInputProcessor(camController);
 
         assetManager = new AssetManager();
+
+
     }
 
     private void doneLoading(){
@@ -118,45 +122,58 @@ public class Renderer implements ApplicationListener {
 
     }
 
-    public void replacePart(int pos, String fileName){
+    public void replacePart(final int pos, final String fileName){
 
-        Gdx.graphics.setContinuousRendering(false);
-        modelAssigned = false;
+        // This process must be done in the Gdx's main thread not android's main thread
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
 
-        if (!assetManager.isLoaded(fileName)){
-            assetManager.load(fileName, Model.class);
-            assetManager.finishLoading();
-            Gdx.app.log("ReplacePart", "New Model Loaded");
-        }
+                if (!assetManager.isLoaded(fileName)){
+                    assetManager.load(fileName, Model.class);
+                    assetManager.finishLoading();
+                }
 
-        Model part = assetManager.get(fileName, Model.class);
+                Model part = assetManager.get(fileName, Model.class);
 
-        ModelInstance modelInstance = new ModelInstance(part);
+                ModelInstance modelInstance = new ModelInstance(part);
 
-        if (instances.get(pos).model == modelInstance.model){
+                if (instances.get(pos).model == modelInstance.model){
 
-            modifiedModelList.set(pos, defaultModelList.get(pos));
+                    modifiedModelList.set(pos, defaultModelList.get(pos));
 
-        }else {
-            modifiedModelList.set(pos, fileName);
-        }
+                    Gdx.app.log("Default Part", defaultModelList.get(pos));
 
-        instances = new Array<>();
+                }else {
 
-        for (int i = 0; i < modifiedModelList.size(); i++){
-            Model model = assetManager.get(modifiedModelList.get(i), Model.class);
-            instances.add(new ModelInstance(model));
-        }
+                    modifiedModelList.set(pos, fileName);
 
-        if (pos == 0 || pos == 1 || pos ==2 || pos == 3){
-            instances.get(pos).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
-        }
+                    Gdx.app.log("New Part", fileName);
+                }
 
-        modelBatch.dispose();
+                instances = new Array<>();
 
-        modelAssigned = true;
-        Gdx.graphics.setContinuousRendering(true);
+                for (int i = 0; i < modifiedModelList.size(); i++){
+                    Model model = assetManager.get(modifiedModelList.get(i), Model.class);
+                    instances.add(new ModelInstance(model));
+                }
 
+
+
+                for (int i = 0; i < 4; i ++){
+                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
+                }
+
+
+
+//                if (pos == 0 || pos == 1 || pos ==2 || pos == 3){
+//                    instances.get(pos).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
+//                }
+
+                modelBatch.dispose();
+
+            }
+        });
     }
 
     public void updateScene(String type, String value){
@@ -223,7 +240,7 @@ public class Renderer implements ApplicationListener {
         // Asset
         defaultModelList.add("stage.obj");
 
-        modifiedModelList = defaultModelList;
+        modifiedModelList = (ArrayList<String>)defaultModelList.clone();
 
         for (int i = 0; i< defaultModelList.size(); i ++){
             assetManager.load(defaultModelList.get(i), Model.class);
