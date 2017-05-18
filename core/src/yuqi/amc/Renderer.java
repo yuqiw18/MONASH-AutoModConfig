@@ -269,7 +269,7 @@ public class Renderer implements ApplicationListener {
                     replacePart(3, value);
                     break;
                 case "Bonnet":
-                    replacePart(2,"mitsubishi_lancer_evo_bonnet.obj");
+                    replacePart(2, value);
                     break;
                 default:
                     break;

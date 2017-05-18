@@ -575,11 +575,13 @@
 	], 
 	"materials": [
 		{
-			"id": "bonnet1", 
+			"id": "phong1", 
 			"ambient": [ 0.000000,  0.000000,  0.000000], 
 			"diffuse": [ 1.000000,  1.000000,  1.000000], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
-			"opacity":  1.000000
+			"opacity":  1.000000, 
+			"specular": [ 0.500000,  0.500000,  0.500000], 
+			"shininess":  20.000000
 		}
 	], 
 	"nodes": [
@@ -588,7 +590,7 @@
 			"parts": [
 				{
 					"meshpartid": "shape1_part1", 
-					"materialid": "bonnet1"
+					"materialid": "phong1"
 				}
 			]
 		}
