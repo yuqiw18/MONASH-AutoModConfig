@@ -57,7 +57,7 @@ public class RestClient {
         return textResult;
     }
 
-    // POST: Universal method for creating any type of class
+    // POST: Universal method for creating any type of object in database
     protected static int createData(String methodPath, Object object){
 
         HttpURLConnection connection = null;
@@ -154,7 +154,6 @@ public class RestClient {
             connection.disconnect();
         }
     }
-    //RestClient.deleteData("/monashfriendfinder.profile/",24717837);
 
     protected static int processResponseCode(int responseCode){
         if (responseCode == 200 || responseCode == 202 || responseCode == 204){

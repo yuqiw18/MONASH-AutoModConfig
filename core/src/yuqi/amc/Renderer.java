@@ -2,6 +2,7 @@ package yuqi.amc;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,7 +20,13 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.Net;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +54,6 @@ public class Renderer implements ApplicationListener {
 
     @Override
     public void create() {
-
-        //rendererStateListener = (RendererStateListener)
 
         modelBatch = new ModelBatch();
 
@@ -130,8 +135,76 @@ public class Renderer implements ApplicationListener {
             public void run() {
 
                 if (!assetManager.isLoaded(fileName)){
-                    assetManager.load(fileName, Model.class);
-                    assetManager.finishLoading();
+                    try {
+                        assetManager.load(fileName, Model.class);
+                        assetManager.finishLoading();
+
+                    }catch (Exception e){
+
+                        // File not exist, need to download from server
+                        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.GET);
+                        request.setTimeOut(2500);
+                        request.setUrl("http://amc.yuqi.ninja/resource/"+ fileName);
+
+
+                        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+                            @Override
+                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                                // Determine how much we have to download
+                                long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
+
+                                // We're going to download the file to external storage, create the streams
+                                InputStream is = httpResponse.getResultAsStream();
+                                OutputStream os = Gdx.files.local(fileName).write(false);
+
+                                byte[] bytes = new byte[1024];
+                                int count = -1;
+                                long read = 0;
+
+
+                                try {
+                                    // Keep reading bytes and storing them until there are no more.
+                                    while ((count = is.read(bytes, 0, bytes.length)) != -1) {
+                                        os.write(bytes, 0, count);
+                                        read += count;
+
+                                        // Update the UI with the download progress
+                                        final int progress = ((int) (((double) read / (double) length) * 100));
+                                        final String progressString = progress == 100 ? "Download Complete" : progress + "%";
+
+                                        Gdx.app.log("Progress", progressString);
+                                    }
+
+                                    os.close();
+
+                                    Gdx.app.postRunnable(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //assetManager.load(Gdx.files.local(fileName));
+                                            assetManager.load(fileName, Model.class);
+                                            assetManager.finishLoading();
+                                        }
+                                    });
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    return;
+                                }
+
+                            }
+
+                            @Override
+                            public void failed(Throwable t) {
+                                return;
+                            }
+
+                            @Override
+                            public void cancelled() {
+                                return;
+                            }
+                        });
+
+                    }
                 }
 
                 Model part = assetManager.get(fileName, Model.class);
@@ -171,6 +244,8 @@ public class Renderer implements ApplicationListener {
 //                }
 
                 modelBatch.dispose();
+
+
 
             }
         });
@@ -264,6 +339,10 @@ public class Renderer implements ApplicationListener {
         modelBatch.dispose();
         instances.clear();
         assetManager.dispose();
+    }
+
+    public void setRendererStateListener(RendererStateListener rendererStateListener){
+        this.rendererStateListener = rendererStateListener;
     }
 
 }
