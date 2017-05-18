@@ -271,6 +271,14 @@ public class Renderer implements ApplicationListener {
                 case "Bonnet":
                     replacePart(2, value);
                     break;
+                case "Suspension":
+
+                    float adjustment = Float.valueOf(value);
+                    for (int i = 0; i < 7; i ++){
+                        instances.get(i).transform.translate(0, adjustment*-1, 0);
+                    }
+
+                    break;
                 default:
                     break;
 
@@ -300,15 +308,18 @@ public class Renderer implements ApplicationListener {
             defaultModelList.add(name + "_bonnet.g3dj");
             defaultModelList.add("placeholder_spoiler.g3dj");
 
-            // Asset 4 - 7
+            // 4-5
+            defaultModelList.add(name + "_lighting.g3dj");
+            defaultModelList.add(name + "_other.g3dj");
+
+            // Asset 5 - 9
             defaultModelList.add(name + "_exhaust.g3dj");
+
             defaultModelList.add(name + "_brake.g3dj");
             defaultModelList.add(name + "_rim.g3dj");
             defaultModelList.add(name + "_tyre.g3dj");
 
-            // Asset
-            defaultModelList.add(name + "_lighting.g3dj");
-            defaultModelList.add(name + "_other.g3dj");
+
 
         }
 
