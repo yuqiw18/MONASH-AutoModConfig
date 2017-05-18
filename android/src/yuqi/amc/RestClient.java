@@ -11,7 +11,7 @@ public class RestClient {
 
     private RestClient(){}
 
-    private static final String BASE_URI = "http://yuqi.ninja/rest/";
+    private static final String BASE_URI = "http://amc.yuqi.ninja/rest/";
     protected static final String DATABASE_TABLE[] = {"brand", "model", "badge"};
 
     // GET: Universal Method for getting data from server. It can takes any number of parameters by given the correct RESTful method name.

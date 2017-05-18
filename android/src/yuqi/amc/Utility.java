@@ -15,7 +15,7 @@ import java.util.TimeZone;
 
 public final class Utility {
 
-    public static final String IMAGE_SOURCE = "http://yuqi.ninja/amc/img/";
+    public static final String IMAGE_SOURCE = "http://amc.yuqi.ninja/img/";
     public static final String IMAGE_FORMAT = ".png";
     private static final String ENCODE_TYPE = "UTF-8";
 
