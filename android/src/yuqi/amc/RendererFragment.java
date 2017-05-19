@@ -10,13 +10,13 @@ import yuqi.amc.Previewer.OnPartSelectListener;
 
 public class RendererFragment extends AndroidFragmentApplication implements OnPartSelectListener, Renderer.RendererStateListener {
 
-    private Renderer renderer;
+    private RendererV2 renderer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        renderer = new Renderer();
-        renderer.setRendererStateListener(this);
+        renderer = new RendererV2();
+        //renderer.setRendererStateListener(this);
     }
 
     @Override
