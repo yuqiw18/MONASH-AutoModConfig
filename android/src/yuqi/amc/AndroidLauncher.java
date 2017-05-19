@@ -16,7 +16,7 @@ import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.SQLiteData.Brand;
 import yuqi.amc.SQLiteData.Model;
 
-// Splash screen recreated using libGDX
+// Launcher as the LibGDX entry point
 public class AndroidLauncher extends AndroidApplication {
 
 	private DatabaseHelper databaseHelper;
