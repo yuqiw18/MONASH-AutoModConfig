@@ -71,7 +71,6 @@ public class RendererV2 implements ApplicationListener {
         Gdx.input.setInputProcessor(camController);
 
         assetManager = new AssetManager(new LocalFileHandleResolver());
-
     }
 
     @Override
@@ -80,24 +79,12 @@ public class RendererV2 implements ApplicationListener {
         camController.update();
 
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
         Gdx.gl.glClearColor( 0, 0, 0, 1 );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT);
-        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT | GL30.GL_STENCIL_BUFFER_BIT);
 
         modelBatch.begin(cam);
         modelBatch.render(instances, environment);
         modelBatch.end();
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
     }
 
     public void replacePart(final int pos, final String fileName){
@@ -407,14 +394,9 @@ public class RendererV2 implements ApplicationListener {
 
     }
 
-
     public interface RendererStateListener{
         void onRendererLoaded();
         void onRendererReload();
-    }
-
-    @Override
-    public void resize(int width, int height) {
     }
 
     @Override
@@ -428,4 +410,16 @@ public class RendererV2 implements ApplicationListener {
         this.rendererStateListener = rendererStateListener;
     }
 
+
+
+
+
+    @Override
+    public void resize(int width, int height) {}
+
+    @Override
+    public void pause() {}
+
+    @Override
+    public void resume() {}
 }

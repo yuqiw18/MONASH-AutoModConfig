@@ -294,9 +294,7 @@ public class Renderer implements ApplicationListener {
             defaultModelList.add("mercedes_benz_s_s65_amg_bumper.obj");
             defaultModelList.add("mercedes_benz_s_s65_amg_bonnet.obj");
             defaultModelList.add("mercedes_benz_s_s65_amg_spoiler.obj");
-
             defaultModelList.add("mercedes_benz_s_s65_amg_exhaust.obj");
-
             defaultModelList.add("mercedes_benz_s_s65_amg_chassis.obj");
 
         }else {
