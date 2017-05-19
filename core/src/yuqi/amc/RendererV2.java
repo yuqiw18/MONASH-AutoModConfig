@@ -148,99 +148,17 @@ public class RendererV2 implements ApplicationListener {
 
         modifiedModelList = (ArrayList<String>)defaultModelList.clone();
 
-        for (int i = 0; i< fileToProcess; i ++){
+        for (int i = 0; i< fileToProcess; i ++) {
 
-            final String fileName = defaultModelList.get(i);
+            assetManager.load(defaultModelList.get(i), Model.class);
 
-            try {
-
-                assetManager.load(fileName, Model.class);
-                assetManager.update();
-
-            }catch (Exception e){
-
-                isDownloading = true;
-
-                // File not exist, need to download from server
-                Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.GET);
-                request.setTimeOut(2500);
-                request.setUrl("http://amc.yuqi.ninja/resource/"+ fileName);
-
-                Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-                    @Override
-                    public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                        // Determine how much we have to download
-                        long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
-
-                        // We're going to download the file to external storage, create the streams
-                        InputStream is = httpResponse.getResultAsStream();
-                        OutputStream os = Gdx.files.local(fileName).write(false);
-
-                        byte[] bytes = new byte[1024];
-                        int count = -1;
-                        long read = 0;
-
-
-                        try {
-                            // Keep reading bytes and storing them until there are no more.
-                            while ((count = is.read(bytes, 0, bytes.length)) != -1) {
-                                os.write(bytes, 0, count);
-                                read += count;
-
-                                // Update the UI with the download progress
-                                final int progress = ((int) (((double) read / (double) length) * 100));
-                                final String progressString = progress == 100 ? "Download Complete" : progress + "%";
-
-                                Gdx.app.log("Progress", progressString);
-                            }
-
-                            os.close();
-
-                            Gdx.app.postRunnable(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //assetManager.load(Gdx.files.local(fileName));
-                                    assetManager.load(fileName, Model.class);
-                                    progress ++;
-                                    if (progress == fileToProcess){
-                                        assetManager.finishLoading();
-                                        isDownloading = false;
-
-                                        instances.clear();
-
-                                        for (int i = 0; i < defaultModelList.size(); i++){
-                                            Model model = assetManager.get(defaultModelList.get(i), Model.class);
-                                            ModelInstance modelInstance = new ModelInstance(model);
-                                            instances.add(modelInstance);
-                                        }
-                                    }
-                                }
-                            });
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                    @Override
-                    public void failed(Throwable t) {
-                        return;
-                    }
-
-                    @Override
-                    public void cancelled() {
-                        return;
-                    }
-                });
-
-            }
         }
 
-        if (!isDownloading){
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
 
-            Gdx.app.postRunnable(new Runnable() {
-                @Override
-                public void run() {
+                try{
 
                     assetManager.finishLoading();
 
@@ -253,11 +171,91 @@ public class RendererV2 implements ApplicationListener {
                     }
                     modelBatch.dispose();
 
+                }catch (Exception e){
+
+                    for (final String fileName: defaultModelList) {
+
+                        isDownloading = true;
+
+                        // File not exist, need to download from server
+                        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.GET);
+                        request.setTimeOut(2500);
+                        request.setUrl("http://amc.yuqi.ninja/resource/"+ fileName);
+
+                        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+                            @Override
+                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                                // Determine how much we have to download
+                                long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
+
+                                // We're going to download the file to external storage, create the streams
+                                InputStream is = httpResponse.getResultAsStream();
+                                OutputStream os = Gdx.files.local(fileName).write(false);
+
+                                byte[] bytes = new byte[1024];
+                                int count = -1;
+                                long read = 0;
+
+
+                                try {
+                                    // Keep reading bytes and storing them until there are no more.
+                                    while ((count = is.read(bytes, 0, bytes.length)) != -1) {
+                                        os.write(bytes, 0, count);
+                                        read += count;
+
+                                        // Update the UI with the download progress
+                                        final int progress = ((int) (((double) read / (double) length) * 100));
+                                        final String progressString = progress == 100 ? "Download Complete" : progress + "%";
+
+                                        Gdx.app.log("Progress", progressString);
+                                    }
+
+                                    os.close();
+
+                                    Gdx.app.postRunnable(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //assetManager.load(Gdx.files.local(fileName));
+                                            assetManager.load(fileName, Model.class);
+                                            progress ++;
+                                            if (progress == fileToProcess){
+                                                assetManager.finishLoading();
+                                                isDownloading = false;
+
+                                                instances.clear();
+                                                modelBatch.dispose();
+
+                                                for (int i = 0; i < defaultModelList.size(); i++){
+                                                    Model model = assetManager.get(defaultModelList.get(i), Model.class);
+                                                    ModelInstance modelInstance = new ModelInstance(model);
+                                                    instances.add(modelInstance);
+                                                }
+                                            }
+                                        }
+                                    });
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            @Override
+                            public void failed(Throwable t) {
+                                return;
+                            }
+
+                            @Override
+                            public void cancelled() {
+                                return;
+                            }
+                        });
+                    }
+
                 }
-            });
 
+            }
+        });
 
-        }
     }
 
 
