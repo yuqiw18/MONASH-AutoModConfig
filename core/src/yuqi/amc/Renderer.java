@@ -51,7 +51,6 @@ public class Renderer implements ApplicationListener {
     private RendererStateListener rendererStateListener;
     private String currentColor = "#ffffff";
     private static boolean DEBUG_MODE = false;
-    private static String MODEL_FORMAT = ".g3dj";
 
     @Override
     public void create() {
