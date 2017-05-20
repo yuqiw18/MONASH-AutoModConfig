@@ -110,11 +110,9 @@
         android:id="@+id/labelCheckoutPaymentMethod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:text="@string/ui_payment_loading"
         android:layout_below="@+id/textViewCheckout3"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/ui_checkout_address_placeholder" />
+        android:layout_alignStart="@+id/textViewCheckout3" />
 
     <Button
         android:id="@+id/btnCheckoutChangePaymentMethod"

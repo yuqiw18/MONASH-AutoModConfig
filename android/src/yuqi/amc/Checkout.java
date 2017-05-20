@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 import yuqi.amc.JsonData.Center;
 import yuqi.amc.JsonData.Part;
+import yuqi.amc.JsonData.Payment;
 import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 import yuqi.amc.JsonDataAdapter.JsonAdapterMode;
@@ -65,6 +66,8 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         layoutCheckoutBooking.setVisibility(View.GONE);
 
         loadDefaultAddress();
+
+        new GetPaymentInfo().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
 
         Bundle incomingData = getIntent().getExtras();
 
@@ -155,6 +158,46 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                 + sharedPreferences.getString("country", "COUNTRY");
         labelCheckoutAddress.setText(address);
     }
+
+
+
+    private class GetPaymentInfo extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            return RestClient.requestData("payment/primary", params);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            Payment payment;
+
+            if (result!=null && !result.isEmpty()){
+
+                //Payment payment = Payment.strJsonToPayment(result);
+
+                if ((payment = Payment.strJsonToPayment(result))!=null){
+
+                    String paymentMethod = payment.getType() + "\n" +
+                            payment.getInfo1() + "\n" + payment.getInfo2();
+
+                    labelCheckoutPaymentMethod.setText(paymentMethod);
+                    btnChangePayment.setText(getString(R.string.ui_btn_account_payment_edit));
+
+                }else {
+                    labelCheckoutPaymentMethod.setText(getString(R.string.ui_account_no_payment));
+                    btnChangePayment.setText(getString(R.string.ui_btn_account_payment_add));
+                }
+            }else {
+                labelCheckoutPaymentMethod.setText(getString(R.string.ui_account_no_payment));
+                btnChangePayment.setText(getString(R.string.ui_btn_account_payment_add));
+            }
+        }
+    }
+
+
+
 
     private static String formatTime(Integer time){
         switch (time){
