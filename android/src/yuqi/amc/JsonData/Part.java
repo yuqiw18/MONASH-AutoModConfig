@@ -43,6 +43,11 @@ public class Part {
         return part;
     }
 
+    @Override
+    public String toString() {
+        return id + ":" + name + ", Specs:" + description + ", Price:" + price;
+    }
+
     public long getId() {
         return id;
     }

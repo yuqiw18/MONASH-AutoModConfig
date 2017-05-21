@@ -3,6 +3,7 @@ package yuqi.amc;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,10 +19,12 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
 
+import yuqi.amc.JsonData.Customer;
 import yuqi.amc.JsonData.Payment;
 
 public class AccountFragment extends Fragment implements OnClickListener {
@@ -30,6 +33,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
     private TextView labelAccountPaymentMethod;
     private Button btnAccountEditInfo;
     private Button btnAccountPaymentMethod;
+
     private RelativeLayout layoutPaymentInfo;
 
     private SharedPreferences sharedPreferences;
@@ -57,18 +61,14 @@ public class AccountFragment extends Fragment implements OnClickListener {
         labelAccountName.setText(sharedPreferences.getString("name", null));
         labelAccountEmail.setText(sharedPreferences.getString("email", null));
 
-        String address = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
-                + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")
-                + " " + sharedPreferences.getInt("postcode", 0000) + "\n"
-                + sharedPreferences.getString("country", "COUNTRY");
-        labelAccountAddress.setText(address);
-
         btnAccountEditInfo.setOnClickListener(this);
         btnAccountPaymentMethod.setOnClickListener(this);
 
         layoutPaymentInfo = (RelativeLayout) view.findViewById(R.id.layoutPaymentInfo);
 
         layoutPaymentInfo.setVisibility(View.GONE);
+
+        getAddress();
 
         new GetPaymentInfo().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
 
@@ -83,12 +83,12 @@ public class AccountFragment extends Fragment implements OnClickListener {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_address, null);
 
-            EditText editAddress = (EditText)dialogView.findViewById(R.id.textEditAddress);
-            EditText editSuburb = (EditText)dialogView.findViewById(R.id.textEditSuburb);
-            EditText editPostcode = (EditText)dialogView.findViewById(R.id.textEditPostcode);
-            EditText editState = (EditText)dialogView.findViewById(R.id.textEditState);
-            Spinner spinnerCountry = (Spinner)dialogView.findViewById(R.id.spinnerEditCountry);
-
+            final EditText editAddress = (EditText)dialogView.findViewById(R.id.textEditAddress);
+            final EditText editSuburb = (EditText)dialogView.findViewById(R.id.textEditSuburb);
+            final EditText editPostcode = (EditText)dialogView.findViewById(R.id.textEditPostcode);
+            final EditText editState = (EditText)dialogView.findViewById(R.id.textEditState);
+            final Spinner spinnerCountry = (Spinner)dialogView.findViewById(R.id.spinnerEditCountry);
+            final Button btnEditApply = (Button)dialogView.findViewById(R.id.btnEditApply);
 
             editAddress.setText(sharedPreferences.getString("address", ""));
             editSuburb.setText(sharedPreferences.getString("suburb", ""));
@@ -110,8 +110,57 @@ public class AccountFragment extends Fragment implements OnClickListener {
             }
 
             builder.setView(dialogView);
-
             final AlertDialog alertDialog = builder.create();
+
+            btnEditApply.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String address = editAddress.getText().toString().trim();
+                    String suburb = editSuburb.getText().toString().trim();
+                    String postcode = editPostcode.getText().toString().trim();
+                    String state = editState.getText().toString().trim();
+                    String country = spinnerCountry.getSelectedItem().toString();
+
+                    if (address.isEmpty()){
+                        promptMessage(getString(R.string.msg_reg_no_address));
+                        return;
+                    }
+
+                    if (suburb.isEmpty()){
+                        promptMessage(getString(R.string.msg_reg_no_suburb));
+                        return;
+                    }
+
+                    if (postcode.isEmpty()){
+                        promptMessage(getString(R.string.msg_reg_no_postcode));
+                        return;
+                    }
+
+                    if (state.isEmpty()){
+                        promptMessage(getString(R.string.msg_reg_no_state));
+                        return;
+                    }
+
+                    if (country.equals("PLEASE SELECT")){
+                        promptMessage(getString(R.string.msg_reg_no_country));
+                        return;
+                    }
+
+                    long id = sharedPreferences.getLong("id", 0);
+                    String name = sharedPreferences.getString("name",null);
+                    String email = sharedPreferences.getString("email",null);
+                    String password = sharedPreferences.getString("password",null);
+
+                    Customer customer = new Customer(id, name, password, email, address, suburb, Integer.valueOf(postcode), state, country);
+
+                    btnEditApply.setEnabled(false);
+                    btnEditApply.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+
+                    new UpdateInformation().execute(customer);
+
+                    alertDialog.dismiss();
+                }
+            });
 
             alertDialog.show();
 
@@ -165,34 +214,55 @@ public class AccountFragment extends Fragment implements OnClickListener {
         }
     }
 
+    private class UpdateInformation extends AsyncTask<Object,Void,Integer>{
 
-    private class ChangeAddress extends AsyncTask<String,Void,String>{
-
+        Customer customer = null;
         @Override
-        protected String doInBackground(String... params) {
-            return null;
+        protected Integer doInBackground(Object... param) {
+            customer = (Customer) param[0];
+            return RestClient.updateData("customer",param[0]);
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(Integer responseCode) {
+            int status = RestClient.processResponseCode(responseCode);
+            switch (status){
+                case -1:
+                    promptMessage(getString(R.string.msg_reg_server_fail));
+                    break;
+                case 0:
+
+                    promptMessage(getString(R.string.msg_reg_server_error));
+                    break;
+                case 1:
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putLong("id",customer.getId());
+                    editor.putString("name",customer.getName());
+                    editor.putString("email",customer.getEmail());
+                    editor.putString("password",customer.getPassword());
+                    editor.putString("address",customer.getAddress());
+                    editor.putString("suburb",customer.getSuburb());
+                    editor.putInt("postcode",customer.getPostcode());
+                    editor.putString("state",customer.getState());
+                    editor.putString("country",customer.getCountry());
+                    editor.putBoolean("isSignedIn",true);
+                    editor.commit();
+                    getAddress();
+                    promptMessage("Yes");
+                    break;
+            }
         }
     }
 
-
-    private class ChangePassword extends AsyncTask<String,Void,String>{
-
-        @Override
-        protected String doInBackground(String... params) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
+    private void promptMessage(String message){
+        Toast.makeText(getActivity().getBaseContext(), message, Toast.LENGTH_LONG).show();
     }
 
-
-
+    private void getAddress(){
+        String address = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
+                + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")
+                + " " + sharedPreferences.getInt("postcode", 0000) + "\n"
+                + sharedPreferences.getString("country", "COUNTRY");
+        labelAccountAddress.setText(address);
+    }
 }

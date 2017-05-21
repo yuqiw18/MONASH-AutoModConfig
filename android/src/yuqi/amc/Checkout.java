@@ -39,6 +39,10 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private SharedPreferences sharedPreferences;
     private ArrayList<Part> cartList;
 
+    private double transactionPrice = 0;
+    private String transactionDetail = "";
+    private String transactionAddress = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +138,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
             JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, JsonAdapterMode.CHECKOUT );
             cartList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             listCheckoutItem.setAdapter(jsonDataAdapter);
+            initCartValues();
         }
     }
 
@@ -158,8 +163,6 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                 + sharedPreferences.getString("country", "COUNTRY");
         labelCheckoutAddress.setText(address);
     }
-
-
 
     private class GetPaymentInfo extends AsyncTask<String,Void,String>{
 
@@ -196,9 +199,6 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         }
     }
 
-
-
-
     private static String formatTime(Integer time){
         switch (time){
             case 8:
@@ -210,6 +210,17 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
             default:
                 return "0:00 AM";
         }
+    }
+
+    private void initCartValues(){
+        for (Part p: cartList) {
+            transactionPrice += p.getPrice();
+            transactionDetail += p.toString() + "; ";
+        }
+        transactionAddress = labelCheckoutAddress.getText().toString();
+
+        Log.e("Cart Price", String.valueOf(transactionPrice));
+        Log.e("Cart Item", transactionDetail);
     }
 
 }

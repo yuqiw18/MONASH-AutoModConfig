@@ -97,15 +97,15 @@ public class RestClient {
     }
 
     // PUT: Update
-    protected static String updateData(String methodPath, Object object){
+    protected static int updateData(String methodPath, Object object){
 
         HttpURLConnection connection = null;
-        String responseCode = "0";
+        int responseCode = 200;
 
         try {
             Gson gson = new Gson();
             String strJsonObject = gson.toJson(object);
-            URL url = new URL(BASE_URI + methodPath + "/24717835");
+            URL url = new URL(BASE_URI + methodPath);
 
             connection = (HttpURLConnection)url.openConnection();
 
@@ -117,13 +117,13 @@ public class RestClient {
             connection.setRequestProperty("Content-Type","application/json");
 
             PrintWriter out = new PrintWriter(connection.getOutputStream());
+
             out.write(strJsonObject);
             out.flush();
             out.close();
-            //connection.getInputStream();
 
-            responseCode = String.valueOf(connection.getResponseCode());
-            Log.e("HTTP",responseCode);
+            responseCode = connection.getResponseCode();
+            Log.e("HTTP",String.valueOf(responseCode));
 
         }catch (Exception e){
             e.printStackTrace();

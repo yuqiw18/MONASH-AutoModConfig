@@ -129,7 +129,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-
     private class RegisterAccount extends AsyncTask<Object,Void,Integer>{
         Customer customer = null;
         @Override
