@@ -15,13 +15,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import yuqi.amc.JsonData.Center;
 import yuqi.amc.JsonData.Part;
-import yuqi.amc.JsonData.Payment;
 import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 import yuqi.amc.JsonDataAdapter.JsonAdapterMode;
@@ -30,16 +30,26 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
     private RelativeLayout layoutCheckoutBooking;
     private TextView labelCheckoutAddress;
-    private TextView labelCheckoutPaymentMethod;
     private TextView labelCheckoutBookingTime;
+
+    private TextView labelBtnPlaceOrder;
+
+    private TextView labelCheckoutGrandTotal;
+    private TextView labelCheckoutItemNum;
+    private TextView labelCheckoutSubTotal;
+    private TextView labelCheckoutPostageFee;
+    private TextView labelCheckoutInstallationFee;
+
     private ListView listCheckoutItem;
     private Button btnCancelBooking;
     private Button btnChangeAddress;
-    private Button btnChangePayment;
     private SharedPreferences sharedPreferences;
     private ArrayList<Part> cartList;
 
     private double transactionPrice = 0;
+    private double subTotal = 0;
+    private double instFee = 0;
+    private double postage = 0;
     private String transactionDetail = "";
     private String transactionAddress = "";
 
@@ -54,24 +64,27 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         layoutCheckoutBooking = (RelativeLayout) findViewById(R.id.layoutCheckoutBooking);
 
         labelCheckoutAddress = (TextView) findViewById(R.id.labelCheckoutAddress);
-        labelCheckoutPaymentMethod = (TextView) findViewById(R.id.labelCheckoutPaymentMethod);
         labelCheckoutBookingTime = (TextView) findViewById(R.id.labelCheckoutBookingTime);
+        labelCheckoutGrandTotal = (TextView) findViewById(R.id.labelCheckoutGrandTotal);
+
+        labelCheckoutItemNum = (TextView) findViewById(R.id.labelCheckoutItemNum);
+        labelCheckoutSubTotal = (TextView) findViewById(R.id.labelCheckoutSubTotal);
+        labelCheckoutPostageFee = (TextView) findViewById(R.id.labelCheckoutPostageFee);
+        labelCheckoutInstallationFee = (TextView) findViewById(R.id.labelCheckoutInstFee);
 
         listCheckoutItem = (ListView) findViewById(R.id.listCheckoutItems);
 
+        labelBtnPlaceOrder = (TextView) findViewById(R.id.labelBtnPlaceOrder);
+
         btnChangeAddress = (Button) findViewById(R.id.btnCheckoutPickServiceCenter);
-        btnChangePayment = (Button) findViewById(R.id.btnCheckoutChangePaymentMethod);
         btnCancelBooking = (Button) findViewById(R.id.btnCheckoutCancelBooking);
 
         btnChangeAddress.setOnClickListener(this);
-        btnChangePayment.setOnClickListener(this);
         btnCancelBooking.setOnClickListener(this);
 
         layoutCheckoutBooking.setVisibility(View.GONE);
 
         loadDefaultAddress();
-
-        new GetPaymentInfo().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
 
         Bundle incomingData = getIntent().getExtras();
 
@@ -87,22 +100,12 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnCheckoutPickServiceCenter){
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            View dialogView = getLayoutInflater().inflate(R.layout.dialog_service_center, null);
-//
+
             btnChangeAddress.setEnabled(false);
             btnChangeAddress.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
-//
-//            builder.setView(dialogView);
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
+
             MapDialogFragment mapDialogFragment = new MapDialogFragment();
-            //mapDialogFragment.getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             mapDialogFragment.show(getFragmentManager(), "ServiceCenterMap");
-
-        }else if (id == R.id.btnCheckoutChangePaymentMethod){
-
-
 
         }else if (id == R.id.btnCheckoutCancelBooking){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -116,6 +119,9 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                             loadDefaultAddress();
                             layoutCheckoutBooking.setEnabled(false);
                             layoutCheckoutBooking.setVisibility(View.GONE);
+                            labelCheckoutInstallationFee.setText(getString(R.string.ui_checkout_inst_fee_not_apply));
+                            instFee = 0;
+                            calculateGrandTotal();
                         }
                     });
             builder.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
@@ -125,6 +131,8 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                 }
             });
             builder.create().show();
+        }else if (id == R.id.labelBtnPlaceOrder){
+            Toast.makeText(getBaseContext(),"YES", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -138,7 +146,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
             JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, JsonAdapterMode.CHECKOUT );
             cartList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             listCheckoutItem.setAdapter(jsonDataAdapter);
-            initCartValues();
+            calculateCartValues();
         }
     }
 
@@ -150,9 +158,11 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
     @Override
     public void onCenterSelect(Center center, String date, Integer time) {
-        labelCheckoutAddress.setText(center.getFormmattedAddress());
-
-        labelCheckoutBookingTime.setText(getString(R.string.ui_checkout_service_status) + "\n" + Utility.formateDate(date) + "\n" + formatTime(time));
+        labelCheckoutAddress.setText(center.getFormattedAddress());
+        labelCheckoutBookingTime.setText(getString(R.string.ui_checkout_service_status) + "\n" + Utility.formatDate(date) + "\n" + formatTime(time));
+        instFee = center.getPrice();
+        calculateGrandTotal();
+        labelCheckoutInstallationFee.setText(Utility.getFormattedPrice(instFee));
         layoutCheckoutBooking.setVisibility(View.VISIBLE);
     }
 
@@ -162,41 +172,6 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                 + " " + sharedPreferences.getInt("postcode", 0000) + "\n"
                 + sharedPreferences.getString("country", "COUNTRY");
         labelCheckoutAddress.setText(address);
-    }
-
-    private class GetPaymentInfo extends AsyncTask<String,Void,String>{
-
-        @Override
-        protected String doInBackground(String... params) {
-            return RestClient.requestData("payment/primary", params);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            Payment payment;
-
-            if (result!=null && !result.isEmpty()){
-
-                //Payment payment = Payment.strJsonToPayment(result);
-
-                if ((payment = Payment.strJsonToPayment(result))!=null){
-
-                    String paymentMethod = payment.getType() + "\n" +
-                            payment.getInfo1() + "\n" + payment.getInfo2();
-
-                    labelCheckoutPaymentMethod.setText(paymentMethod);
-                    btnChangePayment.setText(getString(R.string.ui_btn_account_payment_edit));
-
-                }else {
-                    labelCheckoutPaymentMethod.setText(getString(R.string.ui_account_no_payment));
-                    btnChangePayment.setText(getString(R.string.ui_btn_account_payment_add));
-                }
-            }else {
-                labelCheckoutPaymentMethod.setText(getString(R.string.ui_account_no_payment));
-                btnChangePayment.setText(getString(R.string.ui_btn_account_payment_add));
-            }
-        }
     }
 
     private static String formatTime(Integer time){
@@ -212,15 +187,26 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         }
     }
 
-    private void initCartValues(){
+    private void calculateCartValues(){
         for (Part p: cartList) {
             transactionPrice += p.getPrice();
             transactionDetail += p.toString() + "; ";
         }
+        labelCheckoutItemNum.setText(getString(R.string.ui_checkout_item_count) + cartList.size());
         transactionAddress = labelCheckoutAddress.getText().toString();
+
+        subTotal = transactionPrice;
+        labelCheckoutSubTotal.setText(Utility.getFormattedPrice(subTotal));
+
+        calculateGrandTotal();
 
         Log.e("Cart Price", String.valueOf(transactionPrice));
         Log.e("Cart Item", transactionDetail);
     }
 
+
+    private void calculateGrandTotal(){
+        transactionPrice = subTotal + postage + instFee;
+        labelCheckoutGrandTotal.setText(getString(R.string.ui_check_grand_total) + Utility.getFormattedPrice(transactionPrice));
+    }
 }

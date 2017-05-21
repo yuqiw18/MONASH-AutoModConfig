@@ -46,7 +46,7 @@ public final class Utility {
     // SHA-512 Hashing
 
 
-    public static String formateDate(String strDate){
+    public static String formatDate(String strDate){
         try {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(strDate);
             return new SimpleDateFormat("dd MMM yyyy").format(date).toUpperCase();
@@ -70,6 +70,10 @@ public final class Utility {
             e.printStackTrace();
         }
         return generatedPassword;
+    }
+
+    protected static String getFormattedPrice(double price){
+        return "$" + String.format("%.2f", price);
     }
 
 }

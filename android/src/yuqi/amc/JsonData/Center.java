@@ -115,7 +115,7 @@ public class Center {
 
     public double getDistance(){ return distance; }
 
-    public String getFormmattedAddress(){
+    public String getFormattedAddress(){
         String[] s = address.split(",");
         return s[0].toUpperCase().trim() + "\n" + s[1].toUpperCase().trim() + "\n" + s[2].toUpperCase().trim();
     }

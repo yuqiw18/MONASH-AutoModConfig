@@ -160,23 +160,23 @@ public class JsonDataAdapter extends BaseAdapter {
             case ORDER:
                 viewHolder.textViewPlaceHolders.get(0).setText("ORDER ID:" + ((Order)dataList.get(position)).getId());
                 viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Order)dataList.get(position)).getDatetime()));
-                viewHolder.textViewPlaceHolders.get(2).setText(String.valueOf(((Order)dataList.get(position)).getPrice()));
+                viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(((Order)dataList.get(position)).getPrice()));
                 viewHolder.textViewPlaceHolders.get(3).setText("TEST");
                 Log.e("View","Added");
                 break;
             case PART:
                 if (mode == JsonAdapterMode.CHECKOUT){
                     viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
-                    viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Part)dataList.get(position)).getPrice()));
+                    viewHolder.textViewPlaceHolders.get(1).setText(Utility.getFormattedPrice(((Part)dataList.get(position)).getPrice()));
                 }else{
                     viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
                     viewHolder.textViewPlaceHolders.get(1).setText(((Part)dataList.get(position)).getDescription());
-                    viewHolder.textViewPlaceHolders.get(2).setText("$ " + ((Part)dataList.get(position)).getPrice() +"0");
+                    viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(((Part)dataList.get(position)).getPrice()));
                 }
                 break;
             case CENTER:
                 viewHolder.textViewPlaceHolders.get(0).setText(((Center)dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolders.get(1).setText("Installation Fee from AU$ " + ((Center)dataList.get(position)).getPrice());
+                viewHolder.textViewPlaceHolders.get(1).setText("Installation Fee from AU" + Utility.getFormattedPrice(((Center)dataList.get(position)).getPrice()));
                 double avgScore = ((Center) dataList.get(position)).getAvgScore();
                 if (avgScore!=-1d){
                     viewHolder.textViewPlaceHolders.get(2).setText("Rating: " + avgScore);

@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/ui_checkout_post"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
@@ -40,22 +40,20 @@
         android:text="@string/ui_btn_checkout_pick"
         android:textColor="@android:color/white" />
 
-    <View
-        style="@style/Divider"
-        android:layout_below="@id/labelCheckoutAddress"
-        android:id="@+id/viewCheckout" />
-
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/layoutCheckoutBooking"
-        android:layout_below="@+id/viewCheckout">
+        android:layout_below="@+id/labelCheckoutAddress">
+
+        <View
+            style="@style/Divider"
+            android:id="@+id/viewCheckout"
+            android:layout_alignParentTop="true"/>
 
         <TextView
             android:id="@+id/textViewCheckout2"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/viewCheckout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/labelCheckoutBookingTime"
@@ -85,61 +83,130 @@
             android:text="@string/ui_checkout_cancel"
             android:textColor="@android:color/white" />
 
-        <View
-            style="@style/Divider"
-            android:layout_below="@id/labelCheckoutBookingTime"
-            android:id="@+id/viewCheckout2" />
-
     </RelativeLayout>
 
-
-
-
-    <TextView
-        android:id="@+id/textViewCheckout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutCheckoutBooking"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/ui_checkout_payment_method"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/labelCheckoutPaymentMethod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ui_payment_loading"
-        android:layout_below="@+id/textViewCheckout3"
-        android:layout_alignStart="@+id/textViewCheckout3" />
-
-    <Button
-        android:id="@+id/btnCheckoutChangePaymentMethod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btnCheckoutPickServiceCenter"
-        android:layout_alignTop="@+id/labelCheckoutPaymentMethod"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/ui_btn_checkout_change"
-        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/sectionHeaderCheckout"
         style="@style/Section"
-        android:layout_below="@id/labelCheckoutPaymentMethod"
+        android:layout_below="@id/layoutCheckoutBooking"
         android:layout_marginBottom="0dp"
         android:background="?android:attr/colorButtonNormal"
         android:text="@string/ui_checkout_cart_item"
         android:textColor="#666666" />
-
 
     <ListView
         android:id="@+id/listCheckoutItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:layout_above="@+id/layoutCheckoutDetail"
         android:layout_below="@+id/sectionHeaderCheckout" />
+
+    <RelativeLayout
+        android:id="@+id/layoutCheckoutDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_grey"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:layout_above="@+id/layoutCheckoutPlaceOrder"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:id="@+id/labelCheckoutInstFee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/labelCheckoutPostageFee"
+            android:text="@string/ui_checkout_inst_fee_not_apply"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/labelCheckoutPostageFee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/labelCheckoutSubTotal"
+            android:text="@string/ui_postage_free"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/labelCheckoutItemNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ui_checkout_item_count_placeholder"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ui_checkout_postage"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/labelCheckoutItemNum"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ui_checkout_install_fee"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/labelCheckoutPostageFee"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/labelCheckoutSubTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/ui_checkout_calculate_placeholder"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutCheckoutPlaceOrder"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimaryDark"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp">
+
+        <TextView
+            android:id="@+id/labelBtnPlaceOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:text="@string/ui_checkout_btn_place_order"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/labelCheckoutGrandTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:text="@string/ui_check_grand_total_placeholder"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
