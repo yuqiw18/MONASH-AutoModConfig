@@ -410,10 +410,6 @@ public class RendererV2 implements ApplicationListener {
         this.rendererStateListener = rendererStateListener;
     }
 
-
-
-
-
     @Override
     public void resize(int width, int height) {}
 

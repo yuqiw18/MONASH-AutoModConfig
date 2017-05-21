@@ -48,7 +48,6 @@ public class Renderer implements ApplicationListener {
     private boolean modelAssigned = false;
     private ArrayList<String> defaultModelList = new ArrayList<>();
     private ArrayList<String> modifiedModelList = new ArrayList<>();
-    private RendererStateListener rendererStateListener;
     private String currentColor = "#ffffff";
     private static boolean DEBUG_MODE = false;
 
@@ -333,11 +332,6 @@ public class Renderer implements ApplicationListener {
     }
 
 
-    public interface RendererStateListener{
-        void onRendererLoaded();
-        void onRendererReload();
-    }
-
     @Override
     public void resize(int width, int height) {
     }
@@ -349,8 +343,5 @@ public class Renderer implements ApplicationListener {
         assetManager.dispose();
     }
 
-    public void setRendererStateListener(RendererStateListener rendererStateListener){
-        this.rendererStateListener = rendererStateListener;
-    }
 
 }

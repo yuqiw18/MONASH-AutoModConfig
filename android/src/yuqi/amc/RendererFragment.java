@@ -8,7 +8,7 @@ import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import yuqi.amc.JsonData.Part;
 import yuqi.amc.Previewer.OnPartSelectListener;
 
-public class RendererFragment extends AndroidFragmentApplication implements OnPartSelectListener, Renderer.RendererStateListener {
+public class RendererFragment extends AndroidFragmentApplication implements OnPartSelectListener, RendererV2.RendererStateListener {
 
     private RendererV2 renderer;
 
@@ -16,7 +16,7 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         renderer = new RendererV2();
-        //renderer.setRendererStateListener(this);
+        renderer.setRendererStateListener(this);
     }
 
     @Override
@@ -41,6 +41,12 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
 
     @Override
     public void onRendererReload() {
+
+    }
+    
+    public interface RendererFragmentStateListener{
+
+        void onFragmentReady();
 
     }
 }

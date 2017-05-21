@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.JsonData.Part;
 
-public class Previewer extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, OnClickListener, Renderer.RendererStateListener {
+public class Previewer extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, OnClickListener {
 
     private ListView partListView;
     private ArrayList<Part> partList;
@@ -283,18 +283,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         btnRim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
         btnTyre.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
         btnLighting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
-
-    }
-
-
-    @Override
-    public void onRendererLoaded() {
-
-        Log.e("RENDERER","LOADED");
-    }
-
-    @Override
-    public void onRendererReload() {
 
     }
 
