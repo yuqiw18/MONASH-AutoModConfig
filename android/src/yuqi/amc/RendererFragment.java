@@ -21,11 +21,10 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
         super.onCreate(savedInstanceState);
         renderer = new RendererV2();
         renderer.setRendererStateListener(this);
-        //rendererFragmentStateListener = (RendererFragmentStateListener) getActivity();
-
-        alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setTitle(getString(R.string.title_previewer));
-        alertDialog.setMessage(getString(R.string.dialog_previewer_loading));
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_previewer_loading, null);
+        builder.setView(dialogView);
+        alertDialog = builder.create();
         alertDialog.setCancelable(false);
         alertDialog.show();
     }
@@ -54,6 +53,7 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
     @Override
     public void onRendererReload() {
         Log.e("Rendere Fragment", "Reloading!");
-        alertDialog.show();
     }
+
+
 }

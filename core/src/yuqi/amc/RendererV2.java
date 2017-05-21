@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -89,7 +90,6 @@ public class RendererV2 implements ApplicationListener {
 
     public void replacePart(final int pos, final String fileName){
 
-
         if (!assetManager.isLoaded(fileName)) {
             assetManager.load(fileName, Model.class);
         }
@@ -97,123 +97,123 @@ public class RendererV2 implements ApplicationListener {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                try {
-                    assetManager.finishLoading();
+            try {
+                assetManager.finishLoading();
 
-                    Model part = assetManager.get(fileName, Model.class);
-                    ModelInstance modelInstance = new ModelInstance(part);
+                Model part = assetManager.get(fileName, Model.class);
+                ModelInstance modelInstance = new ModelInstance(part);
 
-                    if (instances.get(pos).model == modelInstance.model){
-                        modifiedModelList.set(pos, defaultModelList.get(pos));
-                        Gdx.app.log("Default Part", defaultModelList.get(pos));
+                if (instances.get(pos).model == modelInstance.model){
+                    modifiedModelList.set(pos, defaultModelList.get(pos));
+                    Gdx.app.log("Default Part", defaultModelList.get(pos));
 
-                    }else {
-                        modifiedModelList.set(pos, fileName);
-                        Gdx.app.log("New Part", fileName);
-                    }
+                }else {
+                    modifiedModelList.set(pos, fileName);
+                    Gdx.app.log("New Part", fileName);
+                }
 
-                    instances.clear();
-                    modelBatch.dispose();
+                instances.clear();
+                modelBatch.dispose();
 
-                    for (int i = 0; i < modifiedModelList.size(); i++){
-                        Model model = assetManager.get(modifiedModelList.get(i), Model.class);
-                        instances.add(new ModelInstance(model));
-                    }
+                for (int i = 0; i < modifiedModelList.size(); i++){
+                    Model model = assetManager.get(modifiedModelList.get(i), Model.class);
+                    instances.add(new ModelInstance(model));
+                }
 
-                    for (int i = 0; i < 4; i ++){
-                        instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
-                    }
+                for (int i = 0; i < 4; i ++){
+                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
+                }
 
-                }catch (Exception e){
+            }catch (GdxRuntimeException e){
 
-                    // File not exist, need to download from server
-                    Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.GET);
-                    request.setTimeOut(2500);
-                    request.setUrl(RESOURCE_URL+ fileName);
+                // File not exist, need to download from server
+                Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.GET);
+                request.setTimeOut(2500);
+                request.setUrl(RESOURCE_URL+ fileName);
 
-                    Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-                        @Override
-                        public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                            // Determine how much we have to download
-                            long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
+                Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+                    @Override
+                    public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                        // Determine how much we have to download
+                        long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
 
-                            // We're going to download the file to external storage, create the streams
-                            InputStream is = httpResponse.getResultAsStream();
-                            OutputStream os = Gdx.files.local(fileName).write(false);
+                        // We're going to download the file to external storage, create the streams
+                        InputStream is = httpResponse.getResultAsStream();
+                        OutputStream os = Gdx.files.local(fileName).write(false);
 
-                            byte[] bytes = new byte[1024];
-                            int count = -1;
-                            long read = 0;
+                        byte[] bytes = new byte[1024];
+                        int count = -1;
+                        long read = 0;
 
 
-                            try {
-                                // Keep reading bytes and storing them until there are no more.
-                                while ((count = is.read(bytes, 0, bytes.length)) != -1) {
-                                    os.write(bytes, 0, count);
-                                    read += count;
+                        try {
+                            // Keep reading bytes and storing them until there are no more.
+                            while ((count = is.read(bytes, 0, bytes.length)) != -1) {
+                                os.write(bytes, 0, count);
+                                read += count;
 
-                                    // Update the UI with the download progress
-                                    final int progress = ((int) (((double) read / (double) length) * 100));
-                                    final String progressString = progress == 100 ? "Download Complete" : progress + "%";
+                                // Update the UI with the download progress
+                                final int progress = ((int) (((double) read / (double) length) * 100));
+                                final String progressString = progress == 100 ? "Download Complete" : progress + "%";
 
-                                    Gdx.app.log("Progress", progressString);
-                                }
-
-                                os.close();
-
-                                Gdx.app.postRunnable(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //assetManager.load(Gdx.files.local(fileName));
-                                        assetManager.load(fileName, Model.class);
-                                        assetManager.finishLoading();
-
-                                        Model part = assetManager.get(fileName, Model.class);
-                                        ModelInstance modelInstance = new ModelInstance(part);
-
-                                        if (instances.get(pos).model == modelInstance.model){
-                                            modifiedModelList.set(pos, defaultModelList.get(pos));
-                                            Gdx.app.log("Default Part", defaultModelList.get(pos));
-
-                                        }else {
-                                            modifiedModelList.set(pos, fileName);
-                                            Gdx.app.log("New Part", fileName);
-                                        }
-
-                                        instances.clear();
-                                        modelBatch.dispose();
-
-                                        for (int i = 0; i < modifiedModelList.size(); i++){
-                                            Model model = assetManager.get(modifiedModelList.get(i), Model.class);
-                                            instances.add(new ModelInstance(model));
-                                        }
-
-                                        for (int i = 0; i < 4; i ++){
-                                            instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
-                                        }
-
-                                        rendererStateListener.onRendererLoad();
-
-                                    }
-                                });
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                Gdx.app.log("Progress", progressString);
                             }
 
+                            os.close();
+
+                            Gdx.app.postRunnable(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //assetManager.load(Gdx.files.local(fileName));
+                                    assetManager.load(fileName, Model.class);
+                                    assetManager.finishLoading();
+
+                                    Model part = assetManager.get(fileName, Model.class);
+                                    ModelInstance modelInstance = new ModelInstance(part);
+
+                                    if (instances.get(pos).model == modelInstance.model){
+                                        modifiedModelList.set(pos, defaultModelList.get(pos));
+                                        Gdx.app.log("Default Part", defaultModelList.get(pos));
+
+                                    }else {
+                                        modifiedModelList.set(pos, fileName);
+                                        Gdx.app.log("New Part", fileName);
+                                    }
+
+                                    instances.clear();
+                                    modelBatch.dispose();
+
+                                    for (int i = 0; i < modifiedModelList.size(); i++){
+                                        Model model = assetManager.get(modifiedModelList.get(i), Model.class);
+                                        instances.add(new ModelInstance(model));
+                                    }
+
+                                    for (int i = 0; i < 4; i ++){
+                                        instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
+                                    }
+
+                                    //rendererStateListener.onRendererLoad();
+
+                                }
+                            });
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
 
-                        @Override
-                        public void failed(Throwable t) {
-                            return;
-                        }
+                    }
 
-                        @Override
-                        public void cancelled() {
-                            return;
-                        }
-                    });
-                }
+                    @Override
+                    public void failed(Throwable t) {
+                        return;
+                    }
+
+                    @Override
+                    public void cancelled() {
+                        return;
+                    }
+                });
+            }
             }
         });
     }
@@ -224,41 +224,41 @@ public class RendererV2 implements ApplicationListener {
             @Override
             public void run() {
 
-                Gdx.app.log("updateScene", value);
+            Gdx.app.log("updateScene", value);
 
-                switch (type){
-                    case "Respray":
-                        for (int i = 0; i < 4; i ++){
-                            instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(value)));
+            switch (type){
+                case "Respray":
+                    for (int i = 0; i < 4; i ++){
+                        instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(value)));
+                    }
+                    currentColor = value;
+                    break;
+                case "Spoiler":
+                    replacePart(3, value);
+                    break;
+                case "Bonnet":
+                    replacePart(2, value);
+                    break;
+                case "Suspension":
+                    float adjustment = Float.valueOf(value);
+
+                    if (adjustment!=currentSuspension){
+                        for (int i = 0; i < 7; i ++){
+                            instances.get(i).transform.translate(0, currentSuspension*1, 0);
+                            instances.get(i).transform.translate(0, adjustment*-1, 0);
                         }
-                        currentColor = value;
-                        break;
-                    case "Spoiler":
-                        replacePart(3, value);
-                        break;
-                    case "Bonnet":
-                        replacePart(2, value);
-                        break;
-                    case "Suspension":
-                        float adjustment = Float.valueOf(value);
-
-                        if (adjustment!=currentSuspension){
-                            for (int i = 0; i < 7; i ++){
-                                instances.get(i).transform.translate(0, currentSuspension*1, 0);
-                                instances.get(i).transform.translate(0, adjustment*-1, 0);
-                            }
-                            currentSuspension = adjustment;
-                        }else {
-                            for (int i = 0; i < 7; i ++){
-                                instances.get(i).transform.translate(0, adjustment*1, 0);
-                            }
-                            currentSuspension = 0;
+                        currentSuspension = adjustment;
+                    }else {
+                        for (int i = 0; i < 7; i ++){
+                            instances.get(i).transform.translate(0, adjustment*1, 0);
                         }
+                        currentSuspension = 0;
+                    }
 
-                        break;
-                    default:
-                        break;
-                }
+                    break;
+                default:
+                    break;
+            }
             }
         });
     }
@@ -299,101 +299,100 @@ public class RendererV2 implements ApplicationListener {
             @Override
             public void run() {
 
-                try{
+            try{
 
-                    assetManager.finishLoading();
+                assetManager.finishLoading();
 
-                    instances.clear();
+                instances.clear();
 
-                    for (int i = 0; i < defaultModelList.size(); i++){
-                        Model model = assetManager.get(defaultModelList.get(i), Model.class);
-                        ModelInstance modelInstance = new ModelInstance(model);
-                        instances.add(modelInstance);
-                    }
-                    modelBatch.dispose();
+                for (int i = 0; i < defaultModelList.size(); i++){
+                    Model model = assetManager.get(defaultModelList.get(i), Model.class);
+                    ModelInstance modelInstance = new ModelInstance(model);
+                    instances.add(modelInstance);
+                }
+                modelBatch.dispose();
 
-                    rendererStateListener.onRendererLoad();
+                rendererStateListener.onRendererLoad();
 
-                }catch (Exception e){
+            }catch (GdxRuntimeException e){
 
-                    for (final String fileName: defaultModelList) {
+                for (final String fileName: defaultModelList) {
 
-                        // File not exist, need to download from server
-                        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.GET);
-                        request.setTimeOut(2500);
-                        request.setUrl(RESOURCE_URL+ fileName);
+                    // File not exist, need to download from server
+                    Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.GET);
+                    request.setTimeOut(2500);
+                    request.setUrl(RESOURCE_URL+ fileName);
 
-                        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-                            @Override
-                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                                // Determine how much we have to download
-                                long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
+                    Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+                        @Override
+                        public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                            // Determine how much we have to download
+                            long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
 
-                                // We're going to download the file to external storage, create the streams
-                                InputStream is = httpResponse.getResultAsStream();
-                                OutputStream os = Gdx.files.local(fileName).write(false);
+                            // We're going to download the file to external storage, create the streams
+                            InputStream is = httpResponse.getResultAsStream();
+                            OutputStream os = Gdx.files.local(fileName).write(false);
 
-                                byte[] bytes = new byte[1024];
-                                int count = -1;
-                                long read = 0;
+                            byte[] bytes = new byte[1024];
+                            int count = -1;
+                            long read = 0;
 
+                            try {
+                                // Keep reading bytes and storing them until there are no more.
+                                while ((count = is.read(bytes, 0, bytes.length)) != -1) {
+                                    os.write(bytes, 0, count);
+                                    read += count;
 
-                                try {
-                                    // Keep reading bytes and storing them until there are no more.
-                                    while ((count = is.read(bytes, 0, bytes.length)) != -1) {
-                                        os.write(bytes, 0, count);
-                                        read += count;
+                                    // Update the UI with the download progress
+                                    final int progress = ((int) (((double) read / (double) length) * 100));
+                                    final String progressString = progress == 100 ? "Download Complete" : progress + "%";
 
-                                        // Update the UI with the download progress
-                                        final int progress = ((int) (((double) read / (double) length) * 100));
-                                        final String progressString = progress == 100 ? "Download Complete" : progress + "%";
-
-                                        Gdx.app.log("Progress", progressString);
-                                    }
-
-                                    os.close();
-
-                                    Gdx.app.postRunnable(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            //assetManager.load(Gdx.files.local(fileName));
-                                            assetManager.load(fileName, Model.class);
-                                            progress ++;
-                                            if (progress == fileToProcess){
-                                                assetManager.finishLoading();
-
-                                                instances.clear();
-                                                modelBatch.dispose();
-
-                                                for (int i = 0; i < defaultModelList.size(); i++){
-                                                    Model model = assetManager.get(defaultModelList.get(i), Model.class);
-                                                    ModelInstance modelInstance = new ModelInstance(model);
-                                                    instances.add(modelInstance);
-                                                }
-
-                                                rendererStateListener.onRendererLoad();
-                                            }
-                                        }
-                                    });
-
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Gdx.app.log("Progress", progressString);
                                 }
 
-                            }
-                            @Override
-                            public void failed(Throwable t) {
-                                return;
+                                os.close();
+
+                                Gdx.app.postRunnable(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //assetManager.load(Gdx.files.local(fileName));
+                                        assetManager.load(fileName, Model.class);
+                                        progress ++;
+                                        if (progress == fileToProcess){
+                                            assetManager.finishLoading();
+
+                                            instances.clear();
+                                            modelBatch.dispose();
+
+                                            for (int i = 0; i < defaultModelList.size(); i++){
+                                                Model model = assetManager.get(defaultModelList.get(i), Model.class);
+                                                ModelInstance modelInstance = new ModelInstance(model);
+                                                instances.add(modelInstance);
+                                            }
+
+                                            rendererStateListener.onRendererLoad();
+                                        }
+                                    }
+                                });
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
 
-                            @Override
-                            public void cancelled() {
-                                return;
-                            }
-                        });
-                    }
+                        }
+                        @Override
+                        public void failed(Throwable t) {
+                            return;
+                        }
 
+                        @Override
+                        public void cancelled() {
+                            return;
+                        }
+                    });
                 }
+
+            }
 
             }
         });
