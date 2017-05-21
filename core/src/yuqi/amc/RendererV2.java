@@ -192,6 +192,8 @@ public class RendererV2 implements ApplicationListener {
                                             instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
                                         }
 
+                                        rendererStateListener.onRendererLoad();
+
                                     }
                                 });
 
@@ -310,6 +312,8 @@ public class RendererV2 implements ApplicationListener {
                     }
                     modelBatch.dispose();
 
+                    rendererStateListener.onRendererLoad();
+
                 }catch (Exception e){
 
                     for (final String fileName: defaultModelList) {
@@ -366,6 +370,8 @@ public class RendererV2 implements ApplicationListener {
                                                     ModelInstance modelInstance = new ModelInstance(model);
                                                     instances.add(modelInstance);
                                                 }
+
+                                                rendererStateListener.onRendererLoad();
                                             }
                                         }
                                     });
@@ -395,7 +401,7 @@ public class RendererV2 implements ApplicationListener {
     }
 
     public interface RendererStateListener{
-        void onRendererLoaded();
+        void onRendererLoad();
         void onRendererReload();
     }
 

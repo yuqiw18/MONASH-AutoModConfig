@@ -166,7 +166,8 @@
     <string name="ui_btn_edit_apply">Apply</string>
     <string name="ui_checkout_cart_item">CART</string>
     <string name="ui_payment_payment_type">Payment Type</string>
-    <string name="ui_payment_loading">LOADING... \n \n</string>
+    <string name="ui_payment_loading">LOADING ...... \n \n</string>
+    <string name="dialog_previewer_loading">Loading required assets ......</string>
 
 
 </resources>
