@@ -22,11 +22,9 @@ public class JsonDataAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Object> dataList;
     private JsonDataType dataType;
-    private JsonAdapterMode mode;
 
     // Customer is one of the JsonData but it will not be used in ListView therefore it is not included here
     public enum JsonDataType {BOOKING, ORDER, PART, CENTER, TRACKING, PAYMENT}
-    public enum JsonAdapterMode {CHECKOUT}
 
     // ViewHolder pattern - Expandable
     private static class ViewHolder{
@@ -36,11 +34,11 @@ public class JsonDataAdapter extends BaseAdapter {
         }
     }
 
-    public JsonDataAdapter(Context context, String json, JsonDataType dataType, JsonAdapterMode mode ){
+    public JsonDataAdapter(Context context, String json, JsonDataType dataType){
         this.context = context;
         this.dataType = dataType;
         this.dataList = new ArrayList<>();
-        this.mode = mode;
+
         try {
             JSONArray jsonArray = new JSONArray(json);
             for (int i = 0; i < jsonArray.length(); i ++){
@@ -115,20 +113,12 @@ public class JsonDataAdapter extends BaseAdapter {
                     convertView.setTag(viewHolder);
                     break;
                 case PART:
-                    if (mode == JsonAdapterMode.CHECKOUT){
-                        convertView = inflater.inflate(R.layout.list_cart_item, null);
-                        viewHolder = new ViewHolder();
-                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textCartName));
-                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textCartPrice));
-                        convertView.setTag(viewHolder);
-                    }else {
-                        convertView = inflater.inflate(R.layout.list_part_item, null);
-                        viewHolder = new ViewHolder();
-                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartName));
-                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartDescription));
-                        viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartPrice));
-                        convertView.setTag(viewHolder);
-                    }
+                    convertView = inflater.inflate(R.layout.list_part_item, null);
+                    viewHolder = new ViewHolder();
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartName));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartDescription));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartPrice));
+                    convertView.setTag(viewHolder);
                     break;
                 case CENTER:
                     convertView = inflater.inflate(R.layout.list_service_center_item, null);
@@ -165,14 +155,9 @@ public class JsonDataAdapter extends BaseAdapter {
                 Log.e("View","Added");
                 break;
             case PART:
-                if (mode == JsonAdapterMode.CHECKOUT){
-                    viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
-                    viewHolder.textViewPlaceHolders.get(1).setText(Utility.getFormattedPrice(((Part)dataList.get(position)).getPrice()));
-                }else{
-                    viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
-                    viewHolder.textViewPlaceHolders.get(1).setText(((Part)dataList.get(position)).getDescription());
-                    viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(((Part)dataList.get(position)).getPrice()));
-                }
+                viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
+                viewHolder.textViewPlaceHolders.get(1).setText(((Part)dataList.get(position)).getDescription());
+                viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(((Part)dataList.get(position)).getPrice()));
                 break;
             case CENTER:
                 viewHolder.textViewPlaceHolders.get(0).setText(((Center)dataList.get(position)).getName());

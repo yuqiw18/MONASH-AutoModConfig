@@ -346,7 +346,6 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             }
 
             mapDialogInteractionListener.onCenterSelect(selectedCenter, bookingDate, bookingTime);
-
             detailDialog.dismiss();
             getDialog().dismiss();
 
@@ -368,7 +367,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
         @Override
         protected void onPostExecute(String result) {
-            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.CENTER, null);
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.CENTER);
             serviceCenterList = (ArrayList<Center>)((ArrayList<?>)jsonDataAdapter.getDataList());
             centerListView.setAdapter(jsonDataAdapter);
 

@@ -69,7 +69,7 @@ public class OrderListFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.ORDER, null );
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.ORDER);
             orderList = (ArrayList<Order>)((ArrayList<?>)jsonDataAdapter.getDataList());
             orderListView.setAdapter(jsonDataAdapter);
         }

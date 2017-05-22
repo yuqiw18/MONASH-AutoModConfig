@@ -16,19 +16,15 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.security.auth.login.LoginException;
 
 import yuqi.amc.JsonData.Center;
 import yuqi.amc.JsonData.Order;
 import yuqi.amc.JsonData.Part;
 import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
-import yuqi.amc.JsonDataAdapter.JsonAdapterMode;
 
 public class Checkout extends AppCompatActivity implements OnClickListener, MapDialogInteractionListener {
 
@@ -162,7 +158,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         }
         @Override
         protected void onPostExecute(String result) {
-            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, JsonAdapterMode.CHECKOUT );
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART);
             cartList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             listCheckoutItem.setAdapter(jsonDataAdapter);
             calculateCartValues();
@@ -172,10 +168,21 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
     private class PlaceOrder extends AsyncTask<Object,Void,Integer>{
         Order order = null;
+        String mode = null;
         @Override
         protected Integer doInBackground(Object... params) {
             order = (Order) params[0];
-            return RestClient.createData("transaction", order);
+            mode = (String) params[1];
+
+            if (mode.equals("SERVICE")){
+
+                return RestClient.createData("transaction2", order);
+
+            }else {
+
+                return RestClient.createData("transaction", order);
+            }
+
         }
 
         @Override

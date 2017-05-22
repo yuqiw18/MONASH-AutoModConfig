@@ -233,7 +233,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
 
         @Override
         protected void onPostExecute(String result) {
-            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART, null );
+            JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART);
             partList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             partListView.setAdapter(jsonDataAdapter);
 

@@ -124,6 +124,10 @@ public class RendererV2 implements ApplicationListener {
                     instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
                 }
 
+                for (int i = 0; i < 7; i ++){
+                    instances.get(i).transform.translate(0, currentSuspension*-1, 0);
+                }
+
             }catch (GdxRuntimeException e){
 
                 // File not exist, need to download from server
