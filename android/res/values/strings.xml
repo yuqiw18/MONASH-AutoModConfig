@@ -178,5 +178,9 @@
     <string name="ui_checkout_calculate_placeholder">Calculating...</string>
     <string name="ui_checkout_inst_fee_not_apply">Not Applicable</string>
     <string name="ui_postage_free">Free</string>
+    <string name="dialog_checkout_proccess_order">Processing your order...</string>
+    <string name="ui_order_processed">ORDER PROCESSED</string>
+    <string name="ui_order_instruction">An invoice will be sent to your email address shortly. \n \n All payment methods supported by AMC will be displayed on the invoice. \n \n The invoice can be downloaded any time from your order history. \n \n The transaction will be confirmed once the payment is received.</string>
+    <string name="ui_order_processed_got_it">Got It</string>
 
 </resources>

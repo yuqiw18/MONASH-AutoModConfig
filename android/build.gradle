@@ -87,7 +87,7 @@ eclipse {
         sourceCompatibility = 1.6
         targetCompatibility = 1.6
     }
-        classpath {plusConfigurations +=[ project.configurations.compile]        
+        classpath {plusConfigurations +=[project.configurations.compile]        
         containers 'com.android.ide.eclipse.adt.ANDROID_FRAMEWORK', 'com.android.ide.eclipse.adt.LIBRARIES'       
     }
 
@@ -133,8 +133,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.google.code.gson:gson:2.7'
-    compile 'com.google.android.gms:play-services-maps:10.2.4'
-    compile 'com.google.android.gms:play-services-location:10.2.4'
+    compile 'com.google.android.gms:play-services-maps:10.2.6'
+    compile 'com.google.android.gms:play-services-location:10.2.6'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
     compile 'com.squareup.picasso:picasso:2.5.2'

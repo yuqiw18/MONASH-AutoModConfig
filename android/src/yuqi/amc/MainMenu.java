@@ -6,8 +6,11 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.Manifest;
 
 public class MainMenu extends AppCompatActivity implements OnNavigationItemSelectedListener, OnClickListener {
 
@@ -30,6 +34,7 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
     private SharedPreferences sharedPreferences;
     private NavigationView navigationView;
     private Menu navigationMenu;
+    private static final int REQUEST_MAPS_RECEIVE = 64;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,12 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, new ExplorerFragment()).commit();
 
+        // Request permission
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_MAPS_RECEIVE);
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_MAPS_RECEIVE);
+        }
     }
 
     @Override

@@ -16,6 +16,7 @@ public class Order {
     private String detail;
     private String address;
     private long customerId;
+    private String status;
 
 
     public Order(){}
@@ -27,6 +28,7 @@ public class Order {
         this.price = price;
         this.detail = detail;
         this.address = address;
+        this.status = null;
     }
 
     public static Order jsonToOrder(JSONObject jsonObject){
@@ -38,6 +40,7 @@ public class Order {
             order.setDetail(jsonObject.getString("TRANSACTION_DETAIL"));
             order.setCustomerId(jsonObject.getLong("CUSTOMER_ID"));
             order.setAddress(jsonObject.getString("TRANSACTION_ADDRESS"));
+            order.setStatus(jsonObject.getString("TRANSACTION_STATUS"));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -86,7 +89,19 @@ public class Order {
         this.customerId = customerId;
     }
 
-    public String getAddress() {return address;}
+    public String getAddress() {
+        return address;
+    }
 
-    public void setAddress(String address) {this.address = address;}
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

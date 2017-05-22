@@ -161,7 +161,7 @@ public class JsonDataAdapter extends BaseAdapter {
                 viewHolder.textViewPlaceHolders.get(0).setText("ORDER ID:" + ((Order)dataList.get(position)).getId());
                 viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Order)dataList.get(position)).getDatetime()));
                 viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(((Order)dataList.get(position)).getPrice()));
-                viewHolder.textViewPlaceHolders.get(3).setText("TEST");
+                viewHolder.textViewPlaceHolders.get(3).setText(((Order) dataList.get(position)).getStatus());
                 Log.e("View","Added");
                 break;
             case PART:

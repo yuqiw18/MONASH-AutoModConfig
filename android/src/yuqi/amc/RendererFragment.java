@@ -52,7 +52,7 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
 
     @Override
     public void onRendererReload() {
-        Log.e("Rendere Fragment", "Reloading!");
+        Log.e("Renderer Fragment", "Reloading!");
     }
 
 

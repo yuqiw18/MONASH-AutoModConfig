@@ -2,6 +2,7 @@ package yuqi.amc;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.AsyncTask;
@@ -20,7 +21,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.security.auth.login.LoginException;
+
 import yuqi.amc.JsonData.Center;
+import yuqi.amc.JsonData.Order;
 import yuqi.amc.JsonData.Part;
 import yuqi.amc.MapDialogFragment.MapDialogInteractionListener;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
@@ -32,8 +36,6 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private TextView labelCheckoutAddress;
     private TextView labelCheckoutBookingTime;
 
-    private TextView labelBtnPlaceOrder;
-
     private TextView labelCheckoutGrandTotal;
     private TextView labelCheckoutItemNum;
     private TextView labelCheckoutSubTotal;
@@ -43,6 +45,10 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private ListView listCheckoutItem;
     private Button btnCancelBooking;
     private Button btnChangeAddress;
+    private Button btnPlaceOrder;
+
+    private AlertDialog alertDialog;
+
     private SharedPreferences sharedPreferences;
     private ArrayList<Part> cartList;
 
@@ -74,13 +80,14 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
         listCheckoutItem = (ListView) findViewById(R.id.listCheckoutItems);
 
-        labelBtnPlaceOrder = (TextView) findViewById(R.id.labelBtnPlaceOrder);
-
         btnChangeAddress = (Button) findViewById(R.id.btnCheckoutPickServiceCenter);
         btnCancelBooking = (Button) findViewById(R.id.btnCheckoutCancelBooking);
+        btnPlaceOrder = (Button) findViewById(R.id.btnPlaceOrder);
 
         btnChangeAddress.setOnClickListener(this);
         btnCancelBooking.setOnClickListener(this);
+        btnPlaceOrder.setOnClickListener(this);
+
 
         layoutCheckoutBooking.setVisibility(View.GONE);
 
@@ -131,8 +138,20 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                 }
             });
             builder.create().show();
-        }else if (id == R.id.labelBtnPlaceOrder){
-            Toast.makeText(getBaseContext(),"YES", Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.btnPlaceOrder){
+
+            long customerId = sharedPreferences.getLong("id", 0);
+
+            Order order = new Order(customerId, transactionPrice, transactionDetail, transactionAddress);
+
+            new PlaceOrder().execute(order);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_transaction_processing, null);
+            builder.setView(dialogView);
+            alertDialog = builder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.show();
         }
     }
 
@@ -150,6 +169,39 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         }
     }
 
+
+    private class PlaceOrder extends AsyncTask<Object,Void,Integer>{
+        Order order = null;
+        @Override
+        protected Integer doInBackground(Object... params) {
+            order = (Order) params[0];
+            return RestClient.createData("transaction", order);
+        }
+
+        @Override
+        protected void onPostExecute(Integer responseCode) {
+            int status = RestClient.processResponseCode(responseCode);
+            switch (status){
+                case -1:
+                    alertDialog.dismiss();
+                    Log.e("onPostExecute: ",getString(R.string.msg_reg_server_fail)  );
+                    break;
+                case 0:
+                    alertDialog.dismiss();
+                    Log.e("onPostExecute: ",getString(R.string.msg_reg_server_fail)  );
+                    break;
+                case 1:
+                    Log.e("Transaction", "Added");
+                    Intent intent = new Intent(Checkout.this, OrderInstruction.class);
+                    // Bring MainMenu to the top stack. By doing this, clicking back button will not bring user to the register screen any more.
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    }
+
     @Override
     public void onClose() {
         btnChangeAddress.setEnabled(true);
@@ -158,7 +210,8 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
     @Override
     public void onCenterSelect(Center center, String date, Integer time) {
-        labelCheckoutAddress.setText(center.getFormattedAddress());
+        transactionAddress = center.getFormattedAddress();
+        labelCheckoutAddress.setText(transactionAddress);
         labelCheckoutBookingTime.setText(getString(R.string.ui_checkout_service_status) + "\n" + Utility.formatDate(date) + "\n" + formatTime(time));
         instFee = center.getPrice();
         calculateGrandTotal();
@@ -167,11 +220,11 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     }
 
     private void loadDefaultAddress(){
-        String address = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
+        transactionAddress = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
                 + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")
                 + " " + sharedPreferences.getInt("postcode", 0000) + "\n"
                 + sharedPreferences.getString("country", "COUNTRY");
-        labelCheckoutAddress.setText(address);
+        labelCheckoutAddress.setText(transactionAddress);
     }
 
     private static String formatTime(Integer time){
@@ -202,6 +255,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
         Log.e("Cart Price", String.valueOf(transactionPrice));
         Log.e("Cart Item", transactionDetail);
+        Log.e("Post Address", transactionAddress);
     }
 
 
@@ -209,4 +263,5 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         transactionPrice = subTotal + postage + instFee;
         labelCheckoutGrandTotal.setText(getString(R.string.ui_check_grand_total) + Utility.getFormattedPrice(transactionPrice));
     }
+
 }
