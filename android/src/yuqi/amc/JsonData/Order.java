@@ -31,6 +31,7 @@ public class Order {
         this.status = null;
     }
 
+    // Convert json to object
     public static Order jsonToOrder(JSONObject jsonObject){
         Order order = new Order();
         try {
@@ -41,7 +42,6 @@ public class Order {
             order.setCustomerId(jsonObject.getLong("CUSTOMER_ID"));
             order.setAddress(jsonObject.getString("TRANSACTION_ADDRESS"));
             order.setStatus(jsonObject.getString("TRANSACTION_STATUS"));
-
         }catch (Exception e){
             e.printStackTrace();
             order = null;

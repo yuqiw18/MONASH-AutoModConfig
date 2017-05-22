@@ -35,7 +35,7 @@ import java.util.Map;
  * Created by Yuqi on 19/04/2017.
  */
 
-public class Renderer implements ApplicationListener {
+public class RendererOfflineDebug implements ApplicationListener {
 
     private Environment environment;
     private PerspectiveCamera cam;

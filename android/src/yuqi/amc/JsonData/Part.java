@@ -22,6 +22,7 @@ public class Part {
 
     public Part(){}
 
+    // Convert json to object
     public static Part jsonToPart(JSONObject jsonObject){
         Part part = new Part();
         try {

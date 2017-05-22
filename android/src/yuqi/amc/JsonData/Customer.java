@@ -33,6 +33,7 @@ public class Customer {
         this.country = country;
     }
 
+    // Convert json to object
     public static Customer jsonToCustomer(String json){
         Customer customer = new Customer();
         try {

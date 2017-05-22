@@ -5,4 +5,7 @@ package yuqi.amc.JsonData;
  */
 
 public class Booking {
+
+
+
 }

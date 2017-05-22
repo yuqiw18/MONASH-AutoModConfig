@@ -18,6 +18,7 @@ public class Center {
 
     public Center(){}
 
+    // Convert json to object
     public static Center jsonToServiceCenter(JSONObject jsonObject){
         Center center = new Center();
         try {
