@@ -40,8 +40,15 @@ public class OrderListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Log.e("SELECTED", String.valueOf(orderList.get(position).getDatetime()));
+                String[] items = orderList.get(position).getDetail().split(";");
 
+                Log.e("Order Price", Utility.getFormattedPrice(orderList.get(position).getPrice()));
+
+                Log.e("Order Address", orderList.get(position).getAddress());
+
+                for (int i = 0; i < items.length -1; i++){
+                    Log.e("Item", items[i].trim());
+                }
             }
         });
         return view;

@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -197,6 +199,10 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 TextView labelAddress = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailAddress);
                 TextView labelScore = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailScore);
                 TextView labelDescription = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailDesc);
+                ImageView imgServiceCenterDetail = (ImageView) dialogView.findViewById(R.id.imgServiceCenterDetail);
+
+                Picasso.with(getActivity().getBaseContext()).load(Utility.getImageAddress("sc_" + selectedCenter.getId())).into(imgServiceCenterDetail);
+
                 final Button btnPickDate = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailDatepicker);
                 final Button btnPickTime = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailTimepicker);
                 Button btnConfirm = (Button) dialogView.findViewById(R.id.btnConfirmBooking);
@@ -340,7 +346,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             }
 
             mapDialogInteractionListener.onCenterSelect(selectedCenter, bookingDate, bookingTime);
-;
+
             detailDialog.dismiss();
             getDialog().dismiss();
 

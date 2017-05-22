@@ -164,7 +164,7 @@ public class RendererV2 implements ApplicationListener {
                             Gdx.app.postRunnable(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //assetManager.load(Gdx.files.local(fileName));
+
                                     assetManager.load(fileName, Model.class);
                                     assetManager.finishLoading();
 
@@ -192,7 +192,9 @@ public class RendererV2 implements ApplicationListener {
                                         instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
                                     }
 
-                                    //rendererStateListener.onRendererLoad();
+                                    for (int i = 0; i < 7; i ++){
+                                        instances.get(i).transform.translate(0, currentSuspension*-1, 0);
+                                    }
 
                                 }
                             });

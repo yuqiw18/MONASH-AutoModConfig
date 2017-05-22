@@ -2,6 +2,8 @@ package yuqi.amc.JsonData;
 
 import org.json.JSONObject;
 
+import yuqi.amc.Utility;
+
 /**
  * Created by ClayW on 7/05/2017.
  */
@@ -19,9 +21,6 @@ public class Part {
     private String value;
 
     public Part(){}
-
-    //public Part(long id, String name, String type, Double price, int stock, String){}
-
 
     public static Part jsonToPart(JSONObject jsonObject){
         Part part = new Part();
@@ -45,7 +44,7 @@ public class Part {
 
     @Override
     public String toString() {
-        return id + ":" + name + ", Specs:" + description + ", Price:" + price;
+        return id + ":" + name + ", Specs:" + description + ", Price:" + Utility.getFormattedPrice(price);
     }
 
     public long getId() {

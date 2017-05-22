@@ -191,6 +191,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                     Log.e("onPostExecute: ",getString(R.string.msg_reg_server_fail)  );
                     break;
                 case 1:
+                    alertDialog.dismiss();
                     Log.e("Transaction", "Added");
                     Intent intent = new Intent(Checkout.this, OrderInstruction.class);
                     // Bring MainMenu to the top stack. By doing this, clicking back button will not bring user to the register screen any more.

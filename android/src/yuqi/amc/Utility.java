@@ -72,7 +72,7 @@ public final class Utility {
         return generatedPassword;
     }
 
-    protected static String getFormattedPrice(double price){
+    public static String getFormattedPrice(double price){
         return "$" + String.format("%.2f", price);
     }
 
