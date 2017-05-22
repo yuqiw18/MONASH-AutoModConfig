@@ -4,7 +4,7 @@
     <string name="ui_user_address">Delivery Address</string>
     <string name="ui_user_payment">Payment Method</string>
     <string name="ui_label_default_value">UI_PLACEHOLDER</string>
-    <string name="ui_label_default_value_null"></string>
+    <string name="ui_label_default_value_null"> </string>
 
     <string name="ui_label_default_long_value">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non enim quaero quid verum, sed quid cuique dicendum sit. Cum id fugiunt, re eadem defendunt, quae Peripatetici, verba.
         Et quidem, inquit, vehementer errat; Sed hoc sane concedamus. Sed potestne rerum maior esse dissensio? Duo Reges: constructio interrete.

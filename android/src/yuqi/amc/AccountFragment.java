@@ -149,10 +149,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
             alertDialog.show();
 
-        }else if (id == R.id.btnAccountAddPaymentMethod){
-
-            PaymentMethodDialogFragment paymentMethodDialogFragment = new PaymentMethodDialogFragment();
-            paymentMethodDialogFragment.show(getFragmentManager(), "PaymentManager");
         }
     }
 
