@@ -18,6 +18,7 @@ import yuqi.amc.SQLiteData.Brand;
 import yuqi.amc.SQLiteData.DataStruct;
 import yuqi.amc.SQLiteData.Model;
 
+// DataAdapter for SQLite Persistent Data
 public class SQLiteDataAdapter extends BaseAdapter {
 
     private Context context;
@@ -80,7 +81,6 @@ public class SQLiteDataAdapter extends BaseAdapter {
 
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textModelName));
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textBodyType));
-
                     viewHolder.imageViewPlaceHolder = (ImageView) convertView.findViewById(R.id.imgModel);
                     convertView.setTag(viewHolder);
                     break;
@@ -116,18 +116,18 @@ public class SQLiteDataAdapter extends BaseAdapter {
                             @Override
                             public void onError() {
                                 Picasso.with(context)
-                                        .load(Utility.getImageAddress(brand.getName()))
-                                        .placeholder(R.drawable.img_placeholder)
-                                        .into(viewHolder.imageViewPlaceHolder, new Callback() {
-                                            @Override
-                                            public void onSuccess() {
-                                                Log.e("Picasso","Downloaded");
-                                            }
-                                            @Override
-                                            public void onError() {
-                                                Log.e("Picasso", "Could not load image.");
-                                            }
-                                        });
+                                    .load(Utility.getImageAddress(brand.getName()))
+                                    .placeholder(R.drawable.img_placeholder)
+                                    .into(viewHolder.imageViewPlaceHolder, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Log.e("Picasso","Downloaded");
+                                        }
+                                        @Override
+                                        public void onError() {
+                                            Log.e("Picasso", "Could not load image.");
+                                        }
+                                    });
                             }
                         });
                 break;
@@ -147,18 +147,18 @@ public class SQLiteDataAdapter extends BaseAdapter {
                             @Override
                             public void onError() {
                                 Picasso.with(context)
-                                        .load(Utility.getImageAddress(model.getBrandName()+"_"+model.getName()))
-                                        .placeholder(R.drawable.img_placeholder_wide)
-                                        .into(viewHolder.imageViewPlaceHolder, new Callback() {
-                                            @Override
-                                            public void onSuccess() {
-                                                Log.e("Picasso","Downloaded");
-                                            }
-                                            @Override
-                                            public void onError() {
-                                                Log.e("Picasso", "Could not load image.");
-                                            }
-                                        });
+                                    .load(Utility.getImageAddress(model.getBrandName()+"_"+model.getName()))
+                                    .placeholder(R.drawable.img_placeholder_wide)
+                                    .into(viewHolder.imageViewPlaceHolder, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Log.e("Picasso","Downloaded");
+                                        }
+                                        @Override
+                                        public void onError() {
+                                            Log.e("Picasso", "Could not load image.");
+                                        }
+                                    });
                             }
                         });
                 break;

@@ -1,13 +1,10 @@
 package yuqi.amc;
 
-import android.util.Base64;
 import android.util.Log;
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by yuqi on 14/4/17.
@@ -17,7 +14,6 @@ public final class Utility {
 
     public static final String IMAGE_SOURCE = "http://amc.yuqi.ninja/img/";
     public static final String IMAGE_FORMAT = ".png";
-    private static final String ENCODE_TYPE = "UTF-8";
 
     // Convert string name to resource ID
     public static int getResourceID(String name, Class<?> c) {
@@ -31,7 +27,7 @@ public final class Utility {
         }
     }
 
-    // Format string
+    // Convert string to the predefined format
     public static String stringConvert(String input){
         input = input.replaceAll("\\s","_");
         input = input.replaceAll("-","_");
@@ -43,9 +39,7 @@ public final class Utility {
         return IMAGE_SOURCE+ stringConvert(name)+ IMAGE_FORMAT;
     }
 
-    // SHA-512 Hashing
-
-
+    // Format date
     public static String formatDate(String strDate){
         try {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(strDate);
@@ -55,6 +49,12 @@ public final class Utility {
         }
     }
 
+    // Format float number to a proper price
+    public static String getFormattedPrice(double price){
+        return "$" + String.format("%.2f", price);
+    }
+
+    // SHA-512 Hashing
     private String Hash(String password){
         String generatedPassword = "";
         try {
@@ -70,10 +70,6 @@ public final class Utility {
             e.printStackTrace();
         }
         return generatedPassword;
-    }
-
-    public static String getFormattedPrice(double price){
-        return "$" + String.format("%.2f", price);
     }
 
 }

@@ -40,6 +40,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnLogin){
+            // Validate user inputs
             String email = textLoginEmail.getText().toString().trim();
             String password = textLoginPassword.getText().toString();
             if (email.isEmpty()){
@@ -50,9 +51,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 Toast.makeText(getBaseContext(), getString(R.string.msg_reg_no_password), Toast.LENGTH_LONG).show();
                 return;
             }
+            // Send info to server
             new ValidateLogin().execute(email,password);
+
         }else if (v.getId() == R.id.labelForgetPassword){
-            // Display a dialog for customers to enter their email address
+            // Display a dialog for users to enter their email address
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_forget_password, null);
             final EditText requestEmail = (EditText)dialogView.findViewById(R.id.inputForgetPasswordEmail);
@@ -80,6 +83,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             });
             alertDialog.show();
         }else if (v.getId() == R.id.labelSignUp){
+            // Go to sign up screen
             startActivity(new Intent(this, Register.class));
         }
     }
@@ -92,9 +96,12 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         @Override
         protected void onPostExecute(String result) {
+            // If receives response from the server
             if (result!=null && !result.isEmpty()){
+                // Convert into an object
                 Customer customer = Customer.jsonToCustomer(result);
                 if (customer!=null){
+                    // Store the values locally
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putLong("id", customer.getId());
                     editor.putString("name",customer.getName());

@@ -55,6 +55,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        // Input validations
         if (v.getId() == R.id.btnRegRegister){
             String name = textRegName.getText().toString().trim();
             String address = textRegAddress.getText().toString().trim();
@@ -120,15 +121,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
 
+            // Once validated, create a customer object with all the infomation
             Customer customer = new Customer(0, name, password, email, address, suburb, Integer.valueOf(postcode), state, country);
 
+            // Grey out the button to avoid duplicated registration
             btnRegister.setEnabled(false);
             btnRegister.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+
+            // Pass the object to the method
             new RegisterAccount().execute(customer);
 
         }
     }
 
+    // Async method for registering new users
     private class RegisterAccount extends AsyncTask<Object,Void,Integer>{
         Customer customer = null;
         @Override
@@ -152,6 +158,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     promptMessage(getString(R.string.msg_reg_server_error));
                     break;
                 case 1:
+                    // Server side accepts the request, save all the user info locally
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putLong("id",customer.getId());
                     editor.putString("name",customer.getName());
@@ -164,6 +171,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     editor.putString("country",customer.getCountry());
                     editor.putBoolean("isSignedIn",true);
                     editor.commit();
+                    // Go to the MainMenu
                     Intent intent = new Intent(Register.this, MainMenu.class);
                     // Bring MainMenu to the top stack. By doing this, clicking back button will not bring user to the register screen any more.
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

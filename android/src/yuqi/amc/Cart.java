@@ -12,11 +12,13 @@ import yuqi.amc.JsonData.Part;
  * Created by ClayW on 7/05/2017.
  */
 
+// Cart object(struct)
 public class Cart {
 
     private HashMap<String, Long> cart;
 
     public Cart(){
+        // The cart can have one of type of parts
         cart = new HashMap<>();
         cart.put("Respray", null);
         cart.put("Bumper", null);
@@ -30,6 +32,7 @@ public class Cart {
         cart.put("Lighting", null);
     }
 
+    // Method for adding items to the cart, as well as replace/restore current item
     public void addToCart(Part part){
         String type = part.getType();
         long id = part.getId();
@@ -53,6 +56,7 @@ public class Cart {
         }
     }
 
+    // Method for checking whether the cart is empty or not
     public boolean isCartEmpty(){
         for(Map.Entry<String, Long> entry : cart.entrySet()) {
             //String key = entry.getKey();
@@ -72,6 +76,7 @@ public class Cart {
         return cart.get(key);
     }
 
+    // Method for turning cart into a json query for executing on the server side
     public static String getQuery(HashMap<String, Long> cart){
 
         ArrayList<Long> itemList = new ArrayList<>();

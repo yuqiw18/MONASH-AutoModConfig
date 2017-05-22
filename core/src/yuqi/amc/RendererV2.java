@@ -57,10 +57,12 @@ public class RendererV2 implements ApplicationListener {
 
         modelBatch = new ModelBatch();
 
+        // Create a simple environment
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
+        // Instantiate a camera and set up the parameters
         cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.position.set(5f, 5f, 5f);
         cam.lookAt(0,0,0);
@@ -68,35 +70,47 @@ public class RendererV2 implements ApplicationListener {
         cam.far = 300f;
         cam.update();
 
+        // Assign controller to camera
         camController = new CameraInputController(cam);
         Gdx.input.setInputProcessor(camController);
 
+        // Define the asset manager, which reads files from local path
         assetManager = new AssetManager(new LocalFileHandleResolver());
     }
 
+    // Render is called for every frame
     @Override
     public void render() {
 
+        // Check the user input (rotate camera)
         camController.update();
 
+        // Clean the frame
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClearColor( 0, 0, 0, 1 );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT);
 
+        // Render the scene
         modelBatch.begin(cam);
         modelBatch.render(instances, environment);
         modelBatch.end();
     }
 
+    // Method for replacing a part on the vehicle
     public void replacePart(final int pos, final String fileName){
 
+        // If the part is not loaded
         if (!assetManager.isLoaded(fileName)) {
+
+            // Queue the request for loading the part
             assetManager.load(fileName, Model.class);
         }
 
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
+
+        // Try loading the file since the file may not exist
             try {
                 assetManager.finishLoading();
 
@@ -115,18 +129,7 @@ public class RendererV2 implements ApplicationListener {
                 instances.clear();
                 modelBatch.dispose();
 
-                for (int i = 0; i < modifiedModelList.size(); i++){
-                    Model model = assetManager.get(modifiedModelList.get(i), Model.class);
-                    instances.add(new ModelInstance(model));
-                }
-
-                for (int i = 0; i < 4; i ++){
-                    instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
-                }
-
-                for (int i = 0; i < 7; i ++){
-                    instances.get(i).transform.translate(0, currentSuspension*-1, 0);
-                }
+                reloadAssets();
 
             }catch (GdxRuntimeException e){
 
@@ -138,10 +141,11 @@ public class RendererV2 implements ApplicationListener {
                 Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
+
                         // Determine how much we have to download
                         long length = Long.parseLong(httpResponse.getHeader("Content-Length"));
 
-                        // We're going to download the file to external storage, create the streams
+                        // Download the file to local storage
                         InputStream is = httpResponse.getResultAsStream();
                         OutputStream os = Gdx.files.local(fileName).write(false);
 
@@ -149,56 +153,46 @@ public class RendererV2 implements ApplicationListener {
                         int count = -1;
                         long read = 0;
 
-
                         try {
                             // Keep reading bytes and storing them until there are no more.
                             while ((count = is.read(bytes, 0, bytes.length)) != -1) {
                                 os.write(bytes, 0, count);
                                 read += count;
 
-                                // Update the UI with the download progress
+                                // [DEBUG] Display the progress
                                 final int progress = ((int) (((double) read / (double) length) * 100));
                                 final String progressString = progress == 100 ? "Download Complete" : progress + "%";
-
                                 Gdx.app.log("Progress", progressString);
                             }
 
                             os.close();
 
+                            // Load the downloaded file
                             Gdx.app.postRunnable(new Runnable() {
                                 @Override
                                 public void run() {
 
-                                    assetManager.load(fileName, Model.class);
-                                    assetManager.finishLoading();
+                                assetManager.load(fileName, Model.class);
+                                assetManager.finishLoading();
 
-                                    Model part = assetManager.get(fileName, Model.class);
-                                    ModelInstance modelInstance = new ModelInstance(part);
+                                Model part = assetManager.get(fileName, Model.class);
+                                ModelInstance modelInstance = new ModelInstance(part);
 
-                                    if (instances.get(pos).model == modelInstance.model){
-                                        modifiedModelList.set(pos, defaultModelList.get(pos));
-                                        Gdx.app.log("Default Part", defaultModelList.get(pos));
+                                // If it is not currently selected, update the part list
+                                if (instances.get(pos).model == modelInstance.model){
+                                    modifiedModelList.set(pos, defaultModelList.get(pos));
+                                    Gdx.app.log("Default Part", defaultModelList.get(pos));
 
-                                    }else {
-                                        modifiedModelList.set(pos, fileName);
-                                        Gdx.app.log("New Part", fileName);
-                                    }
+                                }else {
+                                    // If it is currently selected, restore to default part (deselect)
+                                    modifiedModelList.set(pos, fileName);
+                                    Gdx.app.log("New Part", fileName);
+                                }
 
-                                    instances.clear();
-                                    modelBatch.dispose();
+                                instances.clear();
+                                modelBatch.dispose();
 
-                                    for (int i = 0; i < modifiedModelList.size(); i++){
-                                        Model model = assetManager.get(modifiedModelList.get(i), Model.class);
-                                        instances.add(new ModelInstance(model));
-                                    }
-
-                                    for (int i = 0; i < 4; i ++){
-                                        instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
-                                    }
-
-                                    for (int i = 0; i < 7; i ++){
-                                        instances.get(i).transform.translate(0, currentSuspension*-1, 0);
-                                    }
+                                reloadAssets();
 
                                 }
                             });
@@ -206,7 +200,6 @@ public class RendererV2 implements ApplicationListener {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
 
                     @Override
@@ -405,11 +398,12 @@ public class RendererV2 implements ApplicationListener {
 
     }
 
+    // An interface to communicate with its parent fragment
     public interface RendererStateListener{
         void onRendererLoad();
-        void onRendererReload();
     }
 
+    // Release all the resources upon shutting down
     @Override
     public void dispose() {
         modelBatch.dispose();
@@ -420,6 +414,23 @@ public class RendererV2 implements ApplicationListener {
     public void setRendererStateListener(RendererStateListener rendererStateListener){
         this.rendererStateListener = rendererStateListener;
     }
+
+
+    private void reloadAssets(){
+        for (int i = 0; i < modifiedModelList.size(); i++){
+            Model model = assetManager.get(modifiedModelList.get(i), Model.class);
+            instances.add(new ModelInstance(model));
+        }
+
+        for (int i = 0; i < 4; i ++){
+            instances.get(i).materials.get(0).set(ColorAttribute.createDiffuse(Color.valueOf(currentColor)));
+        }
+
+        for (int i = 0; i < 7; i ++){
+            instances.get(i).transform.translate(0, currentSuspension*-1, 0);
+        }
+    }
+
 
     @Override
     public void resize(int width, int height) {}

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by Yuqi on 19/04/2017.
  */
 
+// LibGDX entry point
 public class Main extends ApplicationAdapter {
 
     private SpriteBatch spriteBatch;
@@ -17,6 +18,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create () {
+        // Set up a splash screen
         spriteBatch = new SpriteBatch();
         splash = new Texture("splash.png");
     }

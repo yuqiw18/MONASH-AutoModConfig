@@ -17,6 +17,7 @@ import yuqi.amc.JsonData.Order;
 import yuqi.amc.JsonData.Part;
 import yuqi.amc.JsonData.Center;
 
+// DataAdapter for process json data
 public class JsonDataAdapter extends BaseAdapter {
 
     private Context context;
