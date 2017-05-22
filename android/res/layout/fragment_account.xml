@@ -89,57 +89,10 @@
                 android:text="@string/ui_btn_account_edit"
                 android:textColor="@android:color/white" />
 
-
-            <RelativeLayout
-                android:id="@+id/layoutPaymentInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/labelAccountAddress">
-
-                <View
-                    android:id="@+id/viewAccount"
-                    style="@style/Divider"/>
-
-
-                <TextView
-                    android:id="@+id/textViewAccount2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/viewAccount"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/ui_account_payment_method"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/labelAccountPaymentMethod"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textViewAccount2"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:lines="3"
-                    android:text="@string/ui_label_default_value_null" />
-
-                <Button
-                    android:id="@+id/btnAccountAddPaymentMethod"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/labelAccountPaymentMethod"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="@string/ui_btn_account_payment_edit"
-                    android:textColor="@android:color/white" />
-
-            </RelativeLayout>
-
-
             <TextView
                 android:id="@+id/sectionHeaderAccount2"
                 style="@style/Section"
-                android:layout_below="@id/layoutPaymentInfo"
+                android:layout_below="@id/labelAccountAddress"
                 android:background="?android:attr/colorButtonNormal"
                 android:text="@string/ui_account_saved_config"
                 android:textColor="#666666" />
@@ -149,7 +102,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/sectionHeaderAccount2" />
-
 
         </RelativeLayout>
     </ScrollView>

@@ -266,7 +266,6 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         Log.e("Post Address", transactionAddress);
     }
 
-
     private void calculateGrandTotal(){
         transactionPrice = subTotal + postage + instFee;
         labelCheckoutGrandTotal.setText(getString(R.string.ui_check_grand_total) + Utility.getFormattedPrice(transactionPrice));

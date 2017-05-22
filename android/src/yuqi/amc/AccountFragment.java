@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,16 +24,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import yuqi.amc.JsonData.Customer;
-import yuqi.amc.JsonData.Payment;
 
 public class AccountFragment extends Fragment implements OnClickListener {
 
     private TextView labelAccountAddress;
-    private TextView labelAccountPaymentMethod;
     private Button btnAccountEditInfo;
-    private Button btnAccountPaymentMethod;
-
-    private RelativeLayout layoutPaymentInfo;
 
     private SharedPreferences sharedPreferences;
 
@@ -53,24 +47,15 @@ public class AccountFragment extends Fragment implements OnClickListener {
         TextView labelAccountEmail = (TextView) view.findViewById(R.id.labelAccountEmail);
 
         labelAccountAddress = (TextView) view.findViewById(R.id.labelAccountAddress);
-        labelAccountPaymentMethod = (TextView) view.findViewById(R.id.labelAccountPaymentMethod);
 
-        btnAccountPaymentMethod = (Button) view.findViewById(R.id.btnAccountAddPaymentMethod);
         btnAccountEditInfo = (Button) view.findViewById(R.id.btnAccountChangeAddress);
 
         labelAccountName.setText(sharedPreferences.getString("name", null));
         labelAccountEmail.setText(sharedPreferences.getString("email", null));
 
         btnAccountEditInfo.setOnClickListener(this);
-        btnAccountPaymentMethod.setOnClickListener(this);
-
-        layoutPaymentInfo = (RelativeLayout) view.findViewById(R.id.layoutPaymentInfo);
-
-        layoutPaymentInfo.setVisibility(View.GONE);
 
         getAddress();
-
-        new GetPaymentInfo().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
 
         return view;
     }
@@ -175,43 +160,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
     public void onResume() {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.title_account));
-    }
-
-    private class GetPaymentInfo extends AsyncTask<String,Void,String>{
-
-        @Override
-        protected String doInBackground(String... params) {
-            return RestClient.requestData("payment/primary", params);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            Payment payment;
-
-            if (result!=null && !result.isEmpty()){
-
-                //Payment payment = Payment.strJsonToPayment(result);
-
-                if ((payment = Payment.strJsonToPayment(result))!=null){
-
-                    String paymentMethod = payment.getType() + "\n" +
-                            payment.getInfo1() + "\n" + payment.getInfo2();
-
-                    labelAccountPaymentMethod.setText(paymentMethod);
-                    btnAccountPaymentMethod.setText(getString(R.string.ui_btn_account_payment_edit));
-
-                    layoutPaymentInfo.setVisibility(View.VISIBLE);
-
-                }else {
-                    labelAccountPaymentMethod.setText(getString(R.string.ui_account_no_payment));
-                    btnAccountPaymentMethod.setText(getString(R.string.ui_btn_account_payment_add));
-                }
-            }else {
-                labelAccountPaymentMethod.setText(getString(R.string.ui_account_no_payment));
-                btnAccountPaymentMethod.setText(getString(R.string.ui_btn_account_payment_add));
-            }
-        }
     }
 
     private class UpdateInformation extends AsyncTask<Object,Void,Integer>{

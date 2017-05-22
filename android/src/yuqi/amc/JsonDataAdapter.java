@@ -25,7 +25,7 @@ public class JsonDataAdapter extends BaseAdapter {
     private JsonDataType dataType;
 
     // Customer is one of the JsonData but it will not be used in ListView therefore it is not included here
-    public enum JsonDataType {BOOKING, ORDER, PART, CENTER, TRACKING, PAYMENT}
+    public enum JsonDataType {BOOKING, ORDER, PART, CENTER, TRACKING}
 
     // ViewHolder pattern - Expandable
     private static class ViewHolder{
@@ -60,9 +60,6 @@ public class JsonDataAdapter extends BaseAdapter {
                         dataList.add(Center.jsonToServiceCenter(jsonObject));
                         break;
                     case TRACKING:
-
-                        break;
-                    case PAYMENT:
 
                         break;
                 }
@@ -134,10 +131,6 @@ public class JsonDataAdapter extends BaseAdapter {
 
                     convertView.setTag(viewHolder);
                     break;
-                case PAYMENT:
-
-                    convertView.setTag(viewHolder);
-                    break;
             }
 
         }else {
@@ -172,9 +165,6 @@ public class JsonDataAdapter extends BaseAdapter {
                 viewHolder.textViewPlaceHolders.get(3).setText(((Center)dataList.get(position)).getDistance() + "Km");
                 break;
             case TRACKING:
-
-                break;
-            case PAYMENT:
 
                 break;
         }

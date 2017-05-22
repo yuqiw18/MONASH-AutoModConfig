@@ -26,7 +26,7 @@
         android:layout_marginTop="2dp"
         android:text="@string/ui_label_default_value"
         android:textAlignment="textStart"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/labelCenterRanking"
@@ -37,7 +37,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/ui_label_default_value"
         android:textAlignment="textStart"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/labelCenterDistance"
@@ -47,7 +47,7 @@
         android:layout_alignParentEnd="true"
         android:text="@string/ui_label_default_value"
         android:textAlignment="textEnd"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

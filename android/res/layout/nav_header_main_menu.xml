@@ -16,25 +16,26 @@
         android:id="@+id/navImgUser"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/user_image"
         android:clickable="true"
-        android:onClick="onClick"/>
+        android:contentDescription="@string/ui_image_description_default"
+        android:onClick="onClick"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        app:srcCompat="@drawable/user_image" />
 
     <TextView
         android:id="@+id/navTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Yuqi Wang"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:clickable="true"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:paddingTop="8dp"
+        android:text="@string/ui_label_default_value"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/navTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ywan418@student.monash.edu" />
+        android:text="@string/ui_label_default_value" />
 
 </LinearLayout>
