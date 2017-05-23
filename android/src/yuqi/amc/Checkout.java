@@ -140,7 +140,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
             Order order = new Order(customerId, transactionPrice, transactionDetail, transactionAddress);
 
-            new PlaceOrder().execute(order);
+            new PlaceOrder().execute(order, "NORMAL");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_transaction_processing, null);
