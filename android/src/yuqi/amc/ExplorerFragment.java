@@ -109,17 +109,22 @@ public class ExplorerFragment extends android.app.Fragment {
 
         private ListView configListView;
         private ArrayList<Config> configList;
+        private String currentType;
 
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
             Bundle args = getArguments();
-            String type = args.getString("ConfigType");
+            currentType = args.getString("ConfigType");
             View view = inflater.inflate(R.layout.fragment_preconfig, container, false);
             configListView = (ListView) view.findViewById(R.id.listPreconfig);
 
-            new FetchPreConfig().execute(type);
-
             return view;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            new FetchPreConfig().execute(currentType);
         }
 
         class FetchPreConfig extends AsyncTask<String,Void,String>{

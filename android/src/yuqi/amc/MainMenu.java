@@ -9,8 +9,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.Manifest;
@@ -132,6 +135,9 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
                         }
 
                     }).setNegativeButton(getString(R.string.dialog_no), null).show();
+        }else if (id == R.id.nav_about){
+
+            nextFragment = new AboutFragment();
         }
 
         if (nextFragment != null){
@@ -165,6 +171,15 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
             navUsername.setText(getString(R.string.ui_main_tap_to_login));
             navUserEmail.setText(null);
             navigationMenu.findItem(R.id.nav_dashboard).setVisible(false);
+        }
+    }
+
+    public static class AboutFragment extends Fragment{
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_about, null);
+            return view;
         }
     }
 }

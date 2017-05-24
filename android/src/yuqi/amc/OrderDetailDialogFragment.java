@@ -21,7 +21,6 @@ public class OrderDetailDialogFragment extends Fragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-
     private class FetchOrderDetail extends AsyncTask<String,Void,String>{
 
         @Override

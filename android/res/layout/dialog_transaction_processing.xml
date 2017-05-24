@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/progressBarTransaction"
         android:gravity="center_vertical"
-        android:text="@string/dialog_checkout_proccess_order"
+        android:text="@string/dialog_checkout_process_order"
         android:textSize="18sp" />
 
 </RelativeLayout>
