@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="8dp"
     android:paddingEnd="16dp"
-    android:paddingStart="16dp">
+    android:paddingStart="16dp"
+    android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/labelConfigName"
@@ -29,9 +31,7 @@
         android:layout_height="@dimen/img64"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
         android:contentDescription="@string/ui_image_description_default"
         app:srcCompat="@drawable/img_placeholder_wide" />
 </RelativeLayout>

@@ -1,8 +1,16 @@
 package yuqi.amc.JsonData;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
+import yuqi.amc.Utility;
 
 /**
  * Created by ClayW on 6/05/2017.
@@ -17,12 +25,17 @@ public class Order {
     private String address;
     private long customerId;
     private String status;
-    private Timestamp bookingDatetime;
+    private String bookingDatetime;
     private long centerId;
 
-    public Order(){}
+    public static final TimeZone DEVICE_TIMEZONE = TimeZone.getDefault();
 
-    public Order(long customerId, double price, String detail, String address, Timestamp bookingDatetime, long centerId){
+    public Order(){
+        // Synchronise the timezone
+        TimeZone.setDefault(TimeZone.getTimeZone(Utility.SERVER_TIMEZONE));
+    }
+
+    public Order(long customerId, double price, String detail, String address, String bookingDatetime, long centerId){
         this.id = -1;
         this.datetime = null;
         this.customerId = customerId;
@@ -45,11 +58,7 @@ public class Order {
             order.setCustomerId(jsonObject.getLong("CUSTOMER_ID"));
             order.setAddress(jsonObject.getString("TRANSACTION_ADDRESS"));
             order.setStatus(jsonObject.getString("TRANSACTION_STATUS"));
-
-            //order.setBookingDatetime(Timestamp.valueOf(jsonObject.getString("BOOKING_DATETIME")));
-
-            order.setBookingDatetime(null);
-
+            order.setBookingDatetime(jsonObject.getString("BOOKING_DATETIME"));
             order.setCenterId(jsonObject.getLong("CENTER_ID"));
         }catch (Exception e){
             e.printStackTrace();
@@ -72,6 +81,14 @@ public class Order {
 
     public void setDatetime(Timestamp datetime) {
         this.datetime = datetime;
+        Log.e("TIMESTAMP",String.valueOf(getLongTimestamp()));
+
+        try {
+            Date date = new Date(this.datetime.getTime());
+            Log.e("DATETIME", date.toString());
+        }catch (Exception e){
+
+        }
     }
 
     public double getPrice() {
@@ -114,19 +131,38 @@ public class Order {
         this.status = status;
     }
 
-    public Timestamp getBookingDatetime() {
-        return bookingDatetime;
-    }
-
-    public void setBookingDatetime(Timestamp bookingDatetime) {
-        this.bookingDatetime = bookingDatetime;
-    }
-
     public long getCenterId() {
         return centerId;
     }
 
     public void setCenterId(long centerId) {
         this.centerId = centerId;
+    }
+
+    public String getBookingDatetime() {
+        return bookingDatetime;
+    }
+
+    public void setBookingDatetime(String bookingDatetime) {
+        this.bookingDatetime = bookingDatetime;
+    }
+
+    public long getLongTimestamp(){
+
+        return datetime.getTime();
+
+    }
+
+    public String getLocalTime(){
+
+        try {
+            Date date = new Date(datetime.getTime());
+            DateFormat localFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+            localFormat.setTimeZone(DEVICE_TIMEZONE);
+            return localFormat.format(date);
+        }catch (Exception e){
+            return null;
+        }
+
     }
 }

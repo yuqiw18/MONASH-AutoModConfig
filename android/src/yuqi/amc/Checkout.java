@@ -57,6 +57,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private String transactionAddress = "";
     private String billingAddress = "";
     private long centerId = 0;
+    private String bookingDateTime = "1970-01-01 00:00:00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +145,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
             String formattedAddress = transactionAddress.replace("\n", ",");
             Log.e("Post Address", formattedAddress);
 
-            Order order = new Order(customerId, transactionPrice, transactionDetail, billingAddress, Timestamp.valueOf("2011-10-02 18:48:05.123"),centerId);
+            Order order = new Order(customerId, transactionPrice, transactionDetail, billingAddress, bookingDateTime, centerId);
 
             Log.e("Timestamp",(Timestamp.valueOf("2011-10-02 18:48:05.123").toString()));
 
@@ -234,6 +235,13 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         calculateGrandTotal();
         labelCheckoutInstallationFee.setText(Utility.getFormattedPrice(instFee));
         layoutCheckoutBooking.setVisibility(View.VISIBLE);
+
+        Log.e("Date", date);
+
+        Log.e("Time", time.toString());
+
+        bookingDateTime = Utility.formatBookingDate(date) + " " + Utility.formatBookingTime(time);
+
     }
 
     private void loadDefaultAddress(){

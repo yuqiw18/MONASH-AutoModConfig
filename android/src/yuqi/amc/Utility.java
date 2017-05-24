@@ -3,8 +3,10 @@ package yuqi.amc;
 import android.util.Log;
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by yuqi on 14/4/17.
@@ -14,6 +16,8 @@ public final class Utility {
 
     public static final String IMAGE_SOURCE = "http://amc.yuqi.ninja/img/";
     public static final String IMAGE_FORMAT = ".png";
+
+    public static final String SERVER_TIMEZONE = "GMT-6";
 
     // Convert string name to resource ID
     public static int getResourceID(String name, Class<?> c) {
@@ -54,6 +58,26 @@ public final class Utility {
         return "$" + String.format("%.2f", price);
     }
 
+
+
+    public static String UTCtoLocal(long timestamp){
+
+        try {
+            Date date = new Date(timestamp);
+
+            DateFormat localFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            localFormat.setTimeZone(TimeZone.getDefault());
+
+            return localFormat.format(date);
+
+        }catch (Exception e){
+
+            return null;
+
+        }
+
+    }
+
     // SHA-512 Hashing
     private String Hash(String password){
         String generatedPassword = "";
@@ -72,6 +96,29 @@ public final class Utility {
         return generatedPassword;
     }
 
+    public static String formatBookingDate(String strDate){
+        try{
+            Date date = new SimpleDateFormat("dd-MM-yyyy").parse(strDate);
+            return new SimpleDateFormat("yyyy-MM-dd").format(date);
+        }catch (Exception e){
+            return "1970-01-01";
+        }
+    }
+
+    public static String formatBookingTime(Integer time){
+
+        switch (time){
+            case 8:
+                return "08:00:00";
+            case 11:
+                return "11:00:00";
+            case 2:
+                return "14:00:00";
+            default:
+                return "00:00:00";
+        }
+
+    }
 }
 
 

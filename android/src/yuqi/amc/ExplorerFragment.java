@@ -1,5 +1,6 @@
 package yuqi.amc;
 
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
@@ -9,16 +10,18 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.TextView;
+import android.widget.ListView;
+import java.util.ArrayList;
+import yuqi.amc.JsonData.Config;
 
 public class ExplorerFragment extends android.app.Fragment {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    private SectionsPagerAdapter sectionsPagerAdapter;
+    private ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,77 +32,17 @@ public class ExplorerFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explorer, container, false);
-//        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(((FragmentActivity)getActivity()).getSupportFragmentManager());
+
+        sectionsPagerAdapter = new SectionsPagerAdapter(((FragmentActivity)getActivity()).getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        viewPager = (ViewPager) view.findViewById(R.id.container);
+        viewPager.setAdapter(sectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setupWithViewPager(viewPager);
 
         return view;
-    }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_test_activity, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_explorer_label, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
     }
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
@@ -111,18 +54,29 @@ public class ExplorerFragment extends android.app.Fragment {
         @Override
         public Fragment getItem(int position) {
 
-//            switch (position){
-//
-////                case 0:
-////                    return new ReportPieChartFragment();
-////                case 1:
-////                    return new ReportPieChartFragment();
-////                default:
-////                    // Return a PlaceholderFragment (defined as a static inner class below).
-////                    return PlaceholderFragment.newInstance(position + 1);
-//            }
+            Fragment preConfigListFragment = new PreConfigListFragment();
 
-            return PlaceholderFragment.newInstance(position + 1);
+            Bundle args = new Bundle();
+
+            switch (position){
+                case 0:
+                    Log.e("Pos", "0");
+                    args.putString("ConfigType", "LATEST");
+                    preConfigListFragment.setArguments(args);
+                    break;
+                case 1:
+                    Log.e("Pos", "1");
+                    args.putString("ConfigType", "HOT");
+                    preConfigListFragment.setArguments(args);
+                    break;
+                case 2:
+                    Log.e("Pos", "2");
+                    args.putString("ConfigType", "UNIQUE");
+                    preConfigListFragment.setArguments(args);
+                    break;
+            }
+
+            return preConfigListFragment;
         }
 
         @Override
@@ -151,28 +105,35 @@ public class ExplorerFragment extends android.app.Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_title_explorer));
     }
 
-
     public static class PreConfigListFragment extends Fragment {
-final String ARG_SECTION_NUMBER = "section_number";
 
-        public PreConfigListFragment() {
+        private ListView configListView;
+        private ArrayList<Config> configList;
+
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
+            Bundle args = getArguments();
+            String type = args.getString("ConfigType");
+            View view = inflater.inflate(R.layout.fragment_preconfig, container, false);
+            configListView = (ListView) view.findViewById(R.id.listPreconfig);
+
+            new FetchPreConfig().execute(type);
+
+            return view;
         }
-//
-//        public static PlaceholderFragment newInstance(int sectionNumber) {
-//            PlaceholderFragment fragment = new PlaceholderFragment();
-//            Bundle args = new Bundle();
-//            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-//
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                                 Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_explorer_label, container, false);
-//            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-//            return rootView;
-//        }
+
+        class FetchPreConfig extends AsyncTask<String,Void,String>{
+            @Override
+            protected String doInBackground(String... params) {
+                return RestClient.requestData("config",params);
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataAdapter.JsonDataType.CONFIG);
+                configList = (ArrayList<Config>)((ArrayList<?>)jsonDataAdapter.getDataList());
+                configListView.setAdapter(jsonDataAdapter);
+            }
+        }
     }
 }
