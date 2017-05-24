@@ -18,7 +18,6 @@ import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.SQLiteData.DataStruct;
 import yuqi.amc.SQLiteData.Model;
 
-
 public class ConfiguratorBadge extends AppCompatActivity {
 
     private ListView badgeListView;

@@ -4,9 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Created by ClayW on 6/05/2017.
+ * Created by yuqi on 6/05/2017.
  */
 
+// This class contains the data structure of a customer
 public class Customer {
 
     private long id;

@@ -6,13 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import yuqi.amc.JsonData.Config;
 import yuqi.amc.JsonData.Order;
 import yuqi.amc.JsonData.Part;
 import yuqi.amc.JsonData.Center;
@@ -25,11 +31,12 @@ public class JsonDataAdapter extends BaseAdapter {
     private JsonDataType dataType;
 
     // Customer is one of the JsonData but it will not be used in ListView therefore it is not included here
-    public enum JsonDataType {BOOKING, ORDER, PART, CENTER, TRACKING}
+    public enum JsonDataType {CONFIG, ORDER, PART, CENTER, TRACKING}
 
     // ViewHolder pattern - Expandable
     private static class ViewHolder{
         ArrayList<TextView> textViewPlaceHolders;
+        ImageView imagePlaceHolder;
         public ViewHolder(){
             textViewPlaceHolders = new ArrayList<>();
         }
@@ -46,12 +53,11 @@ public class JsonDataAdapter extends BaseAdapter {
                 //String jsonObj = jsonArray.getJSONObject(i).toString();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 switch (this.dataType){
-                    case BOOKING:
-
+                    case CONFIG:
+                        dataList.add(Config.jsonToConfig(jsonObject));
                         break;
                     case ORDER:
                         dataList.add(Order.jsonToOrder(jsonObject));
-                        Log.e("Order","Fetched");
                         break;
                     case PART:
                         dataList.add(Part.jsonToPart(jsonObject));
@@ -87,7 +93,7 @@ public class JsonDataAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
         // Check if view already exists. If not inflate it
@@ -98,7 +104,12 @@ public class JsonDataAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             switch (dataType) {
-                case BOOKING:
+                case CONFIG:
+                    convertView = inflater.inflate(R.layout.list_config_item, null);
+                    viewHolder = new ViewHolder();
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelConfigName));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelConfigHighlight));
+                    viewHolder.imagePlaceHolder = (ImageView) convertView.findViewById(R.id.imgConfigImage);
                     convertView.setTag(viewHolder);
                     break;
                 case ORDER:
@@ -131,15 +142,44 @@ public class JsonDataAdapter extends BaseAdapter {
 
                     convertView.setTag(viewHolder);
                     break;
+                default:
+                    return convertView;
             }
 
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
         switch (dataType){
-            case BOOKING:
+            case CONFIG:
+                viewHolder.textViewPlaceHolders.get(0).setText(((Config) dataList.get(position)).getName());
+                viewHolder.textViewPlaceHolders.get(1).setText(((Config) dataList.get(position)).getHighlight());
+//                Picasso.with(context)
+//                        .load(Utility.getImageAddress("config_" + ((Config) dataList.get(position)).getId()))
+//                        .placeholder(R.drawable.img_placeholder)
+//                        .networkPolicy(NetworkPolicy.OFFLINE)
+//                        .into(viewHolder.imagePlaceHolder, new Callback() {
+//                            @Override
+//                            public void onSuccess() {
+//                                Log.e("Picasso", "Loaded Locally");
+//                            }
+//                            @Override
+//                            public void onError() {
+//                                Picasso.with(context)
+//                                        .load(Utility.getImageAddress("config_" + ((Config) dataList.get(position)).getId()))
+//                                        .placeholder(R.drawable.img_placeholder)
+//                                        .into(viewHolder.imagePlaceHolder, new Callback() {
+//                                            @Override
+//                                            public void onSuccess() {
+//                                                Log.e("Picasso","Downloaded");
+//                                            }
+//                                            @Override
+//                                            public void onError() {
+//                                                Log.e("Picasso", "Could not load image.");
+//                                            }
+//                                        });
+//                            }
+//                        });
                 break;
             case ORDER:
                 viewHolder.textViewPlaceHolders.get(0).setText("ORDER ID:" + ((Order)dataList.get(position)).getId());

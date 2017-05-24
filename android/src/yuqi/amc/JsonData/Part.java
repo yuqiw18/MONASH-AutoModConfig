@@ -8,6 +8,7 @@ import yuqi.amc.Utility;
  * Created by ClayW on 7/05/2017.
  */
 
+// This class contains the data structure of a part
 public class Part {
 
     private long id;
@@ -45,7 +46,7 @@ public class Part {
 
     @Override
     public String toString() {
-        return id + ":" + name + ", Specs:" + description + ", Price:" + Utility.getFormattedPrice(price);
+        return id + "," + name + "," + description + "," + price;
     }
 
     public long getId() {

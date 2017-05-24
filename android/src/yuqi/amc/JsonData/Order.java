@@ -17,11 +17,12 @@ public class Order {
     private String address;
     private long customerId;
     private String status;
-
+    private Timestamp bookingDatetime;
+    private long centerId;
 
     public Order(){}
 
-    public Order(long customerId, double price, String detail, String address){
+    public Order(long customerId, double price, String detail, String address, Timestamp bookingDatetime, long centerId){
         this.id = -1;
         this.datetime = null;
         this.customerId = customerId;
@@ -29,6 +30,8 @@ public class Order {
         this.detail = detail;
         this.address = address;
         this.status = null;
+        this.bookingDatetime = bookingDatetime;
+        this.centerId = centerId;
     }
 
     // Convert json to object
@@ -42,6 +45,12 @@ public class Order {
             order.setCustomerId(jsonObject.getLong("CUSTOMER_ID"));
             order.setAddress(jsonObject.getString("TRANSACTION_ADDRESS"));
             order.setStatus(jsonObject.getString("TRANSACTION_STATUS"));
+
+            //order.setBookingDatetime(Timestamp.valueOf(jsonObject.getString("BOOKING_DATETIME")));
+
+            order.setBookingDatetime(null);
+
+            order.setCenterId(jsonObject.getLong("CENTER_ID"));
         }catch (Exception e){
             e.printStackTrace();
             order = null;
@@ -103,5 +112,21 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Timestamp getBookingDatetime() {
+        return bookingDatetime;
+    }
+
+    public void setBookingDatetime(Timestamp bookingDatetime) {
+        this.bookingDatetime = bookingDatetime;
+    }
+
+    public long getCenterId() {
+        return centerId;
+    }
+
+    public void setCenterId(long centerId) {
+        this.centerId = centerId;
     }
 }

@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
+// This class contains the data structure of a service center
 public class Center {
 
     private long id;

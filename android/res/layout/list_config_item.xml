@@ -7,24 +7,24 @@
     android:paddingStart="16dp">
 
     <TextView
-        android:id="@+id/textModelName"
+        android:id="@+id/labelConfigName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imgModel"
-        android:layout_toEndOf="@+id/imgModel"
+        android:layout_alignTop="@+id/imgConfigImage"
+        android:layout_toEndOf="@+id/imgConfigImage"
         android:text="@string/ui_label_default_value"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textBodyType"
+        android:id="@+id/labelConfigHighlight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ui_label_default_value"
-        android:layout_alignBottom="@+id/imgModel"
-        android:layout_toEndOf="@+id/imgModel" />
+        android:layout_below="@+id/labelConfigName"
+        android:layout_toEndOf="@+id/imgConfigImage"
+        android:text="@string/ui_label_default_value" />
 
     <ImageView
-        android:id="@+id/imgModel"
+        android:id="@+id/imgConfigImage"
         android:layout_width="@dimen/img128"
         android:layout_height="@dimen/img64"
         android:layout_alignParentStart="true"

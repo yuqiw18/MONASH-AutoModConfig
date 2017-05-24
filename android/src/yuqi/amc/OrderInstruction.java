@@ -19,6 +19,7 @@ public class OrderInstruction extends AppCompatActivity {
                 Intent intent = new Intent(OrderInstruction.this, MainMenu.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });

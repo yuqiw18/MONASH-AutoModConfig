@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -54,6 +55,8 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private double postage = 0;
     private String transactionDetail = "";
     private String transactionAddress = "";
+    private String billingAddress = "";
+    private long centerId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +141,12 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
             long customerId = sharedPreferences.getLong("id", 0);
 
-            Order order = new Order(customerId, transactionPrice, transactionDetail, transactionAddress);
+            String formattedAddress = transactionAddress.replace("\n", ",");
+            Log.e("Post Address", formattedAddress);
+
+            Order order = new Order(customerId, transactionPrice, transactionDetail, billingAddress, Timestamp.valueOf("2011-10-02 18:48:05.123"),centerId);
+
+            Log.e("Timestamp",(Timestamp.valueOf("2011-10-02 18:48:05.123").toString()));
 
             new PlaceOrder().execute(order, "NORMAL");
 
@@ -218,6 +226,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
     @Override
     public void onCenterSelect(Center center, String date, Integer time) {
+        centerId = center.getId();
         transactionAddress = center.getFormattedAddress();
         labelCheckoutAddress.setText(transactionAddress);
         labelCheckoutBookingTime.setText(getString(R.string.ui_checkout_service_status) + "\n" + Utility.formatDate(date) + "\n" + formatTime(time));
@@ -233,6 +242,8 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                 + " " + sharedPreferences.getInt("postcode", 0000) + "\n"
                 + sharedPreferences.getString("country", "COUNTRY");
         labelCheckoutAddress.setText(transactionAddress);
+        billingAddress = transactionAddress;
+        centerId = 0;
     }
 
     private static String formatTime(Integer time){
@@ -264,6 +275,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         Log.e("Cart Price", String.valueOf(transactionPrice));
         Log.e("Cart Item", transactionDetail);
         Log.e("Post Address", transactionAddress);
+
     }
 
     private void calculateGrandTotal(){
