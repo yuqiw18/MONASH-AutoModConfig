@@ -32,4 +32,16 @@
         </item>
     </group>
 
+    <group>
+        <item android:id="@+id/nav_other"
+            android:title="@string/nav_title_other">
+            <menu>
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_menu_about"
+                    android:title="@string/nav_title_about" />
+            </menu>
+        </item>
+    </group>
+
 </menu>
