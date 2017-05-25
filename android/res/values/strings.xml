@@ -131,6 +131,10 @@
     <string name="dialog_map_service_center_header">Available Service Centers</string>
     <string name="dialog_map_service_center_no_access">Please enable the location service.</string>
 
+    <string name="dialog_map_no_rating">No Rating</string>
+    <string name="dialog_map_rating">Rating:</string>
+    <string name="dialog_map_install_from">Installation Fee from AU</string>
+
     <string name="ui_list_center_installation">Installation Fee from </string>
     <string name="ui_list_center_installation_currency_aud">AU$</string>
     <string name="ui_list_center_installation_footer"> .00*</string>
@@ -199,4 +203,11 @@
     <string name="dialog_tracking_courier">Courier: </string>
     <string name="dialog_tracking_header_item">Items</string>
     <string name="dialog_tracking_header_tracking_info">Tracking Information</string>
+
+    <string name="dialog_preconfig_budget">Budget:</string>
+
+    <string name="ui_order_id">Order#:</string>
+
+    <string name="unit_km">Km</string>
+
 </resources>

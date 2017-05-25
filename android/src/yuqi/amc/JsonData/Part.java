@@ -2,8 +2,6 @@ package yuqi.amc.JsonData;
 
 import org.json.JSONObject;
 
-import yuqi.amc.Utility;
-
 /**
  * Created by ClayW on 7/05/2017.
  */

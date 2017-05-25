@@ -87,12 +87,7 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            int count = getFragmentManager().getBackStackEntryCount();
-            if (count == 0) {
-                moveTaskToBack(true);
-            } else {
-                getFragmentManager().popBackStack();
-            }
+            moveTaskToBack(true);
         }
     }
 
@@ -136,7 +131,6 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
 
                     }).setNegativeButton(getString(R.string.dialog_no), null).show();
         }else if (id == R.id.nav_about){
-
             nextFragment = new AboutFragment();
         }
 

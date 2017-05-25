@@ -1,5 +1,6 @@
 package yuqi.amc;
 
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,10 +12,22 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import yuqi.amc.JsonData.Config;
 
@@ -54,29 +67,17 @@ public class ExplorerFragment extends android.app.Fragment {
         @Override
         public Fragment getItem(int position) {
 
-            Fragment preConfigListFragment = new PreConfigListFragment();
-
-            Bundle args = new Bundle();
-
             switch (position){
                 case 0:
-                    Log.e("Pos", "0");
-                    args.putString("ConfigType", "LATEST");
-                    preConfigListFragment.setArguments(args);
-                    break;
+                    return PreConfigListFragment.newInstance("LATEST");
                 case 1:
-                    Log.e("Pos", "1");
-                    args.putString("ConfigType", "HOT");
-                    preConfigListFragment.setArguments(args);
-                    break;
+                    return PreConfigListFragment.newInstance("HOT");
                 case 2:
-                    Log.e("Pos", "2");
-                    args.putString("ConfigType", "UNIQUE");
-                    preConfigListFragment.setArguments(args);
-                    break;
+                    return PreConfigListFragment.newInstance("UNIQUE");
+                default:
+                    return null;
             }
 
-            return preConfigListFragment;
         }
 
         @Override
@@ -111,6 +112,16 @@ public class ExplorerFragment extends android.app.Fragment {
         private ArrayList<Config> configList;
         private String currentType;
 
+
+        public static PreConfigListFragment newInstance(String type) {
+            PreConfigListFragment preConfigListFragment = new PreConfigListFragment();
+            Bundle args = new Bundle();
+            args.putString("ConfigType", type);
+            preConfigListFragment.setArguments(args);
+            return preConfigListFragment;
+        }
+
+
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
             Bundle args = getArguments();
@@ -119,6 +130,34 @@ public class ExplorerFragment extends android.app.Fragment {
 
             View view = inflater.inflate(R.layout.fragment_preconfig, container, false);
             configListView = (ListView) view.findViewById(R.id.listPreconfig);
+
+            configListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_preconfig_detail, null);
+                    ImageView imgDetailImage = (ImageView) dialogView.findViewById(R.id.imgPreconfigDetailImage);
+                    TextView labelDetailName = (TextView) dialogView.findViewById(R.id.labelPreconfigDetailName);
+                    TextView labelDetailHighlight = (TextView) dialogView.findViewById(R.id.labelPreconfigDetailHighlight);
+                    TextView labelDetailContent = (TextView) dialogView.findViewById(R.id.labelPreconfigDetailContent);
+
+                    Config selectedConfig = configList.get(position);
+
+                    labelDetailName.setText(selectedConfig.getName());
+                    labelDetailHighlight.setText(selectedConfig.getHighlight());
+                    labelDetailContent.setText(selectedConfig.toString());
+
+                    Picasso.with(getContext())
+                            .load(Utility.getImageAddress("config_" + (selectedConfig.getId())))
+                            .placeholder(R.drawable.img_placeholder_block)
+                            .networkPolicy(NetworkPolicy.OFFLINE)
+                            .into(imgDetailImage);
+                    builder.setView(dialogView);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            });
 
             return view;
         }

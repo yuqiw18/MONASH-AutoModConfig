@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="32dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="32dp">
+
+
+    <ImageView
+        android:id="@+id/imgPreconfigDetailImage"
+        android:layout_width="@dimen/img256"
+        android:layout_height="@dimen/img128"
+        app:srcCompat="@color/colorPrimary"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/labelPreconfigDetailName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imgPreconfigDetailImage"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/labelPreconfigDetailHighlight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelPreconfigDetailName"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/labelPreconfigDetailContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelPreconfigDetailHighlight"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="TextView" />
+</RelativeLayout>

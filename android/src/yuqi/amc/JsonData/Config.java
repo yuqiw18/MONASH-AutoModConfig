@@ -1,12 +1,10 @@
 package yuqi.amc.JsonData;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  * Created by ClayW on 6/05/2017.
  */
-
 
 public class Config {
 
@@ -15,7 +13,7 @@ public class Config {
     private String type;
     private String highlight;
     private String content;
-    private double price;
+    private String budget;
 
     public Config(){}
 
@@ -28,7 +26,7 @@ public class Config {
             config.setType(jsonObject.getString("CONFIG_TYPE"));
             config.setHighlight(jsonObject.getString("CONFIG_HIGHLIGHT"));
             config.setContent(jsonObject.getString("CONFIG_CONTENT"));
-            config.setPrice(jsonObject.getDouble("CONFIG_PRICE"));
+            config.setBudget(jsonObject.getString("CONFIG_BUDGET"));
         }catch (Exception e){
             e.printStackTrace();
             config = null;
@@ -78,12 +76,12 @@ public class Config {
         this.highlight = highlight;
     }
 
-    public double getPrice() {
-        return price;
+    public String getBudget() {
+        return budget;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setBudget(String budget) {
+        this.budget = budget;
     }
 
     public String getType() {

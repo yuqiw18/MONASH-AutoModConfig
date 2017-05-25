@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.FirebaseApiNotAvailableException;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -30,8 +31,8 @@ public class JsonDataAdapter extends BaseAdapter {
     private ArrayList<Object> dataList;
     private JsonDataType dataType;
 
-    // Customer is one of the JsonData but it will not be used in ListView therefore it is not included here
-    public enum JsonDataType {CONFIG, ORDER, PART, CENTER, TRACKING}
+    // Customer and Tracking are JsonData but they will not be used in ListView therefore it is not included here
+    public enum JsonDataType {CONFIG, ORDER, PART, CENTER}
 
     // ViewHolder pattern - Expandable
     private static class ViewHolder{
@@ -65,9 +66,6 @@ public class JsonDataAdapter extends BaseAdapter {
                     case CENTER:
                         dataList.add(Center.jsonToServiceCenter(jsonObject));
                         break;
-                    case TRACKING:
-
-                        break;
                 }
             }
 
@@ -94,14 +92,13 @@ public class JsonDataAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+
+        final ViewHolder viewHolder;
 
         // Check if view already exists. If not inflate it
         if(convertView == null) {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            viewHolder = new ViewHolder();
 
             switch (dataType) {
                 case CONFIG:
@@ -109,6 +106,7 @@ public class JsonDataAdapter extends BaseAdapter {
                     viewHolder = new ViewHolder();
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelConfigName));
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelConfigHighlight));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelConfigBudget));
                     viewHolder.imagePlaceHolder = (ImageView) convertView.findViewById(R.id.imgConfigImage);
                     convertView.setTag(viewHolder);
                     break;
@@ -138,10 +136,6 @@ public class JsonDataAdapter extends BaseAdapter {
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelCenterDistance));
                     convertView.setTag(viewHolder);
                     break;
-                case TRACKING:
-
-                    convertView.setTag(viewHolder);
-                    break;
                 default:
                     return convertView;
             }
@@ -152,63 +146,61 @@ public class JsonDataAdapter extends BaseAdapter {
 
         switch (dataType){
             case CONFIG:
-                viewHolder.textViewPlaceHolders.get(0).setText(((Config) dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolders.get(1).setText(((Config) dataList.get(position)).getHighlight());
-//                Picasso.with(context)
-//                        .load(Utility.getImageAddress("config_" + ((Config) dataList.get(position)).getId()))
-//                        .placeholder(R.drawable.img_placeholder)
-//                        .networkPolicy(NetworkPolicy.OFFLINE)
-//                        .into(viewHolder.imagePlaceHolder, new Callback() {
-//                            @Override
-//                            public void onSuccess() {
-//                                Log.e("Picasso", "Loaded Locally");
-//                            }
-//                            @Override
-//                            public void onError() {
-//                                Picasso.with(context)
-//                                        .load(Utility.getImageAddress("config_" + ((Config) dataList.get(position)).getId()))
-//                                        .placeholder(R.drawable.img_placeholder)
-//                                        .into(viewHolder.imagePlaceHolder, new Callback() {
-//                                            @Override
-//                                            public void onSuccess() {
-//                                                Log.e("Picasso","Downloaded");
-//                                            }
-//                                            @Override
-//                                            public void onError() {
-//                                                Log.e("Picasso", "Could not load image.");
-//                                            }
-//                                        });
-//                            }
-//                        });
+                final Config config = (Config) dataList.get(position);
+                viewHolder.textViewPlaceHolders.get(0).setText(config.getName());
+                viewHolder.textViewPlaceHolders.get(1).setText(config.getHighlight());
+                viewHolder.textViewPlaceHolders.get(2).setText(context.getString(R.string.dialog_preconfig_budget) + config.getBudget());
+                Picasso.with(context)
+                        .load(Utility.getImageAddress("config_" + config.getId()))
+                        .placeholder(R.drawable.img_placeholder_block)
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(viewHolder.imagePlaceHolder, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.e("Picasso", "Loaded Locally");
+                            }
+                            @Override
+                            public void onError() {
+                                Picasso.with(context)
+                                        .load(Utility.getImageAddress("config_" + config.getId()))
+                                        .placeholder(R.drawable.img_placeholder_block)
+                                        .into(viewHolder.imagePlaceHolder, new Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                Log.e("Picasso","Downloaded");
+                                            }
+                                            @Override
+                                            public void onError() {
+                                                Log.e("Picasso", "Could not load image.");
+                                            }
+                                        });
+                            }
+                        });
                 break;
             case ORDER:
-                viewHolder.textViewPlaceHolders.get(0).setText("ORDER ID:" + ((Order)dataList.get(position)).getId());
-
-                viewHolder.textViewPlaceHolders.get(1).setText(((Order)dataList.get(position)).getLocalTime());
-
-                //viewHolder.textViewPlaceHolders.get(1).setText(String.valueOf(((Order)dataList.get(position)).getDatetime()));
-                viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(((Order)dataList.get(position)).getPrice()));
-                viewHolder.textViewPlaceHolders.get(3).setText(((Order) dataList.get(position)).getStatus());
-                Log.e("View","Added");
+                final Order order = (Order) dataList.get(position);
+                viewHolder.textViewPlaceHolders.get(0).setText(context.getString(R.string.ui_order_id)+ order.getId());
+                viewHolder.textViewPlaceHolders.get(1).setText(order.getLocalTime());
+                viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(order.getPrice()));
+                viewHolder.textViewPlaceHolders.get(3).setText(order.getStatus());
                 break;
             case PART:
-                viewHolder.textViewPlaceHolders.get(0).setText(((Part)dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolders.get(1).setText(((Part)dataList.get(position)).getDescription());
-                viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(((Part)dataList.get(position)).getPrice()));
+                final Part part = (Part) dataList.get(position);
+                viewHolder.textViewPlaceHolders.get(0).setText(part.getName());
+                viewHolder.textViewPlaceHolders.get(1).setText(part.getDescription());
+                viewHolder.textViewPlaceHolders.get(2).setText(Utility.getFormattedPrice(part.getPrice()));
                 break;
             case CENTER:
-                viewHolder.textViewPlaceHolders.get(0).setText(((Center)dataList.get(position)).getName());
-                viewHolder.textViewPlaceHolders.get(1).setText("Installation Fee from AU" + Utility.getFormattedPrice(((Center)dataList.get(position)).getPrice()));
-                double avgScore = ((Center) dataList.get(position)).getAvgScore();
+                final Center center = (Center) dataList.get(position);
+                viewHolder.textViewPlaceHolders.get(0).setText(center.getName());
+                viewHolder.textViewPlaceHolders.get(1).setText(context.getString(R.string.dialog_map_install_from) + Utility.getFormattedPrice(center.getPrice()));
+                double avgScore = center.getAvgScore();
                 if (avgScore!=-1d){
-                    viewHolder.textViewPlaceHolders.get(2).setText("Rating: " + avgScore);
+                    viewHolder.textViewPlaceHolders.get(2).setText(context.getString(R.string.dialog_map_rating) + avgScore);
                 }else {
-                    viewHolder.textViewPlaceHolders.get(2).setText("No Rating");
+                    viewHolder.textViewPlaceHolders.get(2).setText(context.getString(R.string.dialog_map_no_rating));
                 }
-                viewHolder.textViewPlaceHolders.get(3).setText(((Center)dataList.get(position)).getDistance() + "Km");
-                break;
-            case TRACKING:
-
+                viewHolder.textViewPlaceHolders.get(3).setText(center.getDistance() + context.getString(R.string.unit_km));
                 break;
         }
         return convertView;
