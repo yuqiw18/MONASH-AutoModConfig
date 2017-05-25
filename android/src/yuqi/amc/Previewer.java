@@ -151,9 +151,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
                     Toast.makeText(getBaseContext(), getString(R.string.msg_checkout_no_login), Toast.LENGTH_LONG).show();
                 }
             }
-        }else if (id == R.id.menu_previewer_save){
-
-
         }
         return super.onOptionsItemSelected(item);
     }

@@ -150,7 +150,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
             Log.e("Timestamp",(Timestamp.valueOf("2011-10-02 18:48:05.123").toString()));
 
-            new PlaceOrder().execute(order, "NORMAL");
+            new PlaceOrder().execute(order);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_transaction_processing, null);
@@ -178,21 +178,10 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
     private class PlaceOrder extends AsyncTask<Object,Void,Integer>{
         Order order = null;
-        String mode = null;
         @Override
         protected Integer doInBackground(Object... params) {
             order = (Order) params[0];
-            mode = (String) params[1];
-
-            if (mode.equals("SERVICE")){
-
-                return RestClient.createData("transaction2", order);
-
-            }else {
-
-                return RestClient.createData("transaction", order);
-            }
-
+            return RestClient.createData("transaction", order);
         }
 
         @Override

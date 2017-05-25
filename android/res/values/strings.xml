@@ -210,4 +210,8 @@
 
     <string name="unit_km">Km</string>
 
+    <string name="ui_model_available_model">Available Models:</string>
+
+    <string name="ui_badge_available_badge">Available Badges:</string>
+
 </resources>

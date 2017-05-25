@@ -60,7 +60,7 @@ public class ConfiguratorModel extends AppCompatActivity {
 
             //brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
 
-            modelCounter.setText("Available Models: " + modelList.size());
+            modelCounter.setText(getString(R.string.ui_model_available_model) + modelList.size());
 
         }
 

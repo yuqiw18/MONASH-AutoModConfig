@@ -62,7 +62,7 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
             Picasso.with(this).load(Utility.getImageAddress(data.getBrandName() + "_" + data.getName())).into(modelImage);
 
-            badgeCounter.setText("Available Badges: " + badgeList.size());
+            badgeCounter.setText(getString(R.string.ui_badge_available_badge) + badgeList.size());
 
         }
 
