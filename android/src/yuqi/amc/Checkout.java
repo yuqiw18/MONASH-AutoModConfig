@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -200,15 +201,14 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
             switch (status){
                 case -1:
                     alertDialog.dismiss();
-                    Log.e("onPostExecute: ",getString(R.string.msg_reg_server_fail)  );
+                    Toast.makeText(getBaseContext(), getString(R.string.msg_reg_server_fail), Toast.LENGTH_LONG).show();
                     break;
                 case 0:
                     alertDialog.dismiss();
-                    Log.e("onPostExecute: ",getString(R.string.msg_reg_server_fail)  );
+                    Toast.makeText(getBaseContext(), getString(R.string.msg_reg_server_fail), Toast.LENGTH_LONG).show();
                     break;
                 case 1:
                     alertDialog.dismiss();
-                    Log.e("Transaction", "Added");
                     Intent intent = new Intent(Checkout.this, OrderInstruction.class);
                     // Bring MainMenu to the top stack. By doing this, clicking back button will not bring user to the register screen any more.
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
