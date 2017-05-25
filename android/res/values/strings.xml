@@ -179,7 +179,7 @@
     <string name="ui_postage_free">Free</string>
     <string name="dialog_checkout_process_order">Processing your order...</string>
     <string name="ui_order_processed">ORDER PROCESSED</string>
-    <string name="ui_order_instruction">An invoice will be sent to your email address shortly. \n \n All payment methods supported by AMC will be displayed on the invoice. \n \n The invoice can be downloaded any time from your order history. \n \n The transaction will be confirmed once the payment is received.</string>
+    <string name="ui_order_instruction">An invoice will be sent to your email address shortly. \n \n Payment methods supported by AMC will be displayed on the invoice. \n \n The transaction will be confirmed once the payment is received. \n \n Please keep a copy of the invoice.</string>
     <string name="ui_order_processed_got_it">Got It</string>
     <string name="ui_about_description"><b>Automobile Modification Configurator</b> is an online shopping application. It provides a 3D renderer for customer to preview the part they want to buy for their beloved vehicles.</string>
     <string name="ui_about_developer">Prototype developed by <b>Yuqi Wang</b></string>
