@@ -115,6 +115,8 @@ public class ExplorerFragment extends android.app.Fragment {
 
             Bundle args = getArguments();
             currentType = args.getString("ConfigType");
+            Log.e("Get", currentType);
+
             View view = inflater.inflate(R.layout.fragment_preconfig, container, false);
             configListView = (ListView) view.findViewById(R.id.listPreconfig);
 
@@ -124,6 +126,7 @@ public class ExplorerFragment extends android.app.Fragment {
         @Override
         public void onResume() {
             super.onResume();
+            Log.e("Have", currentType);
             new FetchPreConfig().execute(currentType);
         }
 

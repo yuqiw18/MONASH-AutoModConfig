@@ -58,6 +58,10 @@ public final class Utility {
         return "$" + String.format("%.2f", price);
     }
 
+    public static String getFormattedPrice(String strPrice){
+        double price = Double.valueOf(strPrice);
+        return "$" + String.format("%.2f", price);
+    }
 
 
     public static String UTCtoLocal(long timestamp){

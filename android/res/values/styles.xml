@@ -41,8 +41,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
-
     <style name="SubView">
         <item name="android:layout_marginStart">@dimen/margin_basic</item>
         <item name="android:layout_marginEnd">@dimen/margin_basic</item>

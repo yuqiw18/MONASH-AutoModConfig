@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="1dp"
+    android:paddingTop="16dp">
+
+
+    <TextView
+        android:id="@+id/labelTrackingId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/dialog_tracking_id"
+        android:textAlignment="textStart" />
+
+    <TextView
+        android:id="@+id/labelTrackingCourier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/dialog_tracking_courier"
+        android:textAlignment="textEnd" />
+
+    <TextView
+        android:id="@+id/sectionHeaderTrackingDetail"
+        style="@style/DialogSection"
+        android:layout_below="@+id/labelTrackingCourier"
+        android:background="?android:attr/colorButtonNormal"
+        android:text="@string/dialog_tracking_header_item"
+        android:textColor="#666666" />
+
+    <TextView
+        android:id="@+id/labelTrackingOrderDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sectionHeaderTrackingDetail"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:text="@string/ui_label_default_value"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/sectionHeaderTrackingOrders"
+        style="@style/DialogSection"
+        android:layout_below="@+id/labelTrackingOrderDetail"
+        android:background="?android:attr/colorButtonNormal"
+        android:text="@string/dialog_tracking_header_tracking_info"
+        android:textColor="#666666" />
+
+    <TextView
+        android:id="@+id/labelTrackingDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sectionHeaderTrackingOrders"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:textAlignment="textEnd"
+        android:textSize="12sp" />
+
+</RelativeLayout>

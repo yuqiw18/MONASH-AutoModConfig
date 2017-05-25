@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +20,6 @@ import yuqi.amc.JsonDataAdapter.JsonDataType;
 import yuqi.amc.JsonData.Order;
 
 public class OrderListFragment extends Fragment {
-
 
     private ListView orderListView;
     private ArrayList<Order> orderList;
@@ -40,15 +40,20 @@ public class OrderListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String[] items = orderList.get(position).getDetail().split(";");
+                Order selectedOrder = orderList.get(position);
 
-                Log.e("Order Price", Utility.getFormattedPrice(orderList.get(position).getPrice()));
+                Bundle args = new Bundle();
 
-                Log.e("Order Address", orderList.get(position).getAddress());
+                DetailTrackingDialogFragment detailTrackingDialogFragment = new DetailTrackingDialogFragment();
 
-                for (int i = 0; i < items.length -1; i++){
-                    Log.e("Item", items[i].trim());
-                }
+                args.putLong("OrderId", selectedOrder.getId());
+
+                args.putString("Detail", selectedOrder.getDetail());
+
+                detailTrackingDialogFragment.setArguments(args);
+
+                detailTrackingDialogFragment.show(getFragmentManager(), "Tracking");
+
             }
         });
         return view;

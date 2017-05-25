@@ -181,5 +181,11 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
             View view = inflater.inflate(R.layout.fragment_about, null);
             return view;
         }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.title_about));
+        }
     }
 }
