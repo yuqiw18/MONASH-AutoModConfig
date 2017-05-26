@@ -19,7 +19,7 @@ import yuqi.amc.SQLiteData.DataStruct;
 import yuqi.amc.SQLiteData.Model;
 
 // DataAdapter for SQLite Persistent Data
-public class SQLiteDataAdapter extends BaseAdapter {
+public class SQLiteDataAdapter extends BaseAdapter implements Callback {
 
     private Context context;
     private ArrayList<DataStruct> dataList;
@@ -33,6 +33,7 @@ public class SQLiteDataAdapter extends BaseAdapter {
         databaseHelper = new DatabaseHelper(context);
     }
 
+    // Expandable View Holder (TextView)
     private static class ViewHolder{
         ArrayList<TextView> textViewPlaceHolders;
         ImageView imageViewPlaceHolder;
@@ -118,16 +119,7 @@ public class SQLiteDataAdapter extends BaseAdapter {
                                 Picasso.with(context)
                                     .load(Utility.getImageAddress(brand.getName()))
                                     .placeholder(R.drawable.img_placeholder)
-                                    .into(viewHolder.imageViewPlaceHolder, new Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            Log.e("Picasso","Downloaded");
-                                        }
-                                        @Override
-                                        public void onError() {
-                                            Log.e("Picasso", "Could not load image.");
-                                        }
-                                    });
+                                    .into(viewHolder.imageViewPlaceHolder, this);
                             }
                         });
                 break;
@@ -149,16 +141,7 @@ public class SQLiteDataAdapter extends BaseAdapter {
                                 Picasso.with(context)
                                     .load(Utility.getImageAddress(model.getBrandName()+"_"+model.getName()))
                                     .placeholder(R.drawable.img_placeholder_wide)
-                                    .into(viewHolder.imageViewPlaceHolder, new Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            Log.e("Picasso","Downloaded");
-                                        }
-                                        @Override
-                                        public void onError() {
-                                            Log.e("Picasso", "Could not load image.");
-                                        }
-                                    });
+                                    .into(viewHolder.imageViewPlaceHolder, this);
                             }
                         });
                 break;
@@ -173,4 +156,15 @@ public class SQLiteDataAdapter extends BaseAdapter {
         return convertView;
     }
 
+
+    // Picasso Callbacks
+    @Override
+    public void onSuccess() {
+        Log.i("Picasso","Downloaded");
+    }
+
+    @Override
+    public void onError() {
+        Log.i("Picasso", "Could not load image.");
+    }
 }

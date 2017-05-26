@@ -45,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Member" />
         <activity android:name=".ConfiguratorBrand" />
         <activity android:name=".ConfiguratorModel" />
         <activity android:name=".ConfiguratorBadge" />

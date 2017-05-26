@@ -7,23 +7,30 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+// Http Manager used with RESTful service
+// GET, POST, PUT, DELETE
+// DELETE is not provided since this app has no implementation of any DELETE-related function
 public class HttpManager {
 
     private HttpManager(){}
 
+    // Server address
     private static final String BASE_URI = "http://amc.yuqi.ninja/rest/";
+
+    // Method(table) names for SQLite Database
     protected static final String DATABASE_TABLE[] = {"brand", "model", "badge"};
 
     // GET: Universal Method for getting data from server. It can takes any number of parameters by given the correct RESTful method name.
     protected static String requestData(String methodPath, String[] args){
-        //Initialise
+        // Initialise
         URL url;
         HttpURLConnection connection = null;
-        String textResult = "";
+        String content = "";
         StringBuilder parameters = new StringBuilder();
-        //Making HTTP request
+        // Make HTTP request
         try{
-            // If it has parameters, generate the address for them
+            // If it has parameters, generate the address for it
+            // Format will be METHOD_NAME/PARAMETER1/PARAMETER2...
             if (args!=null && args.length!=0){
                 for (int i =0 ; i< args.length; i ++){
                     parameters.append("/");
@@ -32,8 +39,9 @@ public class HttpManager {
 
                 url = new URL(BASE_URI + methodPath + parameters.toString() );
 
-                // If it doesn't, do as normal
             }else {
+
+                // Do as normal if it doesn't provide any parameter
                 url = new URL(BASE_URI + methodPath);
             }
 
@@ -47,29 +55,35 @@ public class HttpManager {
             Scanner scanner = new Scanner(connection.getInputStream());
 
             while (scanner.hasNextLine()) {
-                textResult += scanner.nextLine();
+                // Read the input until there is no content
+                content += scanner.nextLine();
             }
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             connection.disconnect();
         }
-        return textResult;
+
+        // Return the content
+        return content;
     }
 
-    // POST: Universal method for creating any type of object in database
+    // POST: Universal method for creating any type of object
     protected static int createData(String methodPath, Object object){
 
+        //
         HttpURLConnection connection = null;
         int responseCode = 200;
 
         try {
+            // Use Gson to convert an object into Json
             Gson gson = new Gson();
             String strJsonObject = gson.toJson(object);
             URL url = new URL(BASE_URI + methodPath);
 
             Log.e("TEST JSON: ",strJsonObject.toString());
 
+            // Create a connection and set the parameters
             connection = (HttpURLConnection)url.openConnection();
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(150000);
@@ -80,10 +94,12 @@ public class HttpManager {
 
             PrintWriter out = new PrintWriter(connection.getOutputStream());
 
+            // Send the content at once then close
             out.write(strJsonObject);
             out.flush();
             out.close();
 
+            // Get the response code from server
             responseCode = connection.getResponseCode();
             Log.e("HTTP",String.valueOf(responseCode));
 
@@ -96,7 +112,8 @@ public class HttpManager {
         return responseCode;
     }
 
-    // PUT: Update
+    // PUT: Universal method for update any type of object
+    // This method is almost same to the POST, only difference is that the Request Method is PUT
     protected static int updateData(String methodPath, Object object){
 
         HttpURLConnection connection = null;
@@ -108,7 +125,6 @@ public class HttpManager {
             URL url = new URL(BASE_URI + methodPath);
 
             connection = (HttpURLConnection)url.openConnection();
-
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(150000);
             connection.setRequestMethod("PUT");
@@ -134,31 +150,15 @@ public class HttpManager {
         return responseCode;
     }
 
-    // DELETE: Delete record from server by providing the method path and id
-    protected static void deleteData(String methodPath, int id){
-
-        methodPath = methodPath + "/" + id;
-
-        HttpURLConnection connection = null;
-
-        try {
-            URL url = new URL(BASE_URI + methodPath);
-
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("DELETE");
-
-            Log.i("error",new Integer(connection.getResponseCode()).toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            connection.disconnect();
-        }
-    }
-
+    // Process response codes
     protected static int processResponseCode(int responseCode){
+        // For known response codes, 200/202/204 means the request is processed
+        // 400/404 usually means the server has some problems
+        // 500 means the request has problem, example can be repeated username for newly registered account
+        // Other response codes are all classified as UNKNOWN ERROR since they rarely occur
         if (responseCode == 200 || responseCode == 202 || responseCode == 204){
             return 1;
-        }else if (responseCode == 400 || responseCode == 500){
+        }else if (responseCode == 400 || responseCode == 404 || responseCode == 500){
             return 0;
         }else {
             return -1;

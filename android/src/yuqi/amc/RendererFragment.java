@@ -17,6 +17,7 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialise the renderer
         renderer = new RendererV2();
         renderer.setRendererStateListener(this);
 
@@ -33,6 +34,8 @@ public class RendererFragment extends AndroidFragmentApplication implements OnPa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Initialise the renderer for the view
         return initializeForView(renderer);
     }
 

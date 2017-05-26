@@ -175,7 +175,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
                     promptMessage(getString(R.string.msg_reg_server_fail));
                     break;
                 case 0:
-
                     promptMessage(getString(R.string.msg_reg_server_error));
                     break;
                 case 1:
