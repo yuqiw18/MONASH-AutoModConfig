@@ -111,7 +111,7 @@ public class SQLiteDataAdapter extends BaseAdapter implements Callback {
                         .into(viewHolder.imageViewPlaceHolder, new Callback() {
                             @Override
                             public void onSuccess() {
-                                Log.e("Picasso", "Loaded Locally");
+                                Log.i("Picasso", "Loaded Locally");
                             }
                             @Override
                             public void onError() {
@@ -133,7 +133,7 @@ public class SQLiteDataAdapter extends BaseAdapter implements Callback {
                         .into(viewHolder.imageViewPlaceHolder, new Callback() {
                             @Override
                             public void onSuccess() {
-                                Log.e("Picasso", "Loaded Locally");
+                                Log.i("Picasso", "Loaded Locally");
                             }
                             @Override
                             public void onError() {

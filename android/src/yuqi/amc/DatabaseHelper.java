@@ -149,18 +149,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return found;
     }
-
-//    public int countParts(String[] args){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        int num = 0;
-//        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM PART WHERE MODEL_NAME = ? AND BADGE_NAME = ?", args);
-//        if (cursor != null && cursor.moveToFirst()) {
-//            num = cursor.getInt(0);
-//        }
-//        cursor.close();
-//        db.close();
-//
-//        return num;
-//    }
-
 }

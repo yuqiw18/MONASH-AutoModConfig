@@ -9,16 +9,16 @@ import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import yuqi.amc.JsonData.Part;
 import yuqi.amc.Previewer.OnPartSelectListener;
 
-public class RendererFragment extends AndroidFragmentApplication implements OnPartSelectListener, RendererV2.RendererStateListener {
+public class RendererFragment extends AndroidFragmentApplication implements OnPartSelectListener, Renderer.RendererStateListener {
 
-    private RendererV2 renderer;
+    private Renderer renderer;
     private AlertDialog alertDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Initialise the renderer
-        renderer = new RendererV2();
+        renderer = new Renderer();
         renderer.setRendererStateListener(this);
 
         // Display a loading dialog

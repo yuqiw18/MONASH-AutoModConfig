@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by Yuqi on 19/05/2017.
  */
 
-public class RendererV2 implements ApplicationListener {
+public class Renderer implements ApplicationListener {
 
     private RendererStateListener rendererStateListener;
 

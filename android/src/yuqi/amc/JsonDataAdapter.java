@@ -157,7 +157,7 @@ public class JsonDataAdapter extends BaseAdapter {
                         .into(viewHolder.imagePlaceHolder, new Callback() {
                             @Override
                             public void onSuccess() {
-                                Log.e("Picasso", "Loaded Locally");
+                                Log.i("Picasso", "Loaded Locally");
                             }
                             @Override
                             public void onError() {
@@ -167,11 +167,11 @@ public class JsonDataAdapter extends BaseAdapter {
                                         .into(viewHolder.imagePlaceHolder, new Callback() {
                                             @Override
                                             public void onSuccess() {
-                                                Log.e("Picasso","Downloaded");
+                                                Log.i("Picasso","Downloaded");
                                             }
                                             @Override
                                             public void onError() {
-                                                Log.e("Picasso", "Could not load image.");
+                                                Log.i("Picasso", "Could not load image.");
                                             }
                                         });
                             }
