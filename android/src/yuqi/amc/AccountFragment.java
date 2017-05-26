@@ -164,12 +164,12 @@ public class AccountFragment extends Fragment implements OnClickListener {
         @Override
         protected Integer doInBackground(Object... param) {
             customer = (Customer) param[0];
-            return RestClient.updateData("customer",param[0]);
+            return HttpManager.updateData("customer",param[0]);
         }
 
         @Override
         protected void onPostExecute(Integer responseCode) {
-            int status = RestClient.processResponseCode(responseCode);
+            int status = HttpManager.processResponseCode(responseCode);
             switch (status){
                 case -1:
                     promptMessage(getString(R.string.msg_reg_server_fail));

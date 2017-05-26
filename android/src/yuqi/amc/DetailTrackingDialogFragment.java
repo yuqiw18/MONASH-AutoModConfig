@@ -52,7 +52,7 @@ public class DetailTrackingDialogFragment extends DialogFragment {
 
         @Override
         protected String doInBackground(String... params) {
-            return RestClient.requestData("tracking", params);
+            return HttpManager.requestData("tracking", params);
         }
 
         @Override

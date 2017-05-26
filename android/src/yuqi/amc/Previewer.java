@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -225,7 +224,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
     private class fetchPartList extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... params) {
-            return RestClient.requestData("part",params);
+            return HttpManager.requestData("part",params);
         }
 
         @Override

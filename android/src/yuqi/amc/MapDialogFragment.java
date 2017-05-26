@@ -362,7 +362,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     class ShowNearbyServiceCenter extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... params) {
-            return RestClient.requestData("service", params);
+            return HttpManager.requestData("service", params);
         }
 
         @Override

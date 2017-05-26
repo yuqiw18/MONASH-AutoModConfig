@@ -33,11 +33,11 @@ public class AndroidLauncher extends AndroidApplication {
 
 		databaseHelper = new DatabaseHelper(getApplicationContext());
 
-		dbToProcess = RestClient.DATABASE_TABLE.length;
+		dbToProcess = HttpManager.DATABASE_TABLE.length;
 
 		if (databaseHelper.isEmpty()){
 			for (int i =0; i < dbToProcess; i++){
-				new initDatabase().execute(RestClient.DATABASE_TABLE[i]);
+				new initDatabase().execute(HttpManager.DATABASE_TABLE[i]);
 			}
 		}else {
 			goToMain();
@@ -51,7 +51,7 @@ public class AndroidLauncher extends AndroidApplication {
 		@Override
 		protected String doInBackground(String... params){
 			table = params[0];
-			return RestClient.requestData(table, null);
+			return HttpManager.requestData(table, null);
 		}
 
 		@Override

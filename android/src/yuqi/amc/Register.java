@@ -140,12 +140,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         @Override
         protected Integer doInBackground(Object... param) {
             customer = (Customer) param[0];
-            return RestClient.createData("customer",param[0]);
+            return HttpManager.createData("customer",param[0]);
         }
 
         @Override
         protected void onPostExecute(Integer responseCode) {
-            int status = RestClient.processResponseCode(responseCode);
+            int status = HttpManager.processResponseCode(responseCode);
             switch (status){
                 case -1:
                     btnRegister.setEnabled(true);

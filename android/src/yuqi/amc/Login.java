@@ -14,9 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import yuqi.amc.JsonData.Customer;
 
 public class Login extends AppCompatActivity implements OnClickListener {
@@ -91,7 +88,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private class ValidateLogin extends AsyncTask<String, Void, String>{
         @Override
         protected String doInBackground(String... params) {
-            return RestClient.requestData("login",params);
+            return HttpManager.requestData("login",params);
         }
 
         @Override
@@ -132,7 +129,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private class RequestPassword extends AsyncTask<String,Void,Void>{
         @Override
         protected Void doInBackground(String... params) {
-            RestClient.requestData("request.password",params);
+            HttpManager.requestData("request.password",params);
             return null;
         }
         @Override

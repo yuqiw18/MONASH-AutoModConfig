@@ -164,7 +164,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private class FetchCart extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... params) {
-            return RestClient.requestData("part", params);
+            return HttpManager.requestData("part", params);
         }
         @Override
         protected void onPostExecute(String result) {
@@ -181,12 +181,12 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         @Override
         protected Integer doInBackground(Object... params) {
             order = (Order) params[0];
-            return RestClient.createData("transaction", order);
+            return HttpManager.createData("transaction", order);
         }
 
         @Override
         protected void onPostExecute(Integer responseCode) {
-            int status = RestClient.processResponseCode(responseCode);
+            int status = HttpManager.processResponseCode(responseCode);
             switch (status){
                 case -1:
                     alertDialog.dismiss();
