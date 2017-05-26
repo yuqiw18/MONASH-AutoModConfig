@@ -82,24 +82,6 @@ public final class Utility {
 
     }
 
-    // SHA-512 Hashing
-    private String Hash(String password){
-        String generatedPassword = "";
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            byte[] bytes = md.digest(password.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++){
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return generatedPassword;
-    }
-
     public static String formatBookingDate(String strDate){
         try{
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(strDate);

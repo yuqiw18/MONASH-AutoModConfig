@@ -227,11 +227,29 @@ public class RendererV2 implements ApplicationListener {
                     }
                     currentColor = value;
                     break;
-                case "Spoiler":
-                    replacePart(3, value);
+                case "Bumper":
+                    replacePart(1, value);
                     break;
                 case "Bonnet":
                     replacePart(2, value);
+                    break;
+                case "Spoiler":
+                    replacePart(3, value);
+                    break;
+                case "Lighting":
+                    replacePart(4, value);
+                    break;
+                case "Exhaust":
+                    replacePart(6, value);
+                    break;
+                case "Brake":
+                    replacePart(7, value);
+                    break;
+                case "Rim":
+                    replacePart(8, value);
+                    break;
+                case "Tyre":
+                    replacePart(9, value);
                     break;
                 case "Suspension":
                     float adjustment = Float.valueOf(value);
@@ -248,7 +266,6 @@ public class RendererV2 implements ApplicationListener {
                         }
                         currentSuspension = 0;
                     }
-
                     break;
                 default:
                     break;
