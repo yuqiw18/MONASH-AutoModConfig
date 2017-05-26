@@ -79,7 +79,6 @@ public class SQLiteDataAdapter extends BaseAdapter implements Callback {
                 case "ConfiguratorModel":
                     convertView = inflater.inflate(R.layout.list_model_item, null);
                     viewHolder = new ViewHolder();
-
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textModelName));
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textBodyType));
                     viewHolder.imageViewPlaceHolder = (ImageView) convertView.findViewById(R.id.imgModel);
@@ -155,7 +154,6 @@ public class SQLiteDataAdapter extends BaseAdapter implements Callback {
         }
         return convertView;
     }
-
 
     // Picasso Callbacks
     @Override

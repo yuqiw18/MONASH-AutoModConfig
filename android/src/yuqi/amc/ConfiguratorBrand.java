@@ -32,9 +32,7 @@ public class ConfiguratorBrand extends AppCompatActivity {
         //if (databaseHelper.getData("BRAND", null, null).size() == 0) databaseHelper.createDefault();
 
         brandList = new ArrayList<>(databaseHelper.getData("BRAND", null, null).values());
-
         brandListView = (ListView) findViewById(R.id.listBrands);
-
         dataAdapter = new SQLiteDataAdapter(this, brandList);
 
         brandListView.setAdapter(dataAdapter);

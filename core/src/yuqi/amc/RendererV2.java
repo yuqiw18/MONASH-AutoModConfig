@@ -29,21 +29,24 @@ import java.util.ArrayList;
 
 public class RendererV2 implements ApplicationListener {
 
+    private RendererStateListener rendererStateListener;
+
+    // Renderer-related variables
     private Environment environment;
     private PerspectiveCamera cam;
     private CameraInputController camController;
     private ModelBatch modelBatch;
     private AssetManager assetManager;
     private Array<ModelInstance> instances = new Array<>();
+
+    // Logic-related variable
     private ArrayList<String> defaultModelList = new ArrayList<>();
     private ArrayList<String> modifiedModelList = new ArrayList<>();
     private float currentSuspension = 0;
     private String currentColor = "#ffffff";
 
-    private RendererStateListener rendererStateListener;
-
+    // Download-related variables
     private static String RESOURCE_URL = "http://amc.yuqi.ninja/resource/";
-
     private int progress = 0;
     private int fileToProcess = 0;
 
@@ -410,11 +413,6 @@ public class RendererV2 implements ApplicationListener {
 
     }
 
-    // An interface to communicate with its parent fragment
-    public interface RendererStateListener{
-        void onRendererLoad();
-    }
-
     // Release all the resources upon shutting down
     @Override
     public void dispose() {
@@ -452,4 +450,9 @@ public class RendererV2 implements ApplicationListener {
 
     @Override
     public void resume() {}
+
+    // An interface to communicate with its parent fragment
+    public interface RendererStateListener{
+        void onRendererLoad();
+    }
 }

@@ -18,7 +18,6 @@ import yuqi.amc.JsonData.Tracking;
 
 public class DetailTrackingDialogFragment extends DialogFragment {
 
-    private Order selectedOrder;
     private TextView trackingRecords;
     private TextView trackingId;
     private TextView trackingCourier;
@@ -28,10 +27,9 @@ public class DetailTrackingDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
+        // Get the parameters
         Bundle args = getArguments();
-
         String id = String.valueOf(args.getLong("OrderId"));
-
         String detail = args.getString("Detail");
 
         View view = inflater.inflate(R.layout.dialog_tracking, null);
@@ -64,19 +62,14 @@ public class DetailTrackingDialogFragment extends DialogFragment {
         }
     }
 
+    // Method for formatting the string to be more readable
     private String getFormattedDetail(String detail){
-
         String formatted = "";
-
         String items[] = detail.split(";");
-
         for (int i = 0 ; i < items.length -1 ; i ++ ){
-
             String item[] = items[i].split(",");
-
             formatted += item[1] + ":" + Utility.getFormattedPrice(item[3]) + "\n";
         }
-
         return formatted;
     }
     
