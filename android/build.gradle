@@ -13,10 +13,13 @@ android {
             jniLibs.srcDirs = ['libs']
         }
 
-
-        test.resources.srcDirs += 'src/tests/resources'
-
-        instrumentTest.setRoot('tests')
+        instrumentTest {
+            java.srcDirs = ['test/src']
+            manifest.srcFile file('test/AndroidManifest.xml')
+            resources.srcDirs = ['test/src']
+            res.srcDirs = ['test/res']
+            assets.srcDirs = ['test/assets']
+        }
     }
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
@@ -94,6 +97,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.+'
-
 
 }
