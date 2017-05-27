@@ -100,7 +100,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 //                Part selectedPart = (Part) partListOLD.get(position);
                 Part selectedPart = partList.get(position);
-                cart.addToCart(selectedPart);
+                cart.addToCart(selectedPart, position);
                 onPartSelectListener.updateScene(selectedPart);
                 Log.e("Item", String.valueOf(view.getId()));
             }
