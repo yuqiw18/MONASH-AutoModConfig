@@ -13,6 +13,11 @@ android {
             jniLibs.srcDirs = ['libs']
         }
 
+        tests.setRoot('tests')
+        androidTest {
+            java.srcDirs = ['tests']
+        }
+
         androidTest.setRoot('test')
         androidTest {
             java.srcDirs = ['test']
