@@ -13,12 +13,9 @@ android {
             jniLibs.srcDirs = ['libs']
         }
 
-        instrumentTest {
-            java.srcDirs = ['test/src']
-            manifest.srcFile file('test/AndroidManifest.xml')
-            resources.srcDirs = ['test/src']
-            res.srcDirs = ['test/res']
-            assets.srcDirs = ['test/assets']
+        androidTest.setRoot('test')
+        androidTest {
+            java.srcDirs = ['test']
         }
     }
     packagingOptions {
