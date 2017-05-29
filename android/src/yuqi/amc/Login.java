@@ -21,6 +21,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private EditText textLoginEmail;
     private EditText textLoginPassword;
     private SharedPreferences sharedPreferences;
+    private Toast toastMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +42,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
             String email = textLoginEmail.getText().toString().trim();
             String password = textLoginPassword.getText().toString();
             if (email.isEmpty()){
-                Toast.makeText(getBaseContext(), getString(R.string.msg_reg_no_email), Toast.LENGTH_LONG).show();
+                promptMessage(getString(R.string.msg_reg_no_email));
                 return;
             }
             if (password.isEmpty()){
-                Toast.makeText(getBaseContext(), getString(R.string.msg_reg_no_password), Toast.LENGTH_LONG).show();
+                promptMessage(getString(R.string.msg_reg_no_password));
                 return;
             }
             // Send info to server
@@ -134,7 +135,16 @@ public class Login extends AppCompatActivity implements OnClickListener {
         }
         @Override
         protected void onPostExecute(Void aVoid) {
-            Toast.makeText(getBaseContext(), getString(R.string.dialog_forget_password_requested), Toast.LENGTH_LONG).show();
+            promptMessage(getString(R.string.dialog_forget_password_requested));
         }
     }
+
+    private void promptMessage(String message){
+        if (toastMessage!=null){
+            toastMessage.cancel();
+        }
+        toastMessage = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
+        toastMessage.show();
+    }
+
 }
