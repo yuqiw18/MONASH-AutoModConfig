@@ -183,7 +183,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void promptMessage(String message){
-        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
 

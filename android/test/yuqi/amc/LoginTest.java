@@ -3,6 +3,7 @@ package yuqi.amc;
 import android.app.Activity;
 import android.os.SystemClock;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.UiController;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -49,11 +50,11 @@ public class LoginTest {
 
     @Test
     public void allEmpty(){
-        onView(withId(R.id.inputLoginEmail)).perform(typeText(NO_EMAIL));
-        onView(withId(R.id.inputLoginPassword)).perform(typeText(NO_PASSWORD));
+//        onView(withId(R.id.inputLoginEmail)).perform(typeText(NO_EMAIL));
+//        onView(withId(R.id.inputLoginPassword)).perform(typeText(NO_PASSWORD));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnLogin)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(2000);
         onView(withText(R.string.msg_reg_no_email)).inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
@@ -63,7 +64,7 @@ public class LoginTest {
         onView(withId(R.id.inputLoginPassword)).perform(typeText(PASSWORD));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnLogin)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(2000);
         onView(withText(R.string.msg_reg_no_email)).inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
@@ -77,10 +78,8 @@ public class LoginTest {
     @Test
     public void passwordIsEmpty(){
         onView(withId(R.id.inputLoginEmail)).perform(typeText(EMAIL));
-        //onView(withId(R.id.inputLoginPassword)).perform(typeText(NO_PASSWORD));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.btnLogin)).perform(click());
-        SystemClock.sleep(1000);
+        onView(withId(R.id.btnLogin)).perform(click(), UiController.loopMainThreadForAtLeast(5000));
         onView(withText(R.string.msg_reg_no_password)).inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }

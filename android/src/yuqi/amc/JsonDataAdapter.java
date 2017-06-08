@@ -100,6 +100,7 @@ public class JsonDataAdapter extends BaseAdapter {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            // Set up the view holder based on the required content
             switch (dataType) {
                 case CONFIG:
                     convertView = inflater.inflate(R.layout.list_config_item, null);
@@ -144,6 +145,7 @@ public class JsonDataAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        // Fill in the actual contents
         switch (dataType){
             case CONFIG:
                 final Config config = (Config) dataList.get(position);

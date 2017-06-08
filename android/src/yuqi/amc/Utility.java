@@ -15,20 +15,7 @@ public final class Utility {
 
     public static final String IMAGE_SOURCE = "http://amc.yuqi.ninja/img/";
     public static final String IMAGE_FORMAT = ".png";
-
     public static final String SERVER_TIMEZONE = "GMT-6";
-
-    // Convert string name to resource ID
-    public static int getResourceID(String name, Class<?> c) {
-        name = stringConvert(name);
-        try {
-            Field idField = c.getDeclaredField(name);
-            return idField.getInt(idField);
-        } catch (Exception e) {
-            Log.e("ERROR", "RESOURCE NOT FOUND");
-            return -1;
-        }
-    }
 
     // Convert string to the predefined format
     public static String stringConvert(String input){

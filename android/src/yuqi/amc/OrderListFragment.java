@@ -40,14 +40,12 @@ public class OrderListFragment extends Fragment {
 
                 Order selectedOrder = orderList.get(position);
 
+                // Pass selected value to the dialog
                 Bundle args = new Bundle();
-
                 DetailTrackingDialogFragment detailTrackingDialogFragment = new DetailTrackingDialogFragment();
 
                 args.putLong("OrderId", selectedOrder.getId());
-
                 args.putString("Detail", selectedOrder.getDetail());
-
                 detailTrackingDialogFragment.setArguments(args);
 
                 detailTrackingDialogFragment.show(getFragmentManager(), "Tracking");

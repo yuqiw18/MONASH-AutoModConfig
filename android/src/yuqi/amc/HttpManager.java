@@ -7,8 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-// Http Manager used with RESTful service
-// GET, POST, PUT, DELETE
+// Http Manager used with Representational State Transfer
+// GET, POST, PUT
 // DELETE is not provided since this app has no implementation of any DELETE-related function
 public class HttpManager {
 

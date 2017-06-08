@@ -48,9 +48,11 @@ import java.util.Calendar;
 import yuqi.amc.JsonData.Center;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 
+// Map dialog fragment for users to select the service center
 public class MapDialogFragment extends DialogFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
+    // Map dialog listener
     public interface MapDialogInteractionListener{
         void onClose();
         void onCenterSelect(Center center, String date, Integer time);
@@ -74,14 +76,13 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     private String bookingDate;
     private Integer bookingTime;
 
-
     private AlertDialog detailDialog;
-
     private Center selectedCenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set this fragment to the full screen
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
     }
 
@@ -91,6 +92,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
         View dialogView = inflater.inflate(R.layout.dialog_service_center_map, null);
 
+        // Initial a new api client if it has not yet been created
         if (googleApiClient == null){
             googleApiClient = new GoogleApiClient.Builder(getActivity().getApplicationContext())
                     .addConnectionCallbacks(this)
@@ -100,23 +102,28 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         }
 
         MapView mapView = (MapView) dialogView.findViewById(R.id.map_fragment);
+        // Run the mapView
         if (mapView != null) {
             mapView.onCreate(null);
             mapView.onResume();
             mapView.getMapAsync(this);
         }
 
+        // Move the camera to the selected position on map when it is clicked in the list
         centerListView = (ListView) dialogView.findViewById(R.id.listServiceCenters);
         centerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 double lat = serviceCenterList.get(position).getLatitude();
                 double lng = serviceCenterList.get(position).getLongitude();
+
+                // Slowly move the camera to the target, better visual effect
                 CameraUpdate target = CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 12);
                 googleMap.animateCamera(target);
             }
         });
 
+        // Reset the default user marker
         marker = null;
 
         return dialogView;
@@ -125,7 +132,6 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     @Override
@@ -155,9 +161,12 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        // When the map is ready to be used
         this.googleMap = googleMap;
         this.googleMap.setOnMarkerClickListener(this);
 
+        // Locate the current location of the user and fetch
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -174,12 +183,17 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         this.location = location;
     }
 
+
+    // When the marker is selected
     @Override
     public boolean onMarkerClick(Marker marker) {
 
+        // Get the selected marker info (id)
         String snippet = marker.getSnippet();
         selectedCenter = null;
 
+        // If the marker has an id (user marker has no id)
+        // Get the center information by looking up the given id
         if (snippet!=null && !snippet.isEmpty()){
             for (Center s: serviceCenterList){
                 if (s.getId() == Long.valueOf(snippet)){
@@ -187,6 +201,8 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 }
             }
 
+            // If the center exists
+            // Initialise the detail screen
             if (selectedCenter!=null){
 
                 bookingDate = null;
@@ -201,18 +217,23 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 TextView labelDescription = (TextView) dialogView.findViewById(R.id.labelServiceCenterDetailDesc);
                 ImageView imgServiceCenterDetail = (ImageView) dialogView.findViewById(R.id.imgServiceCenterDetail);
 
+                // Load the image for the selected center
                 Picasso.with(getActivity().getBaseContext()).load(Utility.getImageAddress("sc_" + selectedCenter.getId())).into(imgServiceCenterDetail);
 
+                // Initialise the button for selecting servicing date and time
                 final Button btnPickDate = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailDatepicker);
                 final Button btnPickTime = (Button) dialogView.findViewById(R.id.btnServiceCenterDetailTimepicker);
                 Button btnConfirm = (Button) dialogView.findViewById(R.id.btnConfirmBooking);
 
+                // Retrieve the information of selected center and display them on the UI
                 String name = selectedCenter.getName();
                 String address = selectedCenter.getAddress();
                 double avgScore = selectedCenter.getAvgScore();
 
                 labelName.setText(name);
                 labelAddress.setText(address);
+
+                // Calculate the rating
                 if (avgScore!=-1d){
                     labelScore.setText("Rating: " + avgScore);
                 }else {
@@ -224,6 +245,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                 btnPickTime.setOnClickListener(this);
                 btnConfirm.setOnClickListener(this);
 
+                // Display the detail dialog once everything is set up
                 builder.setView(dialogView);
                 detailDialog = builder.create();
                 detailDialog.show();
@@ -254,9 +276,15 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
 
         if (id == R.id.btnServiceCenterDetailDatepicker){
 
+            // Use the current date reference
             Calendar calendar = Calendar.getInstance();
             long baseDate = System.currentTimeMillis();
+
+            // The start date will be 7 days after today (due to the delivery time)
             long startDate = baseDate + MILLIS_PER_DAY * 7;
+
+            // The end date will be 35 days after today
+            // 35 - 7 = 28 so the servicing can be booked within approximately one month after the delivery
             long endDate = baseDate + MILLIS_PER_DAY * 35;
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new OnDateSetListener() {
@@ -270,6 +298,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             datePickerDialog.getDatePicker().setMinDate(startDate);
             datePickerDialog.getDatePicker().setMaxDate(endDate);
 
+            // Diplay the dialog
             datePickerDialog.show();
 
         }else if (id == R.id.btnServiceCenterDetailTimepicker){
@@ -281,6 +310,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             RadioButton rbtn11AM = (RadioButton) dialogView.findViewById(R.id.rbtn11AM);
             RadioButton rbtn2PM = (RadioButton) dialogView.findViewById(R.id.rbtn2PM);
 
+            // Set the checked item
             if (bookingTime!=null){
                 switch (bookingTime){
                     case 8:
@@ -293,12 +323,12 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
                         rbtn2PM.setChecked(true);
                         break;
                 }
-
             }
 
             builder.setView(dialogView);
             final AlertDialog dialog = builder.create();
 
+            // Check the item and display the formatted time
             rbtn8AM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -335,6 +365,9 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             dialog.show();
 
         }else if(id == R.id.btnConfirmBooking){
+
+            // Validate whether users fill in all the required fields
+
             if (bookingDate==null){
                 Toast.makeText(getContext(),getString(R.string.msg_booking_no_date),Toast.LENGTH_LONG).show();
                 return;
@@ -359,6 +392,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         super.onAttach(context);
     }
 
+    // Fetch the nearby service centers by giving user's latitude and longitude
     class ShowNearbyServiceCenter extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... params) {
@@ -370,7 +404,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getContext(), result, JsonDataType.CENTER);
             serviceCenterList = (ArrayList<Center>)((ArrayList<?>)jsonDataAdapter.getDataList());
             centerListView.setAdapter(jsonDataAdapter);
-
+            
             for (Center s: serviceCenterList) {
                 double lat = s.getLatitude();
                 double lng = s.getLongitude();

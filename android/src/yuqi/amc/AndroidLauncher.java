@@ -27,20 +27,23 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// Entry point statement
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-
 		initialize(new Main(), config);
 
+        // Initialise the database if no local records
 		databaseHelper = new DatabaseHelper(getApplicationContext());
 
+        // Get the number of database to process
 		dbToProcess = HttpManager.DATABASE_TABLE.length;
 
+        // If the database is empty then down load all the databases
 		if (databaseHelper.isEmpty()){
 			for (int i =0; i < dbToProcess; i++){
 				new initDatabase().execute(HttpManager.DATABASE_TABLE[i]);
 			}
 		}else {
-			goToMain();
+            doneInit();
 		}
 	}
 
@@ -92,13 +95,14 @@ public class AndroidLauncher extends AndroidApplication {
 			progress ++;
 			// If finish downloading
 			if (progress == dbToProcess){
-				goToMain();
+                doneInit();
 			}
 		}
 	}
 
-	private void goToMain() {
-		// Normal
+	// Complete the initialisation and go to the main activity
+	private void doneInit() {
+		// If there has no content to be downloaded
 		if (progress == 0) {
 			Handler handler = new Handler();
 			handler.postDelayed(new Runnable() {

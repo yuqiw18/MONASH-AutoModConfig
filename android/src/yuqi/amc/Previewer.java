@@ -267,6 +267,7 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         }
     }
 
+    // Reset icon color
     private void resetColor(){
 
         btnRespray.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+// A transition screen after complete the checkout
 public class OrderInstruction extends AppCompatActivity {
 
     @Override
