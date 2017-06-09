@@ -62,7 +62,7 @@ public class Renderer implements ApplicationListener {
 
         // Instantiate a camera and set up the parameters
         cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        cam.position.set(5f, 5f, 5f);
+        cam.position.set(8f, 8f, 8f);
         cam.lookAt(0,0,0);
         cam.near = 1f;
         cam.far = 300f;
@@ -424,7 +424,6 @@ public class Renderer implements ApplicationListener {
     public void setRendererStateListener(RendererStateListener rendererStateListener){
         this.rendererStateListener = rendererStateListener;
     }
-
 
     private void reloadAssets(){
         for (int i = 0; i < modifiedModelList.size(); i++){
