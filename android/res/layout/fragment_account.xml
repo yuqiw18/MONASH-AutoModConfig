@@ -38,16 +38,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/labelAccountEmail"
-                style="@style/SubView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ui_label_default_value"
-                android:textAlignment="textStart"
-                android:layout_below="@+id/labelAccountName"
-                android:layout_toEndOf="@+id/imageView" />
-
-            <TextView
                 android:id="@+id/sectionHeaderAccount"
                 style="@style/Section"
                 android:background="?android:attr/colorButtonNormal"
@@ -56,10 +46,55 @@
                 android:layout_below="@+id/imageView"
                 android:layout_alignParentStart="true" />
 
+            <TextView
+                android:id="@+id/labelViewEmailPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sectionHeaderAccount"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/ui_account_email_password"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/labelAccountEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/labelViewEmailPassword"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/ui_label_default_value"
+                android:layout_toStartOf="@+id/btnAccountChangeDetail" />
+
+            <TextView
+                android:id="@+id/labelAccountPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/labelAccountEmail"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_toStartOf="@+id/btnAccountChangeDetail"
+                android:text="@string/ui_account_manage_password" />
+
+            <Button
+                android:id="@+id/btnAccountChangeDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/labelAccountEmail"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/ui_btn_account_edit"
+                android:textColor="@android:color/white" />
+
             <View
-                style="@style/Divider"
                 android:id="@+id/viewAccount"
-                android:layout_below="@+id/sectionHeaderAccount"/>
+                style="@style/Divider"
+                android:layout_below="@+id/labelAccountPassword"
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/textViewAccount"
@@ -68,19 +103,20 @@
                 android:layout_below="@id/viewAccount"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:text="@string/ui_account_address"
+                android:text="@string/ui_account_delivery_address"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/labelAccountAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textViewAccount"
                 android:layout_below="@id/textViewAccount"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:lines="3"
-                android:text="@string/ui_checkout_address_placeholder" />
+                android:text="@string/ui_checkout_address_placeholder"
+                android:layout_toStartOf="@+id/btnAccountChangeAddress" />
 
             <Button
                 android:id="@+id/btnAccountChangeAddress"

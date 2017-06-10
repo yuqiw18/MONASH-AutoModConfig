@@ -88,7 +88,7 @@ public class SQLiteDataAdapter extends BaseAdapter implements Callback {
                     convertView = inflater.inflate(R.layout.list_badge_item, null);
                     viewHolder = new ViewHolder();
                     viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textBadgeName));
-                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.textPartNum));
+                    viewHolder.textViewPlaceHolders.add((TextView) convertView.findViewById(R.id.labelBadgeMY));
                     convertView.setTag(viewHolder);
                     break;
                 default:
@@ -147,7 +147,7 @@ public class SQLiteDataAdapter extends BaseAdapter implements Callback {
             case "ConfiguratorBadge":
                 final Badge badge = (Badge) dataList.get(position);
                 viewHolder.textViewPlaceHolders.get(0).setText(badge.getName());
-                //viewHolder.textViewPlaceHolder2.setText("Available Parts: " + databaseHelper.countParts(new String[]{((Badge)dataList.get(position)).getModelName(),((Badge)dataList.get(position)).getName()}));
+                viewHolder.textViewPlaceHolders.get(1).setText(context.getString(R.string.ui_badge_made_year) + badge.getYear());
                 break;
             default:
                 return convertView;

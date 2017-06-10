@@ -152,10 +152,9 @@
     <string name="dialog_timepicker_11am">11:00 AM</string>
     <string name="dialog_timepicker_2pm">2:00 PM</string>
     <string name="ui_previewer_category">CATEGORY</string>
-    <string name="ui_account_address">Delivery Address</string>
-    <string name="ui_account_payment_method">Payment Method</string>
+    <string name="ui_account_email_password">Login Information</string>
+    <string name="ui_account_delivery_address">Delivery Address</string>
     <string name="ui_account_detail">My Details</string>
-    <string name="ui_account_saved_config">Saved Configurations</string>
     <string name="ui_account_no_payment">No Payment Method</string>
     <string name="ui_btn_account_payment_add">Add</string>
     <string name="ui_btn_account_payment_edit">Edit</string>
@@ -213,5 +212,10 @@
     <string name="ui_model_available_model">Available Models:</string>
 
     <string name="ui_badge_available_badge">Available Badges:</string>
+    <string name="ui_account_manage_password">Manage Your Password Here</string>
+    <string name="dialog_hint_password_optional">Optional</string>
+    <string name="dialog_hint_password_no_change">Required If Change Password</string>
+    <string name="msg_update_success">Updated!</string>
+    <string name="ui_badge_made_year">Made Year:\u0020</string>
 
 </resources>

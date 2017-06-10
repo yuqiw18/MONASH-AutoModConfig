@@ -27,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textSize="18sp" />
         </TableRow>
 
         <TableRow
@@ -47,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textSize="18sp" />
         </TableRow>
 
         <TableRow
@@ -67,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textSize="18sp" />
         </TableRow>
 
 
@@ -88,7 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textSize="18sp" />
         </TableRow>
 
         <TableRow

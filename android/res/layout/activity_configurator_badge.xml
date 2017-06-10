@@ -30,16 +30,6 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textCBModelYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textCBModelName"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/imgCBModel"
-        android:gravity="center_vertical"
-        android:text="@string/ui_label_default_value" />
-
-    <TextView
         android:id="@+id/textCBBadgeCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

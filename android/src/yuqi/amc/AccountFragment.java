@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +29,9 @@ import yuqi.amc.JsonData.Customer;
 public class AccountFragment extends Fragment implements OnClickListener {
 
     private TextView labelAccountAddress;
-    private Button btnAccountEditInfo;
+    private TextView labelAccountEmail;
+    private Button btnAccountEditAddress;
+    private Button btnAccountEditLogin;
 
     private SharedPreferences sharedPreferences;
 
@@ -44,18 +47,20 @@ public class AccountFragment extends Fragment implements OnClickListener {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         TextView labelAccountName = (TextView) view.findViewById(R.id.labelAccountName);
-        TextView labelAccountEmail = (TextView) view.findViewById(R.id.labelAccountEmail);
+        labelAccountEmail = (TextView) view.findViewById(R.id.labelAccountEmail);
 
         labelAccountAddress = (TextView) view.findViewById(R.id.labelAccountAddress);
 
-        btnAccountEditInfo = (Button) view.findViewById(R.id.btnAccountChangeAddress);
+        btnAccountEditAddress = (Button) view.findViewById(R.id.btnAccountChangeAddress);
+        btnAccountEditLogin = (Button) view.findViewById(R.id.btnAccountChangeDetail);
 
         labelAccountName.setText(sharedPreferences.getString("name", null));
         labelAccountEmail.setText(sharedPreferences.getString("email", null));
 
-        btnAccountEditInfo.setOnClickListener(this);
+        btnAccountEditAddress.setOnClickListener(this);
+        btnAccountEditLogin.setOnClickListener(this);
 
-        getAddress();
+        refreshUI();
 
         return view;
     }
@@ -149,6 +154,74 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
             alertDialog.show();
 
+        }else if (id == R.id.btnAccountChangeDetail){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_login_info, null);
+
+            final EditText editEmail = (EditText)dialogView.findViewById(R.id.textEditEmail);
+            final EditText editPassword = (EditText)dialogView.findViewById(R.id.textEditPassword);
+            final EditText editConfirmPassword = (EditText)dialogView.findViewById(R.id.textEditConfirmPassword);
+            final Button btnEditUpdate = (Button)dialogView.findViewById(R.id.btnEditUpdate);
+
+            builder.setView(dialogView);
+            final AlertDialog alertDialog = builder.create();
+
+            btnEditUpdate.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String email = editEmail.getText().toString().trim();
+                    String password = editPassword.getText().toString();
+                    String passwordConfirm = editConfirmPassword.getText().toString();
+
+                    if (!email.isEmpty()) {
+                        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            promptMessage(getString(R.string.msg_reg_invalid_email));
+                            return;
+                        }
+                    }else {
+                        email = sharedPreferences.getString("email",null);
+                    }
+
+                    if (!password.isEmpty()){
+                        if (password.length() < 8 ){
+                            promptMessage(getString(R.string.msg_reg_invalid_password));
+                            return;
+                        }
+
+                        if(!passwordConfirm.equals(password)){
+                            promptMessage(getString(R.string.msg_reg_unmatched_password));
+                            return;
+                        }
+
+                    }else {
+                        password = sharedPreferences.getString("password", null);
+                    }
+
+                    long id = sharedPreferences.getLong("id", 0);
+
+                    Customer customer = new Customer(id,
+                            sharedPreferences.getString("name",null),
+                            password,
+                            email,
+                            sharedPreferences.getString("address", null),
+                            sharedPreferences.getString("suburb", null),
+                            sharedPreferences.getInt("postcode", 0000),
+                            sharedPreferences.getString("state", null),
+                            sharedPreferences.getString("country", null));
+
+                    btnEditUpdate.setEnabled(false);
+                    btnEditUpdate.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
+
+                    new UpdateInformation().execute(customer);
+
+                    alertDialog.dismiss();
+
+                }
+            });
+
+            alertDialog.show();
+
         }
     }
 
@@ -190,8 +263,8 @@ public class AccountFragment extends Fragment implements OnClickListener {
                     editor.putString("country",customer.getCountry());
                     editor.putBoolean("isSignedIn",true);
                     editor.commit();
-                    getAddress();
-                    promptMessage("Yes");
+                    refreshUI();
+                    promptMessage(getString(R.string.msg_update_success));
                     break;
             }
         }
@@ -201,11 +274,12 @@ public class AccountFragment extends Fragment implements OnClickListener {
         Toast.makeText(getActivity().getBaseContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    private void getAddress(){
+    private void refreshUI(){
         String address = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
                 + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")
                 + " " + sharedPreferences.getInt("postcode", 0000) + "\n"
                 + sharedPreferences.getString("country", "COUNTRY");
         labelAccountAddress.setText(address);
+        labelAccountEmail.setText(sharedPreferences.getString("email", null));
     }
 }

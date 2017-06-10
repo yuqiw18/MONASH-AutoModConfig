@@ -34,7 +34,6 @@ public class ConfiguratorBadge extends AppCompatActivity {
         setTitle(getString(R.string.title_badge));
 
         TextView modelName = (TextView) findViewById(R.id.textCBModelName);
-        TextView modelYear = (TextView) findViewById(R.id.textCBModelYear);
         TextView badgeCounter = (TextView) findViewById(R.id.textCBBadgeCounter);
         ImageView modelImage = (ImageView) findViewById(R.id.imgCBModel);
 

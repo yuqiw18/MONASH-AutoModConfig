@@ -65,7 +65,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             String country = spinnerRegCountry.getSelectedItem().toString();
             String email = textRegEmail.getText().toString().trim();
             String password = textRegPassword.getText().toString();
-            String passwordConfrim = textRegPasswordConfirm.getText().toString();
+            String passwordConfirm = textRegPasswordConfirm.getText().toString();
 
             if (name.isEmpty()){
                 promptMessage(getString(R.string.msg_reg_no_name));
@@ -113,10 +113,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
 
-            if (passwordConfrim.isEmpty()){
+            if (passwordConfirm.isEmpty()){
                 promptMessage(getString(R.string.msg_reg_no_password_confirm));
                 return;
-            }else if(!passwordConfrim.equals(password)){
+            }else if(!passwordConfirm.equals(password)){
                 promptMessage(getString(R.string.msg_reg_unmatched_password));
                 return;
             }
