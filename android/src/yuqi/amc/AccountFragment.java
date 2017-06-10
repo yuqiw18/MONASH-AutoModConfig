@@ -30,8 +30,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
     private TextView labelAccountAddress;
     private TextView labelAccountEmail;
-    private Button btnAccountEditAddress;
-    private Button btnAccountEditLogin;
 
     private SharedPreferences sharedPreferences;
 
@@ -48,11 +46,10 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
         TextView labelAccountName = (TextView) view.findViewById(R.id.labelAccountName);
         labelAccountEmail = (TextView) view.findViewById(R.id.labelAccountEmail);
-
         labelAccountAddress = (TextView) view.findViewById(R.id.labelAccountAddress);
 
-        btnAccountEditAddress = (Button) view.findViewById(R.id.btnAccountChangeAddress);
-        btnAccountEditLogin = (Button) view.findViewById(R.id.btnAccountChangeDetail);
+        Button btnAccountEditAddress = (Button) view.findViewById(R.id.btnAccountChangeAddress);
+        Button btnAccountEditLogin = (Button) view.findViewById(R.id.btnAccountChangeDetail);
 
         labelAccountName.setText(sharedPreferences.getString("name", null));
         labelAccountEmail.setText(sharedPreferences.getString("email", null));
@@ -70,6 +67,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
         int id = v.getId();
 
         if (id == R.id.btnAccountChangeAddress){
+            // Create a dialog for updating address
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_address, null);
 
@@ -80,6 +78,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
             final Spinner spinnerCountry = (Spinner)dialogView.findViewById(R.id.spinnerEditCountry);
             final Button btnEditApply = (Button)dialogView.findViewById(R.id.btnEditApply);
 
+            // Set default values
             editAddress.setText(sharedPreferences.getString("address", ""));
             editSuburb.setText(sharedPreferences.getString("suburb", ""));
             editPostcode.setText(String.valueOf(sharedPreferences.getInt("postcode", 00000000)));
@@ -102,6 +101,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
             builder.setView(dialogView);
             final AlertDialog alertDialog = builder.create();
 
+            // Validate inputs
             btnEditApply.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -154,8 +154,9 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
             alertDialog.show();
 
-        }else if (id == R.id.btnAccountChangeDetail){
 
+        }else if (id == R.id.btnAccountChangeDetail){
+            // Display a dialog for updating login info
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_login_info, null);
 
@@ -167,6 +168,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
             builder.setView(dialogView);
             final AlertDialog alertDialog = builder.create();
 
+            // Validate input: email format and password
             btnEditUpdate.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -219,9 +221,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
                 }
             });
-
             alertDialog.show();
-
         }
     }
 
@@ -231,8 +231,8 @@ public class AccountFragment extends Fragment implements OnClickListener {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.title_account));
     }
 
+    // Async method for updating customer information.
     private class UpdateInformation extends AsyncTask<Object,Void,Integer>{
-
         Customer customer = null;
         @Override
         protected Integer doInBackground(Object... param) {
@@ -251,6 +251,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
                     promptMessage(getString(R.string.msg_reg_server_error));
                     break;
                 case 1:
+                    // If succeed, also save the latest info locally
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putLong("id",customer.getId());
                     editor.putString("name",customer.getName());
@@ -270,10 +271,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
         }
     }
 
-    private void promptMessage(String message){
-        Toast.makeText(getActivity().getBaseContext(), message, Toast.LENGTH_LONG).show();
-    }
-
+    // Refresh ui elements after update
     private void refreshUI(){
         String address = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
                 + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")
@@ -281,5 +279,9 @@ public class AccountFragment extends Fragment implements OnClickListener {
                 + sharedPreferences.getString("country", "COUNTRY");
         labelAccountAddress.setText(address);
         labelAccountEmail.setText(sharedPreferences.getString("email", null));
+    }
+
+    private void promptMessage(String message){
+        Toast.makeText(getActivity().getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

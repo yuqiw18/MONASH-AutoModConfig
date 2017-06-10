@@ -17,11 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import yuqi.amc.JsonData.Center;
 import yuqi.amc.JsonData.Order;
 import yuqi.amc.JsonData.Part;

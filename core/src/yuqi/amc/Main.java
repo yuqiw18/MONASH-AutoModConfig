@@ -6,10 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-/**
- * Created by Yuqi on 19/04/2017.
- */
-
 // LibGDX entry point
 public class Main extends ApplicationAdapter {
 

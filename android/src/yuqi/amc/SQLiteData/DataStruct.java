@@ -3,10 +3,6 @@ package yuqi.amc.SQLiteData;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by ClayW on 14/04/2017.
- */
-
 public class DataStruct implements Parcelable {
 
     protected long id;

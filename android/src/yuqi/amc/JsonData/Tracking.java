@@ -5,11 +5,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * Created by ClayW on 6/05/2017.
- */
-
-
 public class Tracking {
 
     private long id;

@@ -1,16 +1,10 @@
 package yuqi.amc;
 
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import yuqi.amc.JsonData.Part;
-
-/**
- * Created by ClayW on 7/05/2017.
- */
 
 // Cart object(struct)
 public class Cart {

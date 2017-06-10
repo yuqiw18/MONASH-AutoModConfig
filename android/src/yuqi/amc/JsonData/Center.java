@@ -1,7 +1,6 @@
 package yuqi.amc.JsonData;
 
 import org.json.JSONObject;
-
 import java.text.DecimalFormat;
 
 // This class contains the data structure of a service center

@@ -9,11 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.SQLiteData.DataStruct;
 import yuqi.amc.SQLiteData.Model;

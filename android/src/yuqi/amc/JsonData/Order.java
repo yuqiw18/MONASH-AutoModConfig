@@ -12,10 +12,6 @@ import java.util.TimeZone;
 
 import yuqi.amc.Utility;
 
-/**
- * Created by ClayW on 6/05/2017.
- */
-
 public class Order {
 
     private long id;

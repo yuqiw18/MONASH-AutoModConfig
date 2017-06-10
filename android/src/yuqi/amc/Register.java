@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import yuqi.amc.JsonData.Customer;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {

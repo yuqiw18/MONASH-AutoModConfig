@@ -2,10 +2,6 @@ package yuqi.amc.JsonData;
 
 import org.json.JSONObject;
 
-/**
- * Created by ClayW on 7/05/2017.
- */
-
 // This class contains the data structure of a part
 public class Part {
 

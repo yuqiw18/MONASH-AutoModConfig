@@ -8,13 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import yuqi.amc.JsonData.Order;
 import yuqi.amc.JsonData.Tracking;
-
-/**
- * Created by yuqi on 25/5/17.
- */
 
 public class DetailTrackingDialogFragment extends DialogFragment {
 

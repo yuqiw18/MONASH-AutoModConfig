@@ -12,7 +12,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.SQLiteData.Brand;
 import yuqi.amc.SQLiteData.DataStruct;

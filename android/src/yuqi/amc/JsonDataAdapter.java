@@ -8,17 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.FirebaseApiNotAvailableException;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import yuqi.amc.JsonData.Config;
 import yuqi.amc.JsonData.Order;
 import yuqi.amc.JsonData.Part;

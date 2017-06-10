@@ -2,10 +2,6 @@ package yuqi.amc.SQLiteData;
 
 import android.os.Parcel;
 
-/**
- * Created by ClayW on 14/04/2017.
- */
-
 public class Badge extends DataStruct {
 
 

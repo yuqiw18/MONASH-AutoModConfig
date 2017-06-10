@@ -75,11 +75,11 @@ public class LoginTest {
 //        onView(withId(R.id.btnLogin)).perform(click()).check(matches(withError("Please enter your email address.")));
 //    }
 
-    @Test
-    public void passwordIsEmpty(){
-        onView(withId(R.id.inputLoginEmail)).perform(typeText(EMAIL));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.btnLogin)).perform(click(), UiController.loopMainThreadForAtLeast(5000));
-        onView(withText(R.string.msg_reg_no_password)).inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-    }
+//    @Test
+//    public void passwordIsEmpty(){
+//        onView(withId(R.id.inputLoginEmail)).perform(typeText(EMAIL));
+//        Espresso.closeSoftKeyboard();
+//        onView(withId(R.id.btnLogin)).perform(click(), UiController.loopMainThreadForAtLeast(5000));
+//        onView(withText(R.string.msg_reg_no_password)).inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+//    }
 }

@@ -6,19 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.SQLiteData.Brand;
 import yuqi.amc.SQLiteData.DataStruct;
 import yuqi.amc.SQLiteData.Model;
-
-
-/**
- * Created by ClayW on 2/04/2017.
- */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

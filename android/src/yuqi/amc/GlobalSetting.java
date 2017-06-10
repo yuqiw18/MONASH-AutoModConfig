@@ -1,8 +1,6 @@
 package yuqi.amc;
 
 import android.app.Application;
-import android.util.Log;
-
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 

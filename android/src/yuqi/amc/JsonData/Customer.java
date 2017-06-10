@@ -3,10 +3,6 @@ package yuqi.amc.JsonData;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * Created by yuqi on 6/05/2017.
- */
-
 // This class contains the data structure of a customer
 public class Customer {
 

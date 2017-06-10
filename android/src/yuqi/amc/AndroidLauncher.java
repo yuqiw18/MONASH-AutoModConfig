@@ -5,13 +5,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.SQLiteData.Brand;
 import yuqi.amc.SQLiteData.Model;

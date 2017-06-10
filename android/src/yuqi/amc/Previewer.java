@@ -21,7 +21,6 @@ import android.widget.Toast;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import java.util.ArrayList;
-
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.JsonData.Part;
 

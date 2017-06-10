@@ -2,10 +2,6 @@ package yuqi.amc.JsonData;
 
 import org.json.JSONObject;
 
-/**
- * Created by ClayW on 6/05/2017.
- */
-
 public class Config {
 
     private long id;
