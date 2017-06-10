@@ -6,7 +6,6 @@
     tools:context="yuqi.amc.RendererFragment">
 
     <View
-        android:id="@+id/rendererSurface"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -17,7 +17,6 @@
         android:indeterminate="true" />
 
     <TextView
-        android:id="@+id/labelTransactionResponse"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/loading_spinner"
         android:layout_alignBottom="@+id/progressBarTransaction"

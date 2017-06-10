@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="percent30" type="dimen">30%</item>
     <dimen name="img64">64dp</dimen>
-    <dimen name="img60">60dp</dimen>
-    <dimen name="text20">20dp</dimen>
     <dimen name="ui_user_header">24dp</dimen>
     <dimen name="img128">128dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -11,7 +8,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_basic">16dp</dimen>
     <dimen name="height_min">40dp</dimen>
     <dimen name="ui_reg_label_width">128dp</dimen>

@@ -1,17 +1,11 @@
 <resources>
     <string name="app_name">Automobile Modification Configurator</string>
-    <string name="ui_user_email">Email</string>
-    <string name="ui_user_address">Delivery Address</string>
-    <string name="ui_user_payment">Payment Method</string>
     <string name="ui_label_default_value">UI_PLACEHOLDER</string>
-    <string name="ui_label_default_value_null"> </string>
 
     <string name="ui_label_default_long_value">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non enim quaero quid verum, sed quid cuique dicendum sit. Cum id fugiunt, re eadem defendunt, quae Peripatetici, verba.
         Et quidem, inquit, vehementer errat; Sed hoc sane concedamus. Sed potestne rerum maior esse dissensio? Duo Reges: constructio interrete.
         Est enim effectrix multarum et magnarum voluptatum.</string>
 
-    <string name="ui_user_section_detail">My Details</string>
-    <string name="ui_user_section_collection">Saved Configurations</string>
     <string name="ui_image_description_default">Image</string>
 
     <string name="ui_main_tap_to_login">TAP TO SIGN IN</string>
@@ -24,19 +18,14 @@
     <string name="login_failed">Email doesn\'t exist or password is incorrect.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main_menu">MainMenu</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
     <string name="dialog_forget_password_instruction">Please enter your email:</string>
     <string name="dialog_forget_password_submit">Submit</string>
 
-    <string name="dialog_forget_password_validate_empty">Email address is empty.</string>
     <string name="dialog_forget_password_invalid">Email address is not valid.</string>
     <string name="dialog_forget_password_requested">Your password will be sent to the email if it is in our database.</string>
 
@@ -103,8 +92,6 @@
     <string name="dialog_msg_logout">Are you sure you want to logout?</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_clear">Clear</string>
 
     <string name="ui_previewer_respray">RESPRAY</string>
     <string name="ui_previewer_bumper">BUMPER</string>
@@ -121,7 +108,6 @@
     <string name="ui_btn_checkout_pick">Install</string>
     <string name="ui_checkout_post">Posts to</string>
     <string name="ui_checkout_address_placeholder">100 Sample Street \n Caulfield East, Victoria 3145 \n Australia</string>
-    <string name="ui_checkout_payment_method">Payment Method</string>
     <string name="ui_checkout_service_status">Installation Required</string>
 
     <string name="msg_checkout_no_item">The cart has no item.</string>
@@ -133,9 +119,6 @@
     <string name="dialog_map_rating">Rating:</string>
     <string name="dialog_map_install_from">Installation Fee from AU</string>
 
-    <string name="ui_list_center_installation">Installation Fee from </string>
-    <string name="ui_list_center_installation_currency_aud">AU$</string>
-    <string name="ui_list_center_installation_footer"> .00*</string>
     <string name="ui_checkout_service">Service Status</string>
     <string name="ui_checkout_cancel">Cancel</string>
 
@@ -153,16 +136,11 @@
     <string name="ui_account_email_password">Login Information</string>
     <string name="ui_account_delivery_address">Delivery Address</string>
     <string name="ui_account_detail">My Details</string>
-    <string name="ui_account_no_payment">No Payment Method</string>
-    <string name="ui_btn_account_payment_add">Add</string>
-    <string name="ui_btn_account_payment_edit">Edit</string>
     <string name="ui_btn_account_edit">Edit</string>
 
     <string name="acc_image_category">Option</string>
     <string name="ui_btn_edit_apply">Apply</string>
     <string name="ui_checkout_cart_item">CART</string>
-    <string name="ui_payment_payment_type">Payment Type</string>
-    <string name="ui_payment_loading">LOADING ...... \n \n</string>
     <string name="dialog_previewer_loading">Loading required assets ......</string>
     <string name="ui_checkout_btn_place_order">PLACE ORDER</string>
     <string name="ui_check_grand_total_placeholder">TOTAL: Calculating...</string>
