@@ -27,7 +27,6 @@ public class LoginValidationTest {
     private static String EMAIL = "ywan418@student.monash.edu";
     private static String PASSWORD = "00000000";
     private static String INVALID_EMAIL = "afasdasdas00as";
-    private static String NO_EMAIL = "";
 
     @Rule
     public ActivityTestRule<Login> activityTestRule = new ActivityTestRule<Login>(Login.class);
@@ -40,17 +39,7 @@ public class LoginValidationTest {
     }
 
     @Test
-    public void noEmail(){
-        SystemClock.sleep(WAIT_TIME);
-        onView(withId(R.id.inputLoginEmail)).perform(typeText(NO_EMAIL));
-        onView(withId(R.id.inputLoginPassword)).perform(typeText(PASSWORD));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.btnLogin)).perform(click());
-        onView(withText(R.string.msg_reg_no_email)).inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void emailIsInvalid(){
+    public void invalidEmail(){
         SystemClock.sleep(WAIT_TIME);
         onView(withId(R.id.inputLoginEmail)).perform(typeText(INVALID_EMAIL));
         onView(withId(R.id.inputLoginPassword)).perform(typeText(PASSWORD));

@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             alertDialog.dismiss();
                         }
                     }else {
-                        Toast.makeText(getBaseContext(), getString(R.string.dialog_forget_password_validate_empty), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), getString(R.string.msg_reg_no_email), Toast.LENGTH_LONG).show();
                     }
                 }
             });
