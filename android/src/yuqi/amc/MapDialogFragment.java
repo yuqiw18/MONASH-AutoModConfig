@@ -55,8 +55,9 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
         void onCenterSelect(Center center, String date, Integer time);
     }
 
-    private static final long MAX_UPDATE_INTERVAL = 10000; // 10 Seconds
-    private static final long MIN_UPDATE_INTERVAL = 2000;  // 2 Seconds
+    // Refresh interval
+    private static final long MAX_UPDATE_INTERVAL = 10000;
+    private static final long MIN_UPDATE_INTERVAL = 2000;
 
     private MapDialogInteractionListener mapDialogInteractionListener;
     private GoogleMap googleMap;
@@ -65,11 +66,11 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
     private Marker marker;
 
     private double currentLat, currentLng;
+    private static long MILLIS_PER_DAY = 86400000;
 
     private ListView centerListView;
     private ArrayList<Center> serviceCenterList;
 
-    private static long MILLIS_PER_DAY = 86400000;
     private String bookingDate;
     private Integer bookingTime;
 
@@ -295,7 +296,7 @@ public class MapDialogFragment extends DialogFragment implements OnMapReadyCallb
             datePickerDialog.getDatePicker().setMinDate(startDate);
             datePickerDialog.getDatePicker().setMaxDate(endDate);
 
-            // Diplay the dialog
+            // Display the dialog
             datePickerDialog.show();
 
         }else if (id == R.id.btnServiceCenterDetailTimepicker){

@@ -40,13 +40,12 @@ public class ConfiguratorBadge extends AppCompatActivity {
 
         Bundle incomingData = getIntent().getExtras();
 
+        // Get the selected model and fetch its badge list
         if (incomingData!=null){
 
             Model data = incomingData.getParcelable("MODEL");
 
             badgeList = new ArrayList<>(databaseHelper.getData("BADGE", new String[]{"MODEL_NAME"}, new String[]{data.getName()}).values());
-
-            Log.e("Got:",data.getName());
 
             dataAdapter = new SQLiteDataAdapter(this, badgeList);
 

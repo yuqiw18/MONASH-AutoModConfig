@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import yuqi.amc.JsonData.Config;
 
+// The default main menu fragment for viewing some of the featured modification solutions
 public class ExplorerFragment extends android.app.Fragment {
 
     private SectionsPagerAdapter sectionsPagerAdapter;
@@ -51,6 +52,7 @@ public class ExplorerFragment extends android.app.Fragment {
         return view;
     }
 
+    // Tabbed fragment and it has 3 tabs
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -99,12 +101,12 @@ public class ExplorerFragment extends android.app.Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_title_explorer));
     }
 
+    // Reusable fragment for displaying the items based on different types
     public static class PreConfigListFragment extends Fragment {
 
         private ListView configListView;
         private ArrayList<Config> configList;
         private String currentType;
-
 
         public static PreConfigListFragment newInstance(String type) {
             PreConfigListFragment preConfigListFragment = new PreConfigListFragment();
@@ -114,16 +116,16 @@ public class ExplorerFragment extends android.app.Fragment {
             return preConfigListFragment;
         }
 
-
+        // Create the fragment and fetch the list based on type
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
             Bundle args = getArguments();
             currentType = args.getString("ConfigType");
-            Log.e("Get", currentType);
 
             View view = inflater.inflate(R.layout.fragment_preconfig, container, false);
             configListView = (ListView) view.findViewById(R.id.listPreconfig);
 
+            // Display detailed information on item click
             configListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -158,10 +160,10 @@ public class ExplorerFragment extends android.app.Fragment {
         @Override
         public void onResume() {
             super.onResume();
-            Log.e("Have", currentType);
             new FetchPreConfig().execute(currentType);
         }
 
+        // Method for getting solutions
         class FetchPreConfig extends AsyncTask<String,Void,String>{
             @Override
             protected String doInBackground(String... params) {

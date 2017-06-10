@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import yuqi.amc.JsonDataAdapter.JsonDataType;
 import yuqi.amc.JsonData.Order;
 
+// Class for displaying order history
 public class OrderListFragment extends Fragment {
 
     private ListView orderListView;
@@ -33,6 +34,8 @@ public class OrderListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         orderListView = (ListView) view.findViewById(R.id.listOrders);
+
+        // Display the tracking information on item click
         orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -47,6 +50,7 @@ public class OrderListFragment extends Fragment {
                 args.putString("Detail", selectedOrder.getDetail());
                 detailTrackingDialogFragment.setArguments(args);
 
+                // Show the tracking fragment with provided data
                 detailTrackingDialogFragment.show(getFragmentManager(), "Tracking");
 
             }
@@ -60,6 +64,7 @@ public class OrderListFragment extends Fragment {
         new FetchOrderList().execute(String.valueOf(sharedPreferences.getLong("id", 0)));
     }
 
+    // Method for retrieving order history
     private class FetchOrderList extends AsyncTask<String,Void,String>{
 
         @Override

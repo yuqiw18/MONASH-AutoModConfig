@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import yuqi.amc.SQLiteData.Badge;
 import yuqi.amc.JsonData.Part;
 
+// Preview activity with a 3d renderer and list
 public class Previewer extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, OnClickListener {
 
     private ListView partListView;

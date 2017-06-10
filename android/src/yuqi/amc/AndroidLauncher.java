@@ -44,6 +44,7 @@ public class AndroidLauncher extends AndroidApplication {
 		}
 	}
 
+	// Initialise local database
 	private class initDatabase extends AsyncTask<String, Void, String> {
 
 		String table;
@@ -56,6 +57,8 @@ public class AndroidLauncher extends AndroidApplication {
 
 		@Override
 		protected void onPostExecute(String result){
+
+			// If has content then convert the json info to data that can be stored in sqlite database
 			if (result!=null){
 				try{
 					JSONArray contents = new JSONArray(result);
@@ -64,6 +67,7 @@ public class AndroidLauncher extends AndroidApplication {
 						long id = tempJSON.getLong("ID");
 						String name = tempJSON.getString("NAME");
 
+						// Determine which data should be stored in which database
 						switch (table){
 							case "brand":
 								Brand brand = new Brand(id, name, tempJSON.getString("BRAND_ORIGIN"));
@@ -99,7 +103,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 	// Complete the initialisation and go to the main activity
 	private void doneInit() {
-		// If there has no content to be downloaded
+		// If there has no content to be downloaded, wait for 2 seconds
 		if (progress == 0) {
 			Handler handler = new Handler();
 			handler.postDelayed(new Runnable() {
@@ -113,7 +117,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 					startActivity(main);
 				}
-			}, 3000);
+			}, 2000);
 		} else {
 			// After downloading
 			Handler handler = new Handler();
@@ -128,7 +132,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 					startActivity(main);
 				}
-			}, 3000);
+			}, 1000);
 		}
 	}
 }

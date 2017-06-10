@@ -103,6 +103,9 @@ public class SQLiteDataAdapter extends BaseAdapter implements Callback {
             case "ConfiguratorBrand":
                 final Brand brand = (Brand) dataList.get(position);
                 viewHolder.textViewPlaceHolders.get(0).setText(brand.getName());
+                // Display the image if the image has already stored locally
+                // If not exists, download the image
+                // If failed, display a placeholder
                 Picasso.with(context)
                         .load(Utility.getImageAddress(brand.getName()))
                         .placeholder(R.drawable.img_placeholder)

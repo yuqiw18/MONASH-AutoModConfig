@@ -39,6 +39,7 @@ public class ConfiguratorModel extends AppCompatActivity {
 
         Bundle incomingData = getIntent().getExtras();
 
+        // Get the brand and fetch its model list
         if (incomingData!=null){
 
             Brand data = incomingData.getParcelable("BRAND");
@@ -54,8 +55,6 @@ public class ConfiguratorModel extends AppCompatActivity {
             brandOrigin.setText(data.getOrigin());
 
             Picasso.with(this).load(Utility.getImageAddress(brandName.getText().toString())).into(brandLogo);
-
-            //brandLogo.setImageResource(Utility.getResourceID(brandName.getText().toString(),R.drawable.class));
 
             modelCounter.setText(getString(R.string.ui_model_available_model) + modelList.size());
 

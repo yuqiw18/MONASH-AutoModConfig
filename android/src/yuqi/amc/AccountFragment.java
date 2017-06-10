@@ -30,7 +30,6 @@ public class AccountFragment extends Fragment implements OnClickListener {
 
     private TextView labelAccountAddress;
     private TextView labelAccountEmail;
-
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -84,6 +83,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
             editPostcode.setText(String.valueOf(sharedPreferences.getInt("postcode", 00000000)));
             editState.setText(sharedPreferences.getString("state", ""));
 
+            // Initialise the country spinner
             ArrayAdapter<String> countryDataAdapter;
             String[] countryList = getResources().getStringArray(R.array.country_values);
             List<String> data = Arrays.asList(countryList);
@@ -92,6 +92,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
             countryDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerCountry.setAdapter(countryDataAdapter);
 
+            // Set the spinner value to previously stored one
             String valueToSet = sharedPreferences.getString("country", null);
             if (!valueToSet.equals(null)){
                 int spinnerPosition = countryDataAdapter.getPosition(valueToSet);
@@ -136,16 +137,20 @@ public class AccountFragment extends Fragment implements OnClickListener {
                         return;
                     }
 
+                    // Get other required information
                     long id = sharedPreferences.getLong("id", 0);
                     String name = sharedPreferences.getString("name",null);
                     String email = sharedPreferences.getString("email",null);
                     String password = sharedPreferences.getString("password",null);
 
+                    // Create the customer object
                     Customer customer = new Customer(id, name, password, email, address, suburb, Integer.valueOf(postcode), state, country);
 
+                    // Grey out button to avoid duplicated submission
                     btnEditApply.setEnabled(false);
                     btnEditApply.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
 
+                    // Update customer information and close the dialog
                     new UpdateInformation().execute(customer);
 
                     alertDialog.dismiss();
@@ -200,9 +205,9 @@ public class AccountFragment extends Fragment implements OnClickListener {
                         password = sharedPreferences.getString("password", null);
                     }
 
-                    long id = sharedPreferences.getLong("id", 0);
-
-                    Customer customer = new Customer(id,
+                    // Get the required information and create customer
+                    Customer customer = new Customer(
+                            sharedPreferences.getLong("id", 0),
                             sharedPreferences.getString("name",null),
                             password,
                             email,
@@ -212,9 +217,11 @@ public class AccountFragment extends Fragment implements OnClickListener {
                             sharedPreferences.getString("state", null),
                             sharedPreferences.getString("country", null));
 
+                    // Grey out
                     btnEditUpdate.setEnabled(false);
                     btnEditUpdate.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
 
+                    // Update and close
                     new UpdateInformation().execute(customer);
 
                     alertDialog.dismiss();
@@ -271,7 +278,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
         }
     }
 
-    // Refresh ui elements after update
+    // Refresh ui elements after update -> Delivery Address and Email Address
     private void refreshUI(){
         String address = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
                 + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")

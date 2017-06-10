@@ -210,6 +210,7 @@ public class Renderer implements ApplicationListener {
         });
     }
 
+    // Method for determining which parts need to be replaced
     public void updateScene(final String type, final String value){
 
         Gdx.app.postRunnable(new Runnable() {
@@ -304,12 +305,11 @@ public class Renderer implements ApplicationListener {
 
         }
 
+        // Try loading the given files, if not exist then download them from the server and cache them locally
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-
             try{
-
                 assetManager.finishLoading();
 
                 instances.clear();
@@ -400,12 +400,9 @@ public class Renderer implements ApplicationListener {
                         }
                     });
                 }
-
             }
-
             }
         });
-
     }
 
     // Release all the resources upon shutting down
@@ -434,7 +431,6 @@ public class Renderer implements ApplicationListener {
             instances.get(i).transform.translate(0, currentSuspension*-1, 0);
         }
     }
-
 
     @Override
     public void resize(int width, int height) {}

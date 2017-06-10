@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import yuqi.amc.JsonData.Tracking;
 
+// Small dialog displaying order details with tracking information
 public class DetailTrackingDialogFragment extends DialogFragment {
 
     private TextView trackingRecords;
@@ -40,6 +41,7 @@ public class DetailTrackingDialogFragment extends DialogFragment {
         return view;
     }
 
+    // Method for getting the tracking record
     private class FetchTrackingRecord extends AsyncTask<String,Void,String> {
 
         @Override
@@ -56,7 +58,7 @@ public class DetailTrackingDialogFragment extends DialogFragment {
         }
     }
 
-    // Method for formatting the string to be more readable
+    // Method for formatting the raw data from server to be more readable
     private String getFormattedDetail(String detail){
         String formatted = "";
         String items[] = detail.split(";");

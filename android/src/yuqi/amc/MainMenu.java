@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.Manifest;
 
+// Main menu with navigation drawer and fragments
 public class MainMenu extends AppCompatActivity implements OnNavigationItemSelectedListener, OnClickListener {
 
     private TextView navUsername;
@@ -42,6 +43,8 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set up the layout
         setContentView(R.layout.activity_main_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,6 +73,7 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
 
         getSupportActionBar().setTitle(getString(R.string.app_name));
 
+        // Load default fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, new ExplorerFragment()).commit();
 
@@ -81,6 +85,7 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
         }
     }
 
+    // Default onBackPressed for handling navigation drawer
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,6 +115,8 @@ public class MainMenu extends AppCompatActivity implements OnNavigationItemSelec
             nextFragment = new OrderListFragment();
 
         } else if (id == R.id.nav_signout){
+
+            // Display a confirmation, log out and clear the activities
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.dialog_title_confirmation))
                     .setMessage(getString(R.string.dialog_msg_logout))

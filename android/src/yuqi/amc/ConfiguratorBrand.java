@@ -26,9 +26,6 @@ public class ConfiguratorBrand extends AppCompatActivity {
         // Initialise all the variables
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
-        // Add default records if the list is empty
-        //if (databaseHelper.getData("BRAND", null, null).size() == 0) databaseHelper.createDefault();
-
         brandList = new ArrayList<>(databaseHelper.getData("BRAND", null, null).values());
         brandListView = (ListView) findViewById(R.id.listBrands);
         dataAdapter = new SQLiteDataAdapter(this, brandList);

@@ -55,11 +55,8 @@ public final class Utility {
             return localFormat.format(date);
 
         }catch (Exception e){
-
             return null;
-
         }
-
     }
 
     public static String formatBookingDate(String strDate){

@@ -48,6 +48,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     private SharedPreferences sharedPreferences;
     private ArrayList<Part> cartList;
 
+    // Default values
     private double transactionPrice = 0;
     private double subTotal = 0;
     private double instFee = 0;
@@ -92,6 +93,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
 
         loadDefaultAddress();
 
+        // Fetch the cart based on the query (because the item may out of stock so it needs to be real-time)
         Bundle incomingData = getIntent().getExtras();
 
         if (incomingData!=null){
@@ -105,19 +107,26 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
     @Override
     public void onClick(View v) {
         int id = v.getId();
+
+        // If customer decides to install the product
         if (id == R.id.btnCheckoutPickServiceCenter){
 
+            // Grey out the button for repeated operation because it takes time to load the map fragment
             btnChangeAddress.setEnabled(false);
             btnChangeAddress.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grey_out, null)));
 
+            // Load the map fragment for further operations
             MapDialogFragment mapDialogFragment = new MapDialogFragment();
             mapDialogFragment.show(getFragmentManager(), "ServiceCenterMap");
 
         }else if (id == R.id.btnCheckoutCancelBooking){
+            // If the customer would like to remove the booking, display a confirmation dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(getString(R.string.dialog_title_confirmation));
             builder.setMessage(getString(R.string.dialog_checkout_cancel_booking));
             builder.setCancelable(false);
+
+            // If yes, remove the booking and reset values like installing fee
             builder.setPositiveButton(getString(R.string.dialog_yes),
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -130,6 +139,8 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
                             calculateGrandTotal();
                         }
                     });
+
+            // If no, just close the dialog
             builder.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -139,17 +150,14 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
             builder.create().show();
         }else if(id == R.id.btnPlaceOrder){
 
+            // Prepare the information required for placing an order
             long customerId = sharedPreferences.getLong("id", 0);
-
-            String formattedAddress = transactionAddress.replace("\n", ",");
-            Log.e("Post Address", formattedAddress);
 
             Order order = new Order(customerId, transactionPrice, transactionDetail, billingAddress, bookingDateTime, centerId);
 
-            Log.e("Timestamp",(Timestamp.valueOf("2011-10-02 18:48:05.123").toString()));
-
             new PlaceOrder().execute(order);
 
+            // Create a dialog displaying processing condition
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_transaction_processing, null);
             builder.setView(dialogView);
@@ -159,6 +167,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         }
     }
 
+    // Method for fetching cart items
     private class FetchCart extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... params) {
@@ -173,7 +182,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         }
     }
 
-
+    // Method for placing an order
     private class PlaceOrder extends AsyncTask<Object,Void,Integer>{
         Order order = null;
         @Override
@@ -185,17 +194,15 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         @Override
         protected void onPostExecute(Integer responseCode) {
             int status = HttpManager.processResponseCode(responseCode);
+            alertDialog.dismiss();
             switch (status){
                 case -1:
-                    alertDialog.dismiss();
                     Toast.makeText(getBaseContext(), getString(R.string.msg_reg_server_fail), Toast.LENGTH_LONG).show();
                     break;
                 case 0:
-                    alertDialog.dismiss();
                     Toast.makeText(getBaseContext(), getString(R.string.msg_reg_server_fail), Toast.LENGTH_LONG).show();
                     break;
                 case 1:
-                    alertDialog.dismiss();
                     Intent intent = new Intent(Checkout.this, OrderInstruction.class);
                     // Bring MainMenu to the top stack. By doing this, clicking back button will not bring user to the register screen any more.
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -212,25 +219,27 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         btnChangeAddress.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
     }
 
+    // Listener for map fragment. Catch the information sent from the fragment
     @Override
     public void onCenterSelect(Center center, String date, Integer time) {
+
+        // Get values
         centerId = center.getId();
         transactionAddress = center.getFormattedAddress();
+        instFee = center.getPrice();
+        bookingDateTime = Utility.formatBookingDate(date) + " " + Utility.formatBookingTime(time);
+
+        // Format for display
         labelCheckoutAddress.setText(transactionAddress);
         labelCheckoutBookingTime.setText(getString(R.string.ui_checkout_service_status) + "\n" + Utility.formatDate(date) + "\n" + formatTime(time));
-        instFee = center.getPrice();
-        calculateGrandTotal();
         labelCheckoutInstallationFee.setText(Utility.getFormattedPrice(instFee));
+
+        calculateGrandTotal();
         layoutCheckoutBooking.setVisibility(View.VISIBLE);
-
-        Log.e("Date", date);
-
-        Log.e("Time", time.toString());
-
-        bookingDateTime = Utility.formatBookingDate(date) + " " + Utility.formatBookingTime(time);
 
     }
 
+    // Reset the address to default one. It is used when customer cancels the booking
     private void loadDefaultAddress(){
         transactionAddress = sharedPreferences.getString("address", "NO ADDRESS") + "\n"
                 + sharedPreferences.getString("suburb", "SUBURB")+ " " + sharedPreferences.getString("state", "STATE")
@@ -254,6 +263,7 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         }
     }
 
+    // Calculate the total value of the cart
     private void calculateCartValues(){
         for (Part p: cartList) {
             transactionPrice += p.getPrice();
@@ -266,11 +276,6 @@ public class Checkout extends AppCompatActivity implements OnClickListener, MapD
         labelCheckoutSubTotal.setText(Utility.getFormattedPrice(subTotal));
 
         calculateGrandTotal();
-
-        Log.e("Cart Price", String.valueOf(transactionPrice));
-        Log.e("Cart Item", transactionDetail);
-        Log.e("Post Address", transactionAddress);
-
     }
 
     private void calculateGrandTotal(){

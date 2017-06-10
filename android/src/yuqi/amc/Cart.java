@@ -12,7 +12,7 @@ public class Cart {
     private HashMap<String, Long> cart;
 
     public Cart(){
-        // The cart can have one of type of parts
+        // The cart can have one of item of each type
         cart = new HashMap<>();
         cart.put("Respray", null);
         cart.put("Bumper", null);
@@ -33,16 +33,20 @@ public class Cart {
 
         String test = part.getName();
 
+        // If the type has value
         if (cart.get(type)!=null){
 
+            // And the given id is same, then deselect it (set value to null)
             if (cart.get(type) == id){
                 cart.put(type, null);
                 Log.e("Cart", "Deselect " + test);
             }else {
+                // If different then replace with new id
                 cart.put(type,id);
                 Log.e("Cart", "Replace with " + test);
             }
         }else {
+            // If no id then add the new one
             cart.put(type, id );
             Log.e("Cart", "Select " + test);
         }
@@ -64,13 +68,10 @@ public class Cart {
         return cart;
     }
 
-    public Long getValue(String key){
-        return cart.get(key);
-    }
-
     // Method for turning cart into a json query for executing on the server side
     public static String getQuery(HashMap<String, Long> cart){
 
+        // Put the selected items into a new list
         ArrayList<Long> itemList = new ArrayList<>();
 
         for(Map.Entry<String, Long> entry : cart.entrySet()) {
@@ -80,6 +81,7 @@ public class Cart {
             }
         }
 
+        // Convert the list items into a string with specific format that can be understood by the server
         String query = "";
 
         for (int i =0; i < itemList.size(); i ++){
