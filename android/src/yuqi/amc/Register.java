@@ -107,7 +107,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             if (password.isEmpty()){
                 promptMessage(getString(R.string.msg_reg_no_password));
                 return;
-            }else if (password.length() < 8 ){
+            }else if (password.length() < 8 || password.length() > 24 ){
                 promptMessage(getString(R.string.msg_reg_invalid_password));
                 return;
             }

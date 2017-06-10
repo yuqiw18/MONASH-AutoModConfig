@@ -3,6 +3,7 @@ package yuqi.amc;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
@@ -91,15 +92,13 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         if (incomingData!=null){
             data = incomingData.getParcelable("BADGE");
             brandName = incomingData.getString("BRAND");
-            Log.e("Badge:", data.getName());
         }
 
         partListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-//                Part selectedPart = (Part) partListOLD.get(position);
                 Part selectedPart = partList.get(position);
-                cart.addToCart(selectedPart, position);
+                cart.addToCart(selectedPart);
                 onPartSelectListener.updateScene(selectedPart);
                 Log.e("Item", String.valueOf(view.getId()));
             }
@@ -108,7 +107,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         btnRespray.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-
 
         sectionHeader.setText(getString(R.string.ui_previewer_respray));
 
@@ -231,38 +229,6 @@ public class Previewer extends AppCompatActivity implements AndroidFragmentAppli
             JsonDataAdapter jsonDataAdapter = new JsonDataAdapter(getBaseContext(), result, JsonDataType.PART);
             partList = (ArrayList<Part>)((ArrayList<?>)jsonDataAdapter.getDataList());
             partListView.setAdapter(jsonDataAdapter);
-
-            Long selectedItem = cart.getValue(currentPart);
-
-            Log.e("Selected",String.valueOf(selectedItem));
-
-            for (int i = 0; i < partList.size(); i ++){
-
-                if (selectedItem != null && partList.get(i).getId() == selectedItem){
-
-                    Log.e("Got Item", i + "_");
-
-                    Log.e("FirstVisiblePosition",partListView.getFirstVisiblePosition() + "_");
-                    Log.e("HeaderViewsCount",partListView.getHeaderViewsCount() + "_");
-
-                    int firstPos = partListView.getFirstVisiblePosition() - partListView.getHeaderViewsCount();
-
-                    Log.e("firstPos",firstPos + "_");
-
-                    int childPos = i - firstPos;
-
-                    Log.e("ChildCount",partListView.getChildCount() + "_");
-
-//                    if (childPos < 0 || childPos >= partListView.getChildCount()){
-//
-//                        Log.e("??","??");
-//
-//                        return;
-//                    }
-//
-//                    partListView.getChildAt(childPos).setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, null)));
-                }
-            }
         }
     }
 

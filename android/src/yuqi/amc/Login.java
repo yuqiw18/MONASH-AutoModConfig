@@ -43,7 +43,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
             if (email.isEmpty()){
                 promptMessage(getString(R.string.msg_reg_no_email));
                 return;
+            }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                promptMessage(getString(R.string.msg_reg_invalid_email));
+                return;
             }
+
             if (password.isEmpty()){
                 promptMessage(getString(R.string.msg_reg_no_password));
                 return;
@@ -142,7 +146,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         if (toastMessage!=null){
             toastMessage.cancel();
         }
-        toastMessage = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
+        toastMessage = Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT);
         toastMessage.show();
     }
 

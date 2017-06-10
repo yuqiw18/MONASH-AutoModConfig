@@ -186,7 +186,7 @@ public class AccountFragment extends Fragment implements OnClickListener {
                     }
 
                     if (!password.isEmpty()){
-                        if (password.length() < 8 ){
+                        if (password.length() < 8 || password.length() > 24 ){
                             promptMessage(getString(R.string.msg_reg_invalid_password));
                             return;
                         }
