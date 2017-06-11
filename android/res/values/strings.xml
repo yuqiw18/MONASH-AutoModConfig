@@ -62,7 +62,6 @@
     <string name="title_account">Account</string>
     <string name="title_order">Order</string>
 
-
     <string name="msg_reg_no_name">Please enter your name.</string>
     <string name="msg_reg_no_address">Please enter your address.</string>
     <string name="msg_reg_no_suburb">Please enter your suburb.</string>
@@ -159,19 +158,22 @@
     <string name="ui_about_description"><b>Automobile Modification Configurator</b> is an online shopping application. It provides a 3D renderer for customer to preview the part they want to buy for their beloved vehicles.</string>
     <string name="ui_about_developer">Prototype developed by <b>Yuqi Wang</b></string>
     <string name="ui_about_framework">
-        This application integrates <b>LibGDX</b> framework to enable the 3D rendering system.
+        This application integrates <b>LibGDX</b> framework(Apache 2 License) to enable the 3D rendering system.
     </string>
     <string name="ui_about_server">
-        The server side is implemented using <b>Slim PHP</b> and <b>MySQL</b>.
+        The server side is implemented using <b>Slim PHP</b>(MIT License) and <b>MySQL</b>.
     </string>
     <string name="ui_about_library">
         External Libraries:\n
+        (All use Apache License Version 2.0)\n
         <b>Picasso</b>\n
-        (square.github.io/picasso/) \n
+        (square.github.io/picasso) \n
         <b>OkHttp</b>\n
-        (square.github.io/okhttp/) \n
+        (square.github.io/okhttp) \n
         <b>Gson</b>\n
-        (github.com/google/gson)
+        (github.com/google/gson) \n
+        <b>OkHttp Downloader</b> \n
+        (github.com/JakeWharton/picasso2-okhttp3-downloader)
     </string>
 
     <string name="dialog_tracking_id">Tracking#: </string>
