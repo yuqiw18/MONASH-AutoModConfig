@@ -20,7 +20,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private EditText textLoginEmail;
     private EditText textLoginPassword;
     private SharedPreferences sharedPreferences;
-    private Toast toastMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,17 @@ public class Login extends AppCompatActivity implements OnClickListener {
         Button btnLogin = (Button)findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        // This occurs for newly registered account
+        Bundle incomingData = getIntent().getExtras();
+        if (incomingData!=null) {
+            // Set the entries and login automatically
+            String email = incomingData.getString("newEmail");
+            String password = incomingData.getString("newPassword");
+            textLoginEmail.setText(email);
+            textLoginPassword.setText(password);
+            new ValidateLogin().execute(email, password);
+        }
     }
 
     @Override
@@ -143,11 +153,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     }
 
     private void promptMessage(String message){
-        if (toastMessage!=null){
-            toastMessage.cancel();
-        }
-        toastMessage = Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT);
-        toastMessage.show();
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }

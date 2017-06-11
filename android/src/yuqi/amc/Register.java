@@ -157,24 +157,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     promptMessage(getString(R.string.msg_reg_server_error));
                     break;
                 case 1:
-                    // Server side accepts the request, save all the user info locally
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putLong("id",customer.getId());
-                    editor.putString("name",customer.getName());
-                    editor.putString("email",customer.getEmail());
-                    editor.putString("password",customer.getPassword());
-                    editor.putString("address",customer.getAddress());
-                    editor.putString("suburb",customer.getSuburb());
-                    editor.putInt("postcode",customer.getPostcode());
-                    editor.putString("state",customer.getState());
-                    editor.putString("country",customer.getCountry());
-                    editor.putBoolean("isSignedIn",true);
-                    editor.commit();
-                    // Go to the MainMenu
-                    Intent intent = new Intent(Register.this, MainMenu.class);
-                    // Bring MainMenu to the top stack. By doing this, clicking back button will not bring user to the register screen any more.
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    // Go to the Main Menu via Auto Login
+                    Intent intent = new Intent(Register.this, Login.class);
+                    // Put the new account login details
+                    intent.putExtra("newEmail", customer.getEmail());
+                    intent.putExtra("newPassword",customer.getPassword());
                     startActivity(intent);
                     break;
             }
