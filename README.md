@@ -1,2 +1,2 @@
-# AMC
-Monash University Android Development Automobile Modification Configurator
+# Automobile Modification Configurator
+Monash University Android and iOS Development Project
