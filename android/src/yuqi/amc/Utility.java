@@ -7,7 +7,7 @@ import java.util.TimeZone;
 
 public final class Utility {
 
-    public static final String IMAGE_SOURCE = "http://amc.yuqi.ninja/img/";
+    public static final String IMAGE_SOURCE = "http://amc.yuqi.dev/img/";
     public static final String IMAGE_FORMAT = ".png";
     public static final String SERVER_TIMEZONE = "GMT-6";
 

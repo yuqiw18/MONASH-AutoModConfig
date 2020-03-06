@@ -15,7 +15,7 @@ public class HttpManager {
     private HttpManager(){}
 
     // Server address
-    private static final String BASE_URI = "http://amc.yuqi.ninja/rest/";
+    private static final String BASE_URI = "http://amc.yuqi.dev/rest/";
 
     // Method(table) names for SQLite Database
     protected static final String DATABASE_TABLE[] = {"brand", "model", "badge"};

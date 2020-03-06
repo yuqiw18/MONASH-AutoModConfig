@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Desktop-MONASH-AutoModConfig.iml" filepath="$PROJECT_DIR$/Desktop-MONASH-AutoModConfig.iml" group="MONASH-AutoModConfig" />
       <module fileurl="file://$PROJECT_DIR$/MONASH-AutoModConfig.iml" filepath="$PROJECT_DIR$/MONASH-AutoModConfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/MONASH-AutoModConfig-android.iml" filepath="$PROJECT_DIR$/android/MONASH-AutoModConfig-android.iml" group="MONASH-AutoModConfig/android" />
+      <module fileurl="file://$PROJECT_DIR$/core/MONASH-AutoModConfig-core.iml" filepath="$PROJECT_DIR$/core/MONASH-AutoModConfig-core.iml" group="MONASH-AutoModConfig/core" />
       <module fileurl="file://$PROJECT_DIR$/android/android.iml" filepath="$PROJECT_DIR$/android/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
     </modules>
